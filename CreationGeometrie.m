@@ -6,10 +6,13 @@ resolution = 10;    %nombre de neuds par centimètre
 hauteurDalle = 20;  %hauteur de la dalle (en cm)
 largeurDalle = 25;  %largeur de la dalle (en cm)
 rayonConduite = 1;  %rayon de l'element chauffant 
-hauteurConduite = hauteurDalle/2 % position du centre de l'élément chauffant par rapport au bas de la céllule mdoélisée
+hauteurConduite = hauteurDalle/2; % position du centre de l'élément chauffant par rapport au bas de la céllule mdoélisée
 
 
 %% Initialisation des paramètres
-neudsVert= resolution * hauteurDalle; %nombre de neuds sur la hauteur de la cellule
+noeudsVert= resolution * hauteurDalle; %nombre de neuds sur la hauteur de la cellule
 neudsHor = resolution * largeurDalle; %nombre de neuds sur la largeur de la cellule
-matCellule=zeros(neudsVert,neudsHor);
+matCellule=zeros(noeudsVert,neudsHor);
+
+%% parcourir la matrice à partir d'un point donné
+position_centre = [noeudsHor/2 noeudsVert/2];
