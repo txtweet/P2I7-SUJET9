@@ -10,5 +10,6 @@ hauteurConduite = hauteurDalle/2 % position du centre de l'élément chauffant par
 
 
 %% Initialisation des paramètres
-neuds
-matCellule=zeros(
+neudsVert= resolution * hauteurDalle; %nombre de neuds sur la hauteur de la cellule
+neudsHor = resolution * largeurDalle; %nombre de neuds sur la largeur de la cellule
+matCellule=zeros(neudsVert,neudsHor);
