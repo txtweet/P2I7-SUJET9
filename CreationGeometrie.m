@@ -12,7 +12,13 @@ hauteurConduite = hauteurDalle/2; % position du centre de l'élément chauffant pa
 %% Initialisation des paramètres
 noeudsVert= resolution * hauteurDalle; %nombre de neuds sur la hauteur de la cellule
 neudsHor = resolution * largeurDalle; %nombre de neuds sur la largeur de la cellule
-matCellule=zeros(noeudsVert,neudsHor);
+matCellule = zeros(noeudsVert,neudsHor);
+rayonConduiteNum = floor(rayonConduite*resolution);
 
 %% parcourir la matrice à partir d'un point donné
-position_centre = [noeudsHor/2 noeudsVert/2];
+position_centre = floor([noeudsHor/2 resolution*hauteurConduite]);
+for i=position_centre(1)-rayonConduiteNum:position_centre(1)+rayonConduiteNum
+    for j=position_centre(2)-rayonConduiteNum:position_centre(2)+rayonConduiteNum
+%         
+    end
+end
