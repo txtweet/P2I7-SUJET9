@@ -1,5 +1,6 @@
 %%%%%%%%%%% P2I7 - SUJET 9 %%%%%%%%%%
 %%% Création de la géométrie du problème %%%
+global position_centre rayonConduiteNum matCellule
 
 %% Variables du probleme
 resolution = 100;    %nombre de neuds par centimètre
@@ -17,5 +18,4 @@ rayonConduiteNum = floor(rayonConduite*resolution);
 
 %% parcourir la matrice à partir d'un point donné
 position_centre = floor([noeudsHor/2 resolution*hauteurConduite]);
-
-matCellule;
+GenereMatrice();
