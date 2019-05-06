@@ -25,24 +25,26 @@ position_centre = floor([noeudsHor/2 resolution*hauteurConduite]);
 GenereMatrice();
 %% Calcul température en chaque point (équation de la chaleur)
 
-for i=2:noeudsHor-1
-    for j=2:noeudsVert-1
-        % Dans le quart supérieur gauche
-        if i<noeudsHor/2 && j<noeudsVert/2
-            matT(i-1,j) = (lambda/(rho*c_p))*((matT(i+1,j)-2*matT(i,j)+matT(i-1,j))/((hauteurDalle/resolution)*(largeurDalle/resolution)));
-            matT(i,j-1) = (lambda/(rho*c_p))*((matT(i,j+1)-2*matT(i,j)+matT(i,j-1))/((hauteurDalle/resolution)*(largeurDalle/resolution)));
-        % Dans le quart supérieur droit
-        elseif i<noeudsHor/2 && j>noeudsVert/2
-            matT(i-1,j) = (lambda/(rho*c_p))*((matT(i+1,j)-2*matT(i,j)+matT(i-1,j))/((hauteurDalle/resolution)*(largeurDalle/resolution)));
-            matT(i,j+1) = (lambda/(rho*c_p))*((matT(i,j+1)-2*matT(i,j)+matT(i,j-1))/((hauteurDalle/resolution)*(largeurDalle/resolution)));
-        % Dans le quart inférieur gauche
-        elseif i>noeudsHor/2 && j<noeudsVert/2
-            matT(i+1,j) = (lambda/(rho*c_p))*((matT(i+1,j)-2*matT(i,j)+matT(i-1,j))/((hauteurDalle/resolution)*(largeurDalle/resolution)));
-            matT(i,j-1) = (lambda/(rho*c_p))*((matT(i,j+1)-2*matT(i,j)+matT(i,j-1))/((hauteurDalle/resolution)*(largeurDalle/resolution)));
-        % Dans le quart inférieur droit
-        elseif i>noeudsHor/2 && j>noeudsVert/2
-            matT(i+1,j) = (lambda/(rho*c_p))*((matT(i+1,j)-2*matT(i,j)+matT(i-1,j))/((hauteurDalle/resolution)*(largeurDalle/resolution)));
-            matT(i,j+1) = (lambda/(rho*c_p))*((matT(i,j+1)-2*matT(i,j)+matT(i,j-1))/((hauteurDalle/resolution)*(largeurDalle/resolution)));
-        end
-    end
-end
+% for i=2:noeudsHor-1
+
+
+%     for j=2:noeudsVert-1
+%         % Dans le quart supérieur gauche
+%         if i<noeudsHor/2 && j<noeudsVert/2
+%             matT(i-1,j) = (lambda/(rho*c_p))*((matT(i+1,j)-2*matT(i,j)+matT(i-1,j))/((hauteurDalle/resolution)*(largeurDalle/resolution)));
+%             matT(i,j-1) = (lambda/(rho*c_p))*((matT(i,j+1)-2*matT(i,j)+matT(i,j-1))/((hauteurDalle/resolution)*(largeurDalle/resolution)));
+%         % Dans le quart supérieur droit
+%         elseif i<noeudsHor/2 && j>noeudsVert/2
+%             matT(i-1,j) = (lambda/(rho*c_p))*((matT(i+1,j)-2*matT(i,j)+matT(i-1,j))/((hauteurDalle/resolution)*(largeurDalle/resolution)));
+%             matT(i,j+1) = (lambda/(rho*c_p))*((matT(i,j+1)-2*matT(i,j)+matT(i,j-1))/((hauteurDalle/resolution)*(largeurDalle/resolution)));
+%         % Dans le quart inférieur gauche
+%         elseif i>noeudsHor/2 && j<noeudsVert/2
+%             matT(i+1,j) = (lambda/(rho*c_p))*((matT(i+1,j)-2*matT(i,j)+matT(i-1,j))/((hauteurDalle/resolution)*(largeurDalle/resolution)));
+%             matT(i,j-1) = (lambda/(rho*c_p))*((matT(i,j+1)-2*matT(i,j)+matT(i,j-1))/((hauteurDalle/resolution)*(largeurDalle/resolution)));
+%         % Dans le quart inférieur droit
+%         elseif i>noeudsHor/2 && j>noeudsVert/2
+%             matT(i+1,j) = (lambda/(rho*c_p))*((matT(i+1,j)-2*matT(i,j)+matT(i-1,j))/((hauteurDalle/resolution)*(largeurDalle/resolution)));
+%             matT(i,j+1) = (lambda/(rho*c_p))*((matT(i,j+1)-2*matT(i,j)+matT(i,j-1))/((hauteurDalle/resolution)*(largeurDalle/resolution)));
+%         end
+%     end
+% end
