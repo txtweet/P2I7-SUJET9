@@ -3,7 +3,7 @@ global B hc dx dy Tchauf
 A=zeros(noeudsHor*noeudsVert, noeudsHor*noeudsVert);
 %A=-h²Laplacien de T
 
-    for i=2:noeudsHor-1
+for i=2:noeudsHor-1
     for j=2:noeudsVert-1
         %cas ou la case etudiee est solide
         if (matCellule(i,j)==0)
