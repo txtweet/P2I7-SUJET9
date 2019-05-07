@@ -1,5 +1,5 @@
 function A=matriceA(noeudsHor,noeudsVert,matCellule)
-global B hc dx dy Tchauf
+global B hc dx Tchauf
 A=zeros(noeudsHor*noeudsVert, noeudsHor*noeudsVert);
 %A=-h²Laplacien de T
 
@@ -20,18 +20,18 @@ A=zeros(noeudsHor*noeudsVert, noeudsHor*noeudsVert);
             %cas ou le voisin de droite est liquide
             %elseif nb4==1
             elseif (matCellule(i,j+1)==1)
-                    A((i-1)*noeudsVert+j,(i-1)*noeudsVert+j)=3-2*dy*hc;
+                    A((i-1)*noeudsVert+j,(i-1)*noeudsVert+j)=3-2*dx*hc;
                     A((i-1)*noeudsVert+j,(i-1)*noeudsVert+j-1)=-4;
                     A((i-1)*noeudsVert+j,(i-1)*noeudsVert+j-2)=1;
-                    B((i-1)*noeudsVert+j,1)=2*dy*hc*Tchauf;
+                    B((i-1)*noeudsVert+j,1)=2*dx*hc*Tchauf;
                     
             %cas ou le voisin de gauche est liquide
             %elseif nb1==1
             elseif (matCellule(i,j-1)==1)
-                    A((i-1)*noeudsVert+j,(i-1)*noeudsVert+j)=3-2*dy*hc;
+                    A((i-1)*noeudsVert+j,(i-1)*noeudsVert+j)=3-2*dx*hc;
                     A((i-1)*noeudsVert+j,(i-1)*noeudsVert+j+1)=-4;
                     A((i-1)*noeudsVert+j,(i-1)*noeudsVert+j+2)=1;
-                    B((i-1)*noeudsVert+j,1)=2*dy*hc*Tchauf;
+                    B((i-1)*noeudsVert+j,1)=2*dx*hc*Tchauf;
                     
             %cas ou le voisin du bas est liquide
             %elseif nb3==1
@@ -52,7 +52,10 @@ A=zeros(noeudsHor*noeudsVert, noeudsHor*noeudsVert);
             
         end
     end 
-        
+    
+    %Condition aux limites periodiques 
+    
+    %Partie gauche de la cellule
     for j=2:noeudsVert-1
         A(j,j)=4;
         A(j,(j+1))=-1;
@@ -60,6 +63,8 @@ A=zeros(noeudsHor*noeudsVert, noeudsHor*noeudsVert);
         A(j,(noeudsHor-1)*noeudsVert+j)=-1;
         A(j,noeudsVert+j)=-1;
     end 
+    
+    %Partie droite de la cellule
     for j=2:noeudsVert-1
         A((noeudsHor-1)*noeudsVert+j,(noeudsHor-1)*noeudsVert+j)=4;
         A((noeudsHor-1)*noeudsVert+j,(noeudsHor-1)*noeudsVert+(j+1))=-1;

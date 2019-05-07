@@ -21,8 +21,7 @@ Tchauf=293;
 %% Initialisation des paramètres
 noeudsVert= resolution * hauteurDalle; %nombre de neuds sur la hauteur de la cellule
 noeudsHor = resolution * largeurDalle; %nombre de neuds sur la largeur de la cellule
-dx=largeurDalle/noeudsHor;
-dy=hauteurDalle/noeudsVert;
+dx=1/resolution;
 matCellule = zeros(noeudsVert,noeudsHor);
 rayonConduiteNum = floor(rayonConduite*resolution);
 matT = zeros(noeudsVert,noeudsHor);
