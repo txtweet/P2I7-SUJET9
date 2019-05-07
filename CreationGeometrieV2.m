@@ -19,13 +19,13 @@ Tchauf=293;                                             % température de l'eau, 
 
 
 %% Initialisation des paramètres
-noeudsVert= resolution * hauteurDalle;                  %nombre de neuds sur la hauteur de la cellule
-noeudsHor = resolution * largeurDalle;                  %nombre de neuds sur la largeur de la cellule
-dx=largeurDalle/noeudsHor;
-dy=hauteurDalle/noeudsVert;
-matCellule = zeros(noeudsVert,noeudsHor);
-rayonConduiteNum = floor(rayonConduite*resolution);
-matT = zeros(noeudsVert,noeudsHor);
+noeudsVert= resolution * hauteurDalle;                  % nombre de neuds sur la hauteur de la cellule
+noeudsHor = resolution * largeurDalle;                  % nombre de neuds sur la largeur de la cellule
+dx=largeurDalle/noeudsHor;                              % discrétisation spatiale de la dalle selon l'horizontale
+dy=hauteurDalle/noeudsVert;                             % discrétisation spatiale de la dalle selon la verticale
+matCellule = zeros(noeudsVert,noeudsHor);               % matrice dont chaque coefficient représente une cellule de la dalle
+rayonConduiteNum = floor(rayonConduite*resolution);     % valeur entière prise pour le rayon de la zone contenant l'eau
+matT = zeros(noeudsVert,noeudsHor);                     % matrice dont chaque coefficient correspond à la température du point de la dalle correspondant
 %% parcourir la matrice à partir d'un point donné
 position_centre = floor([(noeudsHor+1)/2 resolution*hauteurConduite]);
 GenereMatriceCarree ();
