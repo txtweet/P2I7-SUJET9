@@ -19,8 +19,8 @@ Tchauf=293;                                             % température de l'eau, 
 
 
 %% Initialisation des paramètres
-noeudsVert= resolution * hauteurDalle; %nombre de neuds sur la hauteur de la cellule
-noeudsHor = resolution * largeurDalle; %nombre de neuds sur la largeur de la cellule
+noeudsVert= resolution * hauteurDalle;                  %nombre de neuds sur la hauteur de la cellule
+noeudsHor = resolution * largeurDalle;                  %nombre de neuds sur la largeur de la cellule
 dx=largeurDalle/noeudsHor;
 dy=hauteurDalle/noeudsVert;
 matCellule = zeros(noeudsVert,noeudsHor);
