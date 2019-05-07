@@ -1,25 +1,25 @@
 %%%%%%%%%%% P2I7 - SUJET 9 %%%%%%%%%%
 %%% Fonction DonneVoisins %%%
-% Dit quels voisins sont des fluides
-% i coord en horizontal
-% j coord en vertical
-
-
-
-% 0 si solide
-% 1 si fluide
-% 2 si OutOfBounds
-
+% Cette fonction renseigne quels voisins sont des fluides
+% Les paramètres sont : i coordonnée horizontale
+%                       j coordonnée verticale
+% Les variables renvoyées sont : nb1 (correspond au voisin de gauche)
+%                                nb2 (correspond au du haut)
+%                                nb3 (correspond au voisin du bas)
+%                                nb4 (correspond au voisin de droite)
+% Ces variables prennent la valeur : 0 si le voisin correspond au solide
+%                                    1 si le voisin correspond au fluide
+%                                    2 si le voisin est OutOfBounds
 function [nb1,nb2,nb3,nb4] = DonneVoisins(i,j,matCellule)
 [M,N]=size(matCellule);
-nb1=2;  % nb1 voisin de gauche
+nb1=2;
 if((j-1)>=1 && i>=1 && i<=M && j<=N)
     nb1=0;
     if(matCellule(i,j-1)==1)
         nb1=1;
     end
 end
-nb2=2;  % nb2 voisin du haut
+nb2=2;
 if((i-1)>=1 && j>=1 && i<=M && j<=N)
     nb2=0;
     if(matCellule(i-1,j)==1)
@@ -27,14 +27,14 @@ if((i-1)>=1 && j>=1 && i<=M && j<=N)
     end
 end
 
-nb3=2;  % nb3 voisin du bas
+nb3=2;
 if((i+1)<=M && i>=1 && j>=1 && j<=N)
     nb3=0;
     if(matCellule(i+1,j)==1)
         nb3=1;
     end
 end
-nb4=2;  % nb4 voisin de droite
+nb4=2;
 if((j+1)<=N && i>=1 && j>=1 && i<=M)
     nb4=0;
     if(matCellule(i,j+1)==1)
