@@ -3,16 +3,16 @@
 global position_centre rayonConduiteNum matCellule matT
 
 %% Variables du probleme
-resolution = 100;    %nombre de neuds par centimètre
-hauteurDalle = 5;  %hauteur de la dalle (en cm)
-largeurDalle = 5;  %largeur de la dalle (en cm)
-rayonConduite = 0.5;  %rayon de l'element chauffant 
-hauteurConduite = hauteurDalle/2; % position du centre de l'élément chauffant par rapport au bas de la céllule mdoélisée
-masse = 500;
-volume = hauteurDalle*largeurDalle-pi*rayonConduite^2;
-rho = masse/volume;
-lambda = 0.92;
-c_p = 2.5e6;
+resolution = 100;                                       %nombre de neuds par centimètre
+hauteurDalle = 5;                                       %hauteur de la dalle (en cm)
+largeurDalle = 5;                                       %largeur de la dalle (en cm)
+rayonConduite = 0.5;                                    %rayon de l'element chauffant 
+hauteurConduite = hauteurDalle/2;                       % position du centre de l'élément chauffant par rapport au bas de la céllule mdoélisée
+masse = 500;                                            % masse de la dalle de béton
+volume = hauteurDalle*largeurDalle-pi*rayonConduite^2;  % volume de la dalle
+rho = masse/volume;                                     % masse volumique du béton
+lambda = 0.92;                                          % conductivité thermique du béton
+c_p = 2.5e6;                                            % capacité thermique du béton
 
 %% Initialisation des paramètres
 noeudsVert= resolution * hauteurDalle; %nombre de neuds sur la hauteur de la cellule
