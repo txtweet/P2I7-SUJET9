@@ -4,18 +4,18 @@ clear all
 global position_centre rayonConduiteNum matCellule matT B dx dy hc Tchauf
 
 %% Variables du probleme
-resolution = 1;    %nombre de neuds par centimètre
-hauteurDalle = 10;  %hauteur de la dalle (en cm)
-largeurDalle = 10;  %largeur de la dalle (en cm)
-rayonConduite = 1;  %rayon de l'element chauffant 
-hauteurConduite = (hauteurDalle+1)/2; % position du centre de l'élément chauffant par rapport au bas de la céllule mdoélisée
-masse = 500;
-volume = hauteurDalle*largeurDalle-pi*rayonConduite^2;
-rho = masse/volume;
-lambda = 0.92;
-c_p = 2.5e6;
-hc=1e3;
-Tchauf=293;
+resolution = 1;                                         % nombre de noeuds par centimètre
+hauteurDalle = 10;                                      % hauteur de la dalle (en cm)
+largeurDalle = 10;                                      % largeur de la dalle (en cm)
+rayonConduite = 1;                                      % rayon de l'élément chauffant 
+hauteurConduite = (hauteurDalle+1)/2;                   % position du centre de l'élément chauffant par rapport au bas de la cellule modélisée
+masse = 500;                                            % masse de la dalle de béton
+volume = hauteurDalle*largeurDalle-pi*rayonConduite^2;  % volume de la dalle
+rho = masse/volume;                                     % masse volumique du béton
+lambda = 0.92;                                          % conductivité thermique du béton
+c_p = 2.5e6;                                            % capacité thermique du béton
+hc=1e3;                                                 % coefficient d'échanges convectifs de l'eau
+Tchauf=293;                                             % température de l'eau, constante (en K)
 
 
 %% Initialisation des paramètres
