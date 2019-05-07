@@ -69,4 +69,4 @@ for i=2:noeudsHor-1
     end 
  
 end
-    
+end
