@@ -30,15 +30,15 @@ A(Nx+1,Nx)=-2/(dx^2);
 %figure()
 j=1;
 for theta=0:dtheta:2*pi
-for i=1:Nt
-    Tp(:,i+1)=Tp(:,i)+dt*(b-A*Tp(:,i));    %Schéma d'Euler explicite
-    Tc(:,j)=Tp(:,i+1);
-    j=j+1;
-%     plot(X,T(:,i+1));
-%     axis([0 1 30 42])
-%     drawnow
-%     pause(0.01)
-end
+    for i=1:Nt
+        Tp(:,i+1)=Tp(:,i)+dt*(b-A*Tp(:,i));    %Schéma d'Euler explicite
+        Tc(:,j)=Tp(:,i+1);
+        j=j+1;
+%         plot(X,T(:,i+1));
+%         axis([0 1 30 42])
+%         drawnow
+%         pause(0.01)
+    end
 end
 
 %% Affichage

@@ -1,15 +1,15 @@
-% Fonction donne voisins
-% Dit quels voisins sont des fluides
-% i coord en horizontal
-% j coord en vertical
-% nb1 voisin de gacuhe
-% nb2 voisin du haut
-% nb3 voisin du bas
-% nb4 voisin de droite
-% 0 si solide
-% 1 si fluide
-% 2 si OutOfBounds
-
+%%%%%%%%%%% P2I7 - SUJET 9 %%%%%%%%%%
+%%% Fonction DonneVoisins %%%
+% Cette fonction renseigne quels voisins sont des fluides
+% Les paramètres sont : i coordonnée horizontale
+%                       j coordonnée verticale
+% Les variables renvoyées sont : nb1 (correspond au voisin de gauche)
+%                                nb2 (correspond au du haut)
+%                                nb3 (correspond au voisin du bas)
+%                                nb4 (correspond au voisin de droite)
+% Ces variables prennent la valeur : 0 si le voisin correspond au solide
+%                                    1 si le voisin correspond au fluide
+%                                    2 si le voisin est OutOfBounds
 function [nb1,nb2,nb3,nb4] = DonneVoisins(i,j,matCellule)
 [M,N]=size(matCellule);
 nb1=2;

@@ -11,3 +11,4 @@ for i=position_centre(1)-rayonConduiteNum:position_centre(1)+rayonConduiteNum
         end
     end
 end
+end
