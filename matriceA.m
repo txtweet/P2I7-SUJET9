@@ -1,10 +1,14 @@
 function A=matriceA(noeudsHor,noeudsVert,matCellule)
-global B hc dx Tchauf
+global B hc dx Tchauf lambdaair
 A=zeros(noeudsHor*noeudsVert, noeudsHor*noeudsVert);
+%A est une matrice de taille noeudsHor*noeudsVert+3. On rajoute 3 points
+%correspondant a l'isolant de resistance tres elevee au sous-dalle
+%(indice1), l'air au-dessus du plancher (indice N-2) et les murs (indice
+%N-3)
 %A=-h²Laplacien de T
 
-for i=2:noeudsHor-1
-    for j=2:noeudsVert-1
+for i=3:noeudsHor-3
+    for j=3:noeudsVert-3
         %cas ou la case etudiee est solide
         if (matCellule(i,j)==0)
             [nb1,nb2,nb3,nb4] = DonneVoisins(i,j,matCellule);
@@ -72,6 +76,21 @@ for i=2:noeudsHor-1
         A((noeudsHor-1)*noeudsVert+j,j)=-1;
         A((noeudsHor-1)*noeudsVert+j,(noeudsHor-2)*noeudsVert+j)=-1;
     end 
+    
+    %Ligne du haut du plancher : j=noeudsVert-2
+    j=noeudsVert-2;
+    for i=3:noeudsHor-3
+        A(i,j)=1;
+        A(i,j-1)=-lambdaair/(2*dx);
+        A(i,j+1)=-hc+lambdaair/(2*dx);
+    end
+    
+    %Conditions sur l'air : j=noeudsVert-1
+    j=noeudsVert-1;
+    for i=3:noeudsHor-3
+        
+        
+    end
  
 end
 end
