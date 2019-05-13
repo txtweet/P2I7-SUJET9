@@ -16,15 +16,17 @@ c_p = 2.5e6;                                            % capacité thermique du 
 hc=1e3;                                                 % coefficient d'échanges convectifs de l'eau
 Tchauf=293;                                             % température de l'eau, constante (en K)
 %% Initialisation des paramètres
-noeudsVert= resolution * hauteurDalle;                  % nombre de neuds sur la hauteur de la cellule
-noeudsHor = resolution * largeurDalle;                  % nombre de neuds sur la largeur de la cellule
-dx=1/resolution;                                        % discrétisation spatiale de la dalle selon la verticale
-matCellule = zeros(noeudsVert,noeudsHor);               % matrice dont chaque coefficient représente une cellule de la dalle
-rayonConduiteNum = floor(rayonConduite*resolution);     % valeur entière prise pour le rayon de la zone contenant l'eau
-matT = zeros(noeudsVert,noeudsHor);                     % matrice dont chaque coefficient correspond à la température du point de la dalle correspondant
+noeudsVert= resolution * hauteurDalle;              % nombre de neuds sur la hauteur de la cellule
+noeudsHor = resolution * largeurDalle;              % nombre de neuds sur la largeur de la cellule
+dx=1/resolution;                                    % discrétisation spatiale de la dalle selon la verticale
+matCellule = zeros(noeudsVert,noeudsHor);           % matrice dont chaque coefficient représente une cellule de la dalle
+rayonConduiteNum = floor(rayonConduite*resolution);	% valeur entière prise pour le rayon de la zone contenant l'eau
+matT = zeros(noeudsVert,noeudsHor);                 % matrice dont chaque coefficient correspond à la température du point de la dalle correspondant
 %% Parcours de la matrice à partir d'un point donné
-position_centre = floor([(noeudsHor+1)/2 resolution*hauteurConduite]);
-GenereMatriceCarree ();
+position_centre = floor([(noeudsHor+1)/2 resolution*hauteurConduite]);  % coordonnées du centre du tube contenant le fluide caloporteur
+% ATTENTION : pour une faible résolution et des dimensions de la dalle
+% paires, la position du centre est décentrée vers le haut à gauche.
+GenereMatriceCarree();
 T=zeros(noeudsHor*noeudsVert,1);
 B=zeros(noeudsHor*noeudsVert,1);
 A=matriceA(noeudsHor,noeudsVert,matCellule);
