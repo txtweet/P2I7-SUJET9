@@ -75,7 +75,7 @@ end
         A(k2,k2-1)=-lambdaair/(2*dx)-hc;
         A(k2,k2+1)=lambdaair/(2*dx)-hcmurs;
         
-        %au niveau des murs (j=N)
+        %au niveau des murs (j=N) :
         j=noeudsVert;
         k3=noeudsHor*(i-1)+j;
         A(k3,k3)=lambdaair/dx+hcmurs;
