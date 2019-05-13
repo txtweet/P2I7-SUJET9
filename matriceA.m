@@ -17,7 +17,7 @@ for i=3:noeudsHor-3
             %cas ou les 4 voisins sont solides
             %if(nb1==0 && nb2==0 && nb3==0 && nb4==0)
             if(matCellule(i-1,j)==0 && matCellule(i+1,j)==0 && matCellule(i,j+1)==0 && matCellule(i,j-1)==0)
-               A=ModifAVoisin(A, Voisin, i, j)
+               A=ModifAVoisin(A, Voisins, i, j)
             end 
             
         end

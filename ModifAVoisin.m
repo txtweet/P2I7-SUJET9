@@ -8,7 +8,7 @@ global dx l rho cp noeudsVert hc dt Tchauf B
     %% Voisins solide
     if (Voisin(1,1)==0)
         A(index,index)= 3;
-        A(index,index-neudsVert) = -4;
+        A(index,index-noeudsVert) = -4;
         A(index,index-2*noeudsVert) = 1;
     end
     
@@ -17,12 +17,12 @@ global dx l rho cp noeudsVert hc dt Tchauf B
         A(index,index-1) = -4;
         A(index,index-2) = 1;
     end 
-    if (Voisin(1,3)=0)
+    if (Voisin(1,3)==0)
         A(index,index)= -3;
         A(index,index-1) = 4;
         A(index,index-2) = -1;
     end
-    if (Voisin(1,4)=0)
+    if (Voisin(1,4)==0)
         A(index,index)= -3;
         A(index,index+noeudsVert) = 4;
         A(index,index+2*noeudsVert) = -1;
@@ -32,7 +32,7 @@ global dx l rho cp noeudsVert hc dt Tchauf B
     %% Voisins fluide
     if (Voisin(1,1)==1)
         A(index,index)= kfluide*-3/2;
-        A(index,index-neudsVert) = kfluide*1/2;
+        A(index,index-noeudsVert) = kfluide*1/2;
         B(index,index) = B(index,index)-kfluide*Tchauf*dt;
     end
     
@@ -41,14 +41,14 @@ global dx l rho cp noeudsVert hc dt Tchauf B
         A(index,index-1) = kfluide*1/2;
         B(index,index) = B(index,index)-kfluide*Tchauf*dt;
     end 
-    if (Voisin(1,3)=0)
+    if (Voisin(1,3)==0)
         A(index,index)= kfluide*-3/2;
         A(index,index+1) = kfluide*1/2;
         B(index,index) = B(index,index)-kfluide*Tchauf*dt;
     end
-    if (Voisin(1,4)=0)
+    if (Voisin(1,4)==0)
         A(index,index)= kfluide*-3/2;
-        A(index,index+noeudsvert) = kfluide*1/2;
+        A(index,index+noeudsVert) = kfluide*1/2;
         B(index,index) = B(index,index)-kfluide*Tchauf*dt;
     end
 
