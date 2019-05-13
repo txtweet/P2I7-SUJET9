@@ -1,8 +1,9 @@
+%%%%%%%%%%%%%%%%%%%% P2I7 - SUJET 9 %%%%%%%%%%%%%%%%%%%%
+%%% Remplissage d'une matrice carrée pour le fluide %%%
 function GenereMatriceCarree()
-
 global position_centre rayonConduiteNum matCellule matT
-
-% 0 si beton, 1 si fluide
+% Les coefficients de la matrice matCelulle prennent la valeur 0 s'il
+% s'agit de béton, 1 s'il s'agit du fluide
 for i=position_centre(1)-rayonConduiteNum:position_centre(1)+rayonConduiteNum
     for j=position_centre(2)-rayonConduiteNum:position_centre(2)+rayonConduiteNum
             matCellule(i,j)=1;

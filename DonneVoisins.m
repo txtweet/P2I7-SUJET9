@@ -1,4 +1,4 @@
-%%%%%%%%%%% P2I7 - SUJET 9 %%%%%%%%%%
+%%%%%%% P2I7 - SUJET 9 %%%%%%%
 %%% Fonction DonneVoisins %%%
 % Cette fonction renseigne quels voisins sont des fluides
 % Les paramètres sont : i coordonnée horizontale
@@ -26,7 +26,6 @@ if((i-1)>=1 && j>=1 && i<=M && j<=N)
         nb2=1;
     end
 end
-
 nb3=2;
 if((i+1)<=M && i>=1 && j>=1 && j<=N)
     nb3=0;

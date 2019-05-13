@@ -1,4 +1,4 @@
-%%%%%%%%%%% P2I7 - SUJET 9 %%%%%%%%%%
+%%%%%%%%%%%%%% P2I7 - SUJET 9 %%%%%%%%%%%%%%
 %%% Création de la géométrie du problème %%%
 clear all
 global position_centre rayonConduiteNum matCellule matT B dx dy hc Tchauf
@@ -18,7 +18,7 @@ Tchauf=293;                                             % température de l'eau, 
 %% Initialisation des paramètres
 noeudsVert= resolution * hauteurDalle;                  % nombre de neuds sur la hauteur de la cellule
 noeudsHor = resolution * largeurDalle;                  % nombre de neuds sur la largeur de la cellule
-dx=1/resolution;                                         % discrétisation spatiale de la dalle selon la verticale
+dx=1/resolution;                                        % discrétisation spatiale de la dalle selon la verticale
 matCellule = zeros(noeudsVert,noeudsHor);               % matrice dont chaque coefficient représente une cellule de la dalle
 rayonConduiteNum = floor(rayonConduite*resolution);     % valeur entière prise pour le rayon de la zone contenant l'eau
 matT = zeros(noeudsVert,noeudsHor);                     % matrice dont chaque coefficient correspond à la température du point de la dalle correspondant
