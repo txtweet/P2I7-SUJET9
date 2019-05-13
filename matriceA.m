@@ -17,7 +17,7 @@ for i=3:noeudsHor-3
             %cas ou les 4 voisins sont solides
             %if(nb1==0 && nb2==0 && nb3==0 && nb4==0)
             if(matCellule(i-1,j)==0 && matCellule(i+1,j)==0 && matCellule(i,j+1)==0 && matCellule(i,j-1)==0)
-               A=ModifAVoisin(A, Voisins, i, j)
+               A=ModifAVoisin(A, Voisins, i, j);
             end 
             
         end
@@ -62,7 +62,7 @@ end
     %Conditions en haut du plancher
     for i=1:noeudsHor
         %au niveau du haut du plancher (j=N-2)
-        j=noeudsVert-2
+        j=noeudsVert-2;
         k1=noeudsHor*(i-1)+j;
         A(k1,k1)=hc;
         A(k1,k1-1)=-lambdaair/(2*dx);
