@@ -20,7 +20,7 @@ Tchauf=293;                                             % température de l'eau, 
 dt=1;
 l=1; 
 Tdepart=30;                                             % temperature de la piece
-tmax=180;                                               % temps maximal de la simulation, en secondes
+tmax=3;                                               % temps maximal de la simulation, en secondes
 %% Initialisation des paramètres
 noeudsVert= resolution * hauteurDalle;              % nombre de neuds sur la hauteur de la cellule
 noeudsHor = resolution * largeurDalle;              % nombre de neuds sur la largeur de la cellule
