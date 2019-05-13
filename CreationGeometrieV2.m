@@ -6,8 +6,8 @@ global position_centre rayonConduiteNum matCellule matT B dx hc Tchauf lambdaair
 resolution = 1;                                         % nombre de noeuds par centimètre
 hcmurs=1e3;                                             % coefficient d'echanges convectifs des murs de la piece
 lambdaair=0.0262;                                       % conductivite thermique de l'air
-hauteurDalle = 10;                                      % hauteur de la dalle (en cm)
-largeurDalle = 10;                                      % largeur de la dalle (en cm)
+hauteurDalle = 8;                                      % hauteur de la dalle (en cm)
+largeurDalle = 8;                                      % largeur de la dalle (en cm)
 rayonConduite = 1;                                      % rayon de l'élément chauffant 
 hauteurConduite = (hauteurDalle+1)/2;                   % position du centre de l'élément chauffant par rapport au bas de la cellule modélisée
 masse = 500;                                            % masse de la dalle de béton

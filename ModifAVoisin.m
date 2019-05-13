@@ -36,17 +36,17 @@ global dx l rho cp noeudsVert hc dt Tchauf B
         B(index,index) = B(index,index)-kfluide*Tchauf*dt;
     end
     
-    if (Voisin(1,2)==0)
+    if (Voisin(1,2)==1)
         A(index,index)= kfluide*-3/2;
         A(index,index-1) = kfluide*1/2;
         B(index,index) = B(index,index)-kfluide*Tchauf*dt;
     end 
-    if (Voisin(1,3)==0)
+    if (Voisin(1,3)==1)
         A(index,index)= kfluide*-3/2;
         A(index,index+1) = kfluide*1/2;
         B(index,index) = B(index,index)-kfluide*Tchauf*dt;
     end
-    if (Voisin(1,4)==0)
+    if (Voisin(1,4)==1)
         A(index,index)= kfluide*-3/2;
         A(index,index+noeudsVert) = kfluide*1/2;
         B(index,index) = B(index,index)-kfluide*Tchauf*dt;
