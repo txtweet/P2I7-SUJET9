@@ -3,15 +3,15 @@ global B hc dx Tchauf lambdaair
 A=zeros(noeudsHor*noeudsVert, noeudsHor*noeudsVert);
 %A est une matrice de taille noeudsHor*noeudsVert+3. On rajoute 3 points
 %correspondant a l'isolant de resistance tres elevee au sous-dalle
-%(indice1), l'air au-dessus du plancher (indice N-2) et les murs (indice
-%N-3)
+%(indice 1), l'air au-dessus du plancher (indice N-2) et les murs (indice
+%N)
 %A=-h²Laplacien de T
 
 for i=3:noeudsHor-3
     for j=3:noeudsVert-3
+        Voisins = DonneVoisins(i,j,matCellule);
         %cas ou la case etudiee est solide
         if (matCellule(i,j)==0)
-            [nb1,nb2,nb3,nb4] = DonneVoisins(i,j,matCellule);
             %cas ou les 4 voisins sont solides
             %if(nb1==0 && nb2==0 && nb3==0 && nb4==0)
             if(matCellule(i-1,j)==0 && matCellule(i+1,j)==0 && matCellule(i,j+1)==0 && matCellule(i,j-1)==0)
