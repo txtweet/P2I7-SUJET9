@@ -26,7 +26,7 @@ matT = zeros(noeudsVert,noeudsHor);                 % matrice dont chaque coeffi
 position_centre = floor([(noeudsHor+1)/2 resolution*hauteurConduite]);  % coordonnées du centre du tube contenant le fluide caloporteur
 % ATTENTION : pour une faible résolution et des dimensions de la dalle
 % paires, la position du centre est décentrée vers le haut à gauche.
-GenereMatriceCarree ();
+GenereMatriceCarree();
 T=zeros(noeudsHor*noeudsVert,1);
 B=zeros(noeudsHor*noeudsVert,1);
 A=matriceA(noeudsHor,noeudsVert,matCellule);
