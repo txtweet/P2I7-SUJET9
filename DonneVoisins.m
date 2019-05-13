@@ -10,7 +10,7 @@
 % Ces variables prennent la valeur : 0 si le voisin correspond au solide
 %                                    1 si le voisin correspond au fluide
 %                                    2 si le voisin est OutOfBounds
-function [nb1,nb2,nb3,nb4] = DonneVoisins(i,j,matCellule)
+function D = DonneVoisins(i,j,matCellule)
 [M,N]=size(matCellule);
 nb1=2;
 if((j-1)>=1 && i>=1 && i<=M && j<=N)
@@ -40,4 +40,5 @@ if((j+1)<=N && i>=1 && j>=1 && i<=M)
         nb4=1;
     end
 end
+D=[nb1 nb2 nb3 nb4];
 end
