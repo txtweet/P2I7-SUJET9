@@ -1,7 +1,7 @@
 %%%%%%%%%%%%%% P2I7 - SUJET 9 %%%%%%%%%%%%%%
 %%% Création de la géométrie du problème %%%
 clear all
-global position_centre rayonConduiteNum matCellule matT B dx hc Tchauf lambdaair hcmurs
+global position_centre rayonConduiteNum matCellule matT B dx hc Tchauf lambdaair hcmurs lambda rho c_p dt
 %% Variables du probleme
 resolution = 1;                                         % nombre de noeuds par centimètre
 hcmurs=1e3;                                             % coefficient d'echanges convectifs des murs de la piece
@@ -32,5 +32,5 @@ GenereMatrice();                                                  % matCellule e
 %% Résolution du problème
 T=zeros(noeudsHor*noeudsVert,1);                % matrice colonne qui contient la température en chaque point de chaque cellule
 B=zeros(noeudsHor*noeudsVert,1);                % matrice colonne
-A=matriceA(noeudsHor,noeudsVert,matCellule);    % 
+A=matriceA(noeudsHor,noeudsVert,matCellule,T);    % 
 %%

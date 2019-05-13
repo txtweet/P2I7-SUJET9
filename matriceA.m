@@ -1,5 +1,5 @@
-function A=matriceA(noeudsHor,noeudsVert,matCellule)
-global B hc dx Tchauf lambdaair hcmurs
+function A=matriceA(noeudsHor,noeudsVert,matCellule, Tavant)
+global B hc dx Tchauf lambdaair hcmurs lambda rho c_p dt
 A=zeros(noeudsHor*noeudsVert, noeudsHor*noeudsVert);
 %A est une matrice de taille noeudsHor*noeudsVert+3. On rajoute 3 points
 %correspondant a l'isolant de resistance tres elevee au sous-dalle
@@ -8,6 +8,8 @@ A=zeros(noeudsHor*noeudsVert, noeudsHor*noeudsVert);
 %A=-h²Laplacien de T
 %hc coefficient d'echange pour le sol
 %hcmurs coefficient d'echange pour les murs
+%Tavant est le vecteur temperature a la precedente iteration (cas
+%instationnaire)
 
 for i=2:noeudsHor-1
     for j=3:noeudsVert-3
@@ -70,23 +72,34 @@ end
         %au niveau du haut du plancher (j=N-2)
         j=noeudsVert-2;
         k1=noeudsVert*(i-1)+j;
-        A(k1,k1)=hc;
-        A(k1,k1-1)=-lambdaair/(2*dx);
-        A(k1,k1+1)=-hc+lambdaair/(2*dx);
+        A(k1,k1)=A(k1,k1)+hc+1+2*lambda*dt/(rho*c_p*dx.^2);
+        A(k1,k1-1)=A(k1,k1-1)-lambdaair/(2*dx)-lambda*dt/(rho*c_p*dx.^2);
+        A(k1,k1+1)=A(k1,k1+1)-hc+lambdaair/(2*dx)-lambda*dt/(rho*c_p*dx.^2);
+        B(k1)=T(k1);
         
         %au niveau de l'air (j=N-1) :
         j=noeudsVert-1;
         k2=noeudsVert*(i-1)+j;
-        A(k2,k2)=hc+hcmurs;
-        A(k2,k2-1)=-lambdaair/(2*dx)-hc;
-        A(k2,k2+1)=lambdaair/(2*dx)-hcmurs;
+        A(k2,k2)=A(k2,k2)+hc+hcmurs+1+2*lambda*dt/(rho*c_p*dx.^2);
+        A(k2,k2-1)=A(k2,k2-1)-lambdaair/(2*dx)-hc-lambda*dt/(rho*c_p*dx.^2);
+        A(k2,k2+1)=A(k2,k2+1)+lambdaair/(2*dx)-hcmurs-lambda*dt/(rho*c_p*dx.^2);
+        B(k2)=T(k2);
         
         %au niveau des murs (j=N) :
         j=noeudsVert;
         k3=noeudsVert*(i-1)+j;
-        A(k3,k3)=lambdaair/dx+hcmurs;
-        A(k3,k3-1)=-lambdaair/dx-hcmurs;
+        A(k3,k3)=A(k3,k3)+lambdaair/dx+hcmurs+1-lambda*dt/(rho*c_p*dx.^2);
+        B(k3)=T(k3);
+        A(k3,k3-1)=A(k3,k3)-lambdaair/dx-hcmurs+2*lambda*dt/(rho*c_p*dx.^2);
+        A(k3,k3-2)=A(k3,k3-2)+lambda*dt/(rho*c_p*dx.^2);
         
+        %au niveau du sous-sol (j=1) :
+        j=1;
+        k4=noeudsVert*(i-1)+j;
+        A(k4,k4)=A(k4,k4)+hc-lambdaair/dx+1-lambda*dt/(rho*c_p*dx.^2);
+        A(k4,k4+1)=A(k4,k4+1)+hc+lambdaair/dx+lambda*dt/(rho*c_p*dx.^2);
+        A(k4,k4+2)=A(k4,k4+2)-lambda*dt/(rho*c_p*dx.^2);
+        B(k4)=T(k4);
     end
  
 end
