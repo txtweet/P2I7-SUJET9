@@ -1,7 +1,7 @@
 %%%%%%%%%%%%%% P2I7 - SUJET 9 %%%%%%%%%%%%%%
 %%% Création de la géométrie du problème %%%
 clear all
-global position_centre rayonConduiteNum matCellule matT B dx dy hc Tchauf
+global position_centre rayonConduiteNum matCellule matT B dx hc Tchauf
 %% Variables du probleme
 resolution = 1;                                         % nombre de noeuds par centimètre
 hauteurDalle = 10;                                      % hauteur de la dalle (en cm)
