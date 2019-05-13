@@ -103,7 +103,7 @@ for i=3:noeudsHor-3
         A(k1,k1-1)=-lambdaair/(2*dx);
         A(k1,k1+1)=-hc+lambdaair/(2*dx);
         
-        %au niveau de l'air (j=N-1)
+        %au niveau de l'air (j=N-1) :
         j=noeudsVert-1;
         k2=noeudsHor*(i-1)+j;
         A(k2,k2)=hc+hcmurs;
