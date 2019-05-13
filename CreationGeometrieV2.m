@@ -19,6 +19,8 @@ hc=1e3;                                                 % coefficient d'échanges
 Tchauf=293;                                             % température de l'eau, constante (en K)
 dt=1;
 l=1; 
+Tdepart=30;                                             % temperature de la piece
+tmax=180;                                               % temps maximal de la simulation, en secondes
 %% Initialisation des paramètres
 noeudsVert= resolution * hauteurDalle;              % nombre de neuds sur la hauteur de la cellule
 noeudsHor = resolution * largeurDalle;              % nombre de neuds sur la largeur de la cellule
@@ -32,7 +34,16 @@ position_centre = floor([(noeudsHor+1)/2 resolution*hauteurConduite]);  % coordo
 % paires, la position du centre est décentrée vers le haut à gauche.
 GenereMatrice();                                                  % matCellule et matT sont remplies selon la géométrie du problème
 %% Résolution du problème
-T=zeros(noeudsHor*noeudsVert,1);                % matrice colonne qui contient la température en chaque point de chaque cellule
+Tancien=zeros(noeudsHor*noeudsVert,1);                % matrice colonne qui contient la température en chaque point de chaque cellule
+Tneuf=ones(noeudsHor*noeudsVert,1);                % matrice colonne qui contient la température en chaque point de chaque cellule
+Tneuf(:)=Tdepart;                               %a changer
 B=zeros(noeudsHor*noeudsVert,1);                % matrice colonne
-A=matriceA(noeudsHor,noeudsVert,matCellule,T);    % 
+A=matriceA(noeudsHor,noeudsVert,matCellule,Tneuf);    %
+i=dt;
+while i<tmax
+    Tancien=Tneuf;
+    A=matriceA(noeudsHor,noeudsVert,matCellule,Tancien);
+    Tneuf=A\B;
+    i=i+dt;
+end
 %%
