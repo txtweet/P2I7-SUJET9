@@ -1,10 +1,10 @@
 function A=ModifAVoisin(A, Voisin, i, j)
-global dx l rho cp noeudsVert hc dt Tchauf B
+global dx l rho c_p noeudsVert hc dt Tchauf B lambda
     index =(i-1)*noeudsVert+j;
-    %ksolide=-lambda*dx*dt*l/(rho*cp*2*dx);
-    %kfluide=dx*dt*l*hc*/(rho*cp);
-    ksolide=1;
-    kfluide=1;
+    ksolide=-lambda*dx*dt*l/(rho*c_p*2*dx);
+    kfluide=dx*dt*l*hc/(rho*c_p);
+    %ksolide=1;
+    %kfluide=1;
     %% Voisins solide
     if (Voisin(1,1)==0)
         A(index,index)= 3;
@@ -28,7 +28,7 @@ global dx l rho cp noeudsVert hc dt Tchauf B
         A(index,index+2*noeudsVert) = -1;
     end
     
-    A(index,:)=A(index,:)*ksolide/(2*dx);
+    A(index,:)=ksolide/(2*dx).*A(index,:);
     %% Voisins fluide
     if (Voisin(1,1)==1)
         A(index,index)= kfluide*-3/2;

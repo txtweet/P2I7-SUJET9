@@ -1,7 +1,7 @@
 %%%%%%%%%%%%%% P2I7 - SUJET 9 %%%%%%%%%%%%%%
 %%% Création de la géométrie du problème %%%
 clear all
-global position_centre rayonConduiteNum matCellule matT B dx hc Tchauf lambdaair hcmurs lambda rho c_p dt
+global position_centre rayonConduiteNum matCellule matT B dx hc Tchauf lambdaair hcmurs lambda rho c_p dt l
 %% Variables du probleme
 resolution = 1;                                         % nombre de noeuds par centimètre
 hcmurs=1e3;                                             % coefficient d'echanges convectifs des murs de la piece
@@ -17,6 +17,8 @@ lambda = 0.92;                                          % conductivité thermique
 c_p = 2.5e6;                                            % capacité thermique du béton
 hc=1e3;                                                 % coefficient d'échanges convectifs de l'eau
 Tchauf=293;                                             % température de l'eau, constante (en K)
+dt=1;
+l=1; 
 %% Initialisation des paramètres
 noeudsVert= resolution * hauteurDalle;              % nombre de neuds sur la hauteur de la cellule
 noeudsHor = resolution * largeurDalle;              % nombre de neuds sur la largeur de la cellule
