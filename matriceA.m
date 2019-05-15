@@ -35,7 +35,7 @@ end
     %Condition aux limites periodiques 
     
     %Partie gauche de la cellule
-    for j=3:noeudsVert-3
+    for j=2:noeudsVert-3
         A(j,j)=4;
         A(j,(j+1))=-1;
         A(j,(j-1))=-1;
@@ -44,7 +44,7 @@ end
     end 
     
     %Partie droite de la cellule
-    for j=3:noeudsVert-3
+    for j=2:noeudsVert-3
         A((noeudsHor-1)*noeudsVert+j,(noeudsHor-1)*noeudsVert+j)=4;
         A((noeudsHor-1)*noeudsVert+j,(noeudsHor-1)*noeudsVert+(j+1))=-1;
         A((noeudsHor-1)*noeudsVert+j,(noeudsHor-1)*noeudsVert+(j-1))=-1;
