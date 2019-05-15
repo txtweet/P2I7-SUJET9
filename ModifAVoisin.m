@@ -43,7 +43,7 @@ global dx l rho c_p noeudsVert hc dt Tchauf B lambda
     end 
     if (Voisin(1,3)==1)
         A(coord,coord)= A(coord,coord)+kfluide*(-3/2);
-        A(coord,coord+1) = kfluide*1/2;
+        A(coord,coord+1) = A(coord,coord+1)+kfluide*1/2;
         B(coord,1) = B(coord,1)-kfluide*Tchauf*dt;
     end
     if (Voisin(1,4)==1)

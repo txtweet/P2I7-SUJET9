@@ -30,7 +30,7 @@ for i=2:noeudsHor-1
                 %A((i-1)*noeudsVert+j,:)=A((i-1)*noeudsVert+j,:)*k;
             else
                 if(i==3 && j==5)
-                    'VoisinsFLuoide'
+                    'VoisinsFLuide'
                 end
                 A=ModifAVoisin(A,Voisins,i,j);
             end 
@@ -68,12 +68,12 @@ end
     end 
     
     %Ligne du haut du plancher : j=noeudsVert-2
-    j=noeudsVert-2;
-    for i=3:noeudsHor-3
-        A(i,j)=1;
-        A(i,j-1)=-lambdaair/(2*dx);
-        A(i,j+1)=-hc+lambdaair/(2*dx);
-    end
+%     j=noeudsVert-2;
+%     for i=3:noeudsHor-3
+%         A(i,j)=1;
+%         A(i,j-1)=-lambdaair/(2*dx);
+%         A(i,j+1)=-hc+lambdaair/(2*dx);
+%     end
     
     % Conditions sur l'air : j=noeudsVert-1
 %     j=noeudsVert-1;
