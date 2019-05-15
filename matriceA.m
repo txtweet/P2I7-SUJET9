@@ -16,20 +16,27 @@ for i=2:noeudsHor-1
         %cas ou la case etudiee est solide
         if (matCellule(i,j)==0)
             Voisins = DonneVoisins(i,j,matCellule);
-            Voisins
             %cas ou les 4 voisins sont solides
             if(max(Voisins)==0)
+                if(i==3 && j==5)
+                    'VoisinsSolide'
+                end
                 A((i-1)*noeudsVert+j,(i-1)*noeudsVert+j)=4;
                 A((i-1)*noeudsVert+j,(i-1)*noeudsVert+(j+1))=-1;
                 A((i-1)*noeudsVert+j,(i-1)*noeudsVert+(j-1))=-1;
                 A((i-1)*noeudsVert+j,(i-2)*noeudsVert+j)=-1;
                 A((i-1)*noeudsVert+j,(i)*noeudsVert+j)=-1;
-                k=lambda/(rho*c_p*dx*dx);
-                A((i-1)*noeudsVert+j,:)=A((i-1)*noeudsVert+j,:)*k;
+                %k=lambda/(rho*c_p*dx*dx);
+                %A((i-1)*noeudsVert+j,:)=A((i-1)*noeudsVert+j,:)*k;
             else
+                if(i==3 && j==5)
+                    'VoisinsFLuoide'
+                end
                 A=ModifAVoisin(A,Voisins,i,j);
             end 
-            
+        elseif  (matCellule(i,j)==1)
+            A((i-1)*noeudsVert+j,(i-1)*noeudsVert+j)=1;
+            B((i-1)*noeudsVert+j,1)=Tchauf;
         end
     end 
 end
@@ -43,20 +50,20 @@ end
         A(j,(j-1))=-1;
         A(j,(noeudsHor-1)*noeudsVert+j)=-1;
         A(j,noeudsVert+j)=-1;
-        k=lambda/(rho*c_p*dx*dx);
-        A(j,:) = A(j,:).*k;
+        %k=lambda/(rho*c_p*dx*dx);
+        %A(j,:) = A(j,:).*k;
         
     end 
     
     %Partie droite de la cellule
-    for j=3:noeudsVert-3
+    for j=2:noeudsVert-3
         A((noeudsHor-1)*noeudsVert+j,(noeudsHor-1)*noeudsVert+j)=4;
         A((noeudsHor-1)*noeudsVert+j,(noeudsHor-1)*noeudsVert+(j+1))=-1;
         A((noeudsHor-1)*noeudsVert+j,(noeudsHor-1)*noeudsVert+(j-1))=-1;
         A((noeudsHor-1)*noeudsVert+j,j)=-1;
         A((noeudsHor-1)*noeudsVert+j,(noeudsHor-2)*noeudsVert+j)=-1;
         
-        A((noeudsHor-1)*noeudsVert+j,:)=k.*A((noeudsHor-1)*noeudsVert+j,:);
+        %A((noeudsHor-1)*noeudsVert+j,:)=k.*A((noeudsHor-1)*noeudsVert+j,:);
         
     end 
     
@@ -68,13 +75,11 @@ end
         A(i,j+1)=-hc+lambdaair/(2*dx);
     end
     
-    %Conditions sur l'air : j=noeudsVert-1
-    j=noeudsVert-1;
-    for i=3:noeudsHor-3
-        
-        
-    end
-    
+    % Conditions sur l'air : j=noeudsVert-1
+%     j=noeudsVert-1;
+%     for i=3:noeudsHor-3
+%     end
+     
     %Conditions en haut du plancher
     for i=1:noeudsHor
         %au niveau du haut du plancher (j=N-2)
