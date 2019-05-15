@@ -24,6 +24,8 @@ for i=2:noeudsHor-1
                 A((i-1)*noeudsVert+j,(i-1)*noeudsVert+(j-1))=-1;
                 A((i-1)*noeudsVert+j,(i-2)*noeudsVert+j)=-1;
                 A((i-1)*noeudsVert+j,(i)*noeudsVert+j)=-1;
+                k=lambda/(rho*c_p*dx*dx);
+                A((i-1)*noeudsVert+j,:)=A((i-1)*noeudsVert+j,:)*k;
             else
                 A=ModifAVoisin(A,Voisins,i,j);
             end 
@@ -41,15 +43,21 @@ end
         A(j,(j-1))=-1;
         A(j,(noeudsHor-1)*noeudsVert+j)=-1;
         A(j,noeudsVert+j)=-1;
+        k=lambda/(rho*c_p*dx*dx);
+        A(j,:) = A(j,:).*k;
+        
     end 
     
     %Partie droite de la cellule
-    for j=2:noeudsVert-3
+    for j=3:noeudsVert-3
         A((noeudsHor-1)*noeudsVert+j,(noeudsHor-1)*noeudsVert+j)=4;
         A((noeudsHor-1)*noeudsVert+j,(noeudsHor-1)*noeudsVert+(j+1))=-1;
         A((noeudsHor-1)*noeudsVert+j,(noeudsHor-1)*noeudsVert+(j-1))=-1;
         A((noeudsHor-1)*noeudsVert+j,j)=-1;
         A((noeudsHor-1)*noeudsVert+j,(noeudsHor-2)*noeudsVert+j)=-1;
+        
+        A((noeudsHor-1)*noeudsVert+j,:)=k.*A((noeudsHor-1)*noeudsVert+j,:);
+        
     end 
     
     %Ligne du haut du plancher : j=noeudsVert-2
