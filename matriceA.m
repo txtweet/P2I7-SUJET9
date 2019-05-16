@@ -18,21 +18,16 @@ for i=2:noeudsHor-1
             Voisins = DonneVoisins(i,j,matCellule);
             %cas ou les 4 voisins sont solides
             if(max(Voisins)==0)
-                if(i==3 && j==5)
-                    'VoisinsSolide'
-                end
                 A((i-1)*noeudsVert+j,(i-1)*noeudsVert+j)=4;
                 A((i-1)*noeudsVert+j,(i-1)*noeudsVert+(j+1))=-1;
                 A((i-1)*noeudsVert+j,(i-1)*noeudsVert+(j-1))=-1;
                 A((i-1)*noeudsVert+j,(i-2)*noeudsVert+j)=-1;
                 A((i-1)*noeudsVert+j,(i)*noeudsVert+j)=-1;
-                %k=lambda/(rho*c_p*dx*dx);
-                %A((i-1)*noeudsVert+j,:)=A((i-1)*noeudsVert+j,:)*k;
+                k=lambda/(rho*c_p*dx*dx);
+                A((i-1)*noeudsVert+j,:)=A((i-1)*noeudsVert+j,:)*k;
             else
-                if(i==3 && j==5)
-                    'VoisinsFLuide'
-                end
-                A=ModifAVoisin(A,Voisins,i,j);
+               %Cas où au moins 1 voisins est fluide
+               A=ModifAVoisin(A,Voisins,i,j);
             end 
         elseif  (matCellule(i,j)==1)
             A((i-1)*noeudsVert+j,(i-1)*noeudsVert+j)=1;
@@ -50,8 +45,8 @@ end
         A(j,(j-1))=-1;
         A(j,(noeudsHor-1)*noeudsVert+j)=-1;
         A(j,noeudsVert+j)=-1;
-        %k=lambda/(rho*c_p*dx*dx);
-        %A(j,:) = A(j,:).*k;
+        k=lambda/(rho*c_p*dx*dx);
+        A(j,:) = A(j,:).*k;
         
     end 
     
@@ -63,7 +58,7 @@ end
         A((noeudsHor-1)*noeudsVert+j,j)=-1;
         A((noeudsHor-1)*noeudsVert+j,(noeudsHor-2)*noeudsVert+j)=-1;
         
-        %A((noeudsHor-1)*noeudsVert+j,:)=k.*A((noeudsHor-1)*noeudsVert+j,:);
+        A((noeudsHor-1)*noeudsVert+j,:)=k.*A((noeudsHor-1)*noeudsVert+j,:);
         
     end 
     

@@ -3,7 +3,7 @@
 clear all
 global position_centre rayonConduiteNum matCellule matT B dx hc Tchauf lambdaair hcmurs lambda rho c_p dt l noeudsVert noeudsHor
 %% Variables du probleme
-resolution = 1;                                         % nombre de noeuds par centimètre
+resolution = 5;                                         % nombre de noeuds par centimètre
 hcmurs=1e3;                                             % coefficient d'echanges convectifs des murs de la piece
 lambdaair=0.0262;                                       % conductivite thermique de l'air
 hauteurDalle = 10;                                       % hauteur de la dalle (en cm)
@@ -20,7 +20,7 @@ Tchauf=293;                                             % température de l'eau, 
 dt=1;                                                   % pas de temps (discrétisation du temps)
 l=1;                                                    % discrétisation de l'espace
 Tdepart=30;                                             % temperature de la piece
-tmax=3;                                                 % temps maximal de la simulation, en secondes
+tmax=10;                                                 % temps maximal de la simulation, en secondes
 %% Initialisation des paramètres
 noeudsVert= resolution * hauteurDalle;              % nombre de neuds sur la hauteur de la cellule
 noeudsHor = resolution * largeurDalle;              % nombre de neuds sur la largeur de la cellule
@@ -46,4 +46,7 @@ while i<tmax
     Tneuf=A\B;
     i=i+dt;
 end
+T=reshape(Tneuf,noeudsVert,noeudsHor);
+surf(T);
+view(2);
 %%
