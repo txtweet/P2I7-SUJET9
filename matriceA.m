@@ -1,4 +1,4 @@
-function A=matriceA(noeudsHor,noeudsVert,matCellule, Tavant)
+function A=matriceA(noeudsHor,noeudsVert,matCellule, Tavant, Text)
 global B hc dx Tchauf lambdaair hcmurs lambda rho c_p dt 
 A=zeros(noeudsHor*noeudsVert, noeudsHor*noeudsVert);
 %A est une matrice de taille noeudsHor*noeudsVert+3. On rajoute 3 points
@@ -96,10 +96,10 @@ end
         %au niveau des murs (j=N) :
         j=noeudsVert;
         k3=noeudsVert*(i-1)+j;
-        A(k3,k3)=A(k3,k3)+lambdaair/dx+hcmurs+1-lambda*dt/(rho*c_p*dx.^2);
-        B(k3)=Tavant(k3);
-        A(k3,k3-1)=A(k3,k3)-lambdaair/dx-hcmurs+2*lambda*dt/(rho*c_p*dx.^2);
-        A(k3,k3-2)=A(k3,k3-2)+lambda*dt/(rho*c_p*dx.^2);
+        A(k3,k3)=A(k3,k3)+2*lambdaair/dx+2*hcmurs+1+2*lambda*dt/(rho*c_p*dx.^2);
+        B(k3)=Tavant(k3)+Text*lambda*dt/(rho*c_p*dx.^2)+Text*(hcmurs+lambdaair/dx);
+        A(k3,k3-1)=A(k3,k3-1)-lambdaair/dx-hcmurs-lambda*dt/(rho*c_p*dx.^2);
+        %A(k3,k3-2)=A(k3,k3-2)+lambda*dt/(rho*c_p*dx.^2);
         
         %au niveau du sous-sol (j=1) :
         j=1;

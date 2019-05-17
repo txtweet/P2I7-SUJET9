@@ -16,11 +16,13 @@ rho = masse/volume;                                     % masse volumique du bét
 lambda = 0.92;                                          % conductivité thermique du béton
 c_p = 2.5e6;                                            % capacité thermique du béton
 hc=1e3;                                                 % coefficient d'échanges convectifs de l'eau
-Tchauf=293;                                             % température de l'eau, constante (en K)
+Tchauf=293.15;                                             % température de l'eau, constante (en K)
 dt=1;                                                   % pas de temps (discrétisation du temps)
 l=1;                                                    % discrétisation de l'espace
-Tdepart=30;                                             % temperature de la piece
+Tdepart=15+273.15;                                             % temperature de la piece
 tmax=10;                                                 % temps maximal de la simulation, en secondes
+Text=0+273.15;                                           %temperature exterieure constante
+Tvidesanit=0+273.15;                                     %temperature du vide sanitaire
 %% Initialisation des paramètres
 noeudsVert= resolution * hauteurDalle;              % nombre de neuds sur la hauteur de la cellule
 noeudsHor = resolution * largeurDalle;              % nombre de neuds sur la largeur de la cellule
@@ -38,11 +40,11 @@ Tancien=zeros(noeudsHor*noeudsVert,1);              % matrice colonne qui contie
 Tneuf=ones(noeudsHor*noeudsVert,1);                 % matrice colonne qui contient la température en chaque point de chaque cellule
 Tneuf(:)=Tdepart;                                   % a changer
 B=zeros(noeudsHor*noeudsVert,1);                    % matrice colonne
-A=matriceA(noeudsHor,noeudsVert,matCellule,Tneuf);  %
+A=matriceA(noeudsHor,noeudsVert,matCellule,Tneuf, Text);  %
 i=dt;
 while i<tmax
     Tancien=Tneuf;
-    A=matriceA(noeudsHor,noeudsVert,matCellule,Tancien);
+    A=matriceA(noeudsHor,noeudsVert,matCellule,Tancien, Text);
     Tneuf=A\B;
     i=i+dt;
 end
