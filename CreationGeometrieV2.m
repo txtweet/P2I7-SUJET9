@@ -1,11 +1,12 @@
 %%%%%%%%%%%%%% P2I7 - SUJET 9 %%%%%%%%%%%%%%
 %%% Création de la géométrie du problème %%%
 clear all
-global position_centre rayonConduiteNum matCellule matT B dx hc Tchauf lambdaair hcmurs lambda rho c_p dt l noeudsVert noeudsHor
+global position_centre rayonConduiteNum matCellule matT B dx hc Tchauf lambdaair hcmurs lambda rho c_p dt l noeudsVert noeudsHor lambdaisolant Tsol
 %% Variables du probleme
 resolution = 5;                                         % nombre de noeuds par centimètre
 hcmurs=1e3;                                             % coefficient d'echanges convectifs des murs de la piece
 lambdaair=0.0262;                                       % conductivite thermique de l'air
+lambdaisolant=0.004;                                     % conductivite thermique de l'isolant du bas
 hauteurDalle = 10;                                       % hauteur de la dalle (en cm)
 largeurDalle = 10;                                       % largeur de la dalle (en cm)
 rayonConduite = 1;                                      % rayon de l'élément chauffant 
@@ -16,13 +17,13 @@ rho = masse/volume;                                     % masse volumique du bét
 lambda = 0.92;                                          % conductivité thermique du béton
 c_p = 2.5e6;                                            % capacité thermique du béton
 hc=1e3;                                                 % coefficient d'échanges convectifs de l'eau
-Tchauf=293.15;                                             % température de l'eau, constante (en K)
+Tchauf=50+273.15;                                             % température de l'eau, constante (en K)
 dt=1;                                                   % pas de temps (discrétisation du temps)
 l=1;                                                    % discrétisation de l'espace
-Tdepart=15+273.15;                                             % temperature de la piece
-tmax=10;                                                 % temps maximal de la simulation, en secondes
-Text=0+273.15;                                           %temperature exterieure constante
-Tvidesanit=0+273.15;                                     %temperature du vide sanitaire
+Tdepart=15+273.15;                                      % temperature de la piece
+tmax=10;                                                % temps maximal de la simulation, en secondes
+Text=3+273.15;                                          %temperature exterieure constante
+Tsol=589+273.15;                                          %temperature du sol (sous la dalle)
 %% Initialisation des paramètres
 noeudsVert= resolution * hauteurDalle;              % nombre de neuds sur la hauteur de la cellule
 noeudsHor = resolution * largeurDalle;              % nombre de neuds sur la largeur de la cellule

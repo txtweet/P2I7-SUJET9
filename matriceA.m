@@ -1,5 +1,5 @@
 function A=matriceA(noeudsHor,noeudsVert,matCellule, Tavant, Text)
-global B hc dx Tchauf lambdaair hcmurs lambda rho c_p dt 
+global B hc dx Tchauf lambdaair hcmurs lambda rho c_p dt Tsol lambdaisolant
 A=zeros(noeudsHor*noeudsVert, noeudsHor*noeudsVert);
 %A est une matrice de taille noeudsHor*noeudsVert+3. On rajoute 3 points
 %correspondant a l'isolant de resistance tres elevee au sous-dalle
@@ -103,11 +103,24 @@ end
         
         %au niveau du sous-sol (j=1) :
         j=1;
+        %ca marche pas mal en fait
+%         k4=noeudsVert*(i-1)+j;
+%         A(k4,k4)=A(k4,k4)+hc-lambdaair/dx+1-lambda*dt/(rho*c_p*dx.^2);
+%         A(k4,k4+1)=A(k4,k4+1)+hc+lambdaair/dx+lambda*dt/(rho*c_p*dx.^2);
+%         A(k4,k4+2)=A(k4,k4+2)-lambda*dt/(rho*c_p*dx.^2);
+%         B(k4)=Tavant(k4);
+
+
+        %Temp cste
         k4=noeudsVert*(i-1)+j;
-        A(k4,k4)=A(k4,k4)+hc-lambdaair/dx+1-lambda*dt/(rho*c_p*dx.^2);
-        A(k4,k4+1)=A(k4,k4+1)+hc+lambdaair/dx+lambda*dt/(rho*c_p*dx.^2);
-        A(k4,k4+2)=A(k4,k4+2)-lambda*dt/(rho*c_p*dx.^2);
-        B(k4)=Tavant(k4);
+        A(k4,k4)=A(k4,k4)+1+2*lambdaisolant*dt/(rho*c_p*dx.^2);
+        A(k4,k4+1)=A(k4,k4+1)-lambdaisolant*dt/(rho*c_p*dx.^2);
+        B(k4)=Tavant(k4)+Tsol*lambdaisolant*dt/(rho*c_p*dx.^2);
+        
+        %avec egalite des flux
+%         A(k4,k4)=lambda/dx+lambdaisolant/dx;
+%         A(k4,k4+1)=-lambda/dx;
+%         B(k4)=Tsol*lambdaisolant/dx;
     end
  
 end
