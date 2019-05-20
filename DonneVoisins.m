@@ -13,30 +13,30 @@
 function D = DonneVoisins(i,j,matCellule)
 [M,N]=size(matCellule);
 nb1=2;
-if((j-1)>=1 && i>=1 && i<=M && j<=N)
+if( j>=1 && (i-1)>=1 && i<=M && j<=N)
     nb1=0;
-    if(matCellule(i-1,j)==1)
+    if(matCellule(j,i-1)==1)
         nb1=1;
     end
 end
 nb2=2;
-if((i-1)>=1 && j>=1 && i<=M && j<=N)
+if(i>=1 && (j-1)>=1 && i<=M && j<=N)
     nb2=0;
-    if(matCellule(i,j-1)==1)
+    if(matCellule(j-1,i)==1)
         nb2=1;
     end
 end
 nb3=2;
-if((i+1)<=M && i>=1 && j>=1 && j<=N)
+if(i<=M && i>=1 && j>=1 && (j+1)<=N)
     nb3=0;
-    if(matCellule(i,j+1)==1)
+    if(matCellule(j+1,i)==1)
         nb3=1;
     end
 end
 nb4=2;
-if((j+1)<=N && i>=1 && j>=1 && i<=M)
+if(j<=N && i>=1 && j>=1 && (i+1)<=M)
     nb4=0;
-    if(matCellule(i+1,j)==1)
+    if(matCellule(j,i+1)==1)
         nb4=1;
     end
 end

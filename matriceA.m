@@ -23,11 +23,13 @@ for i=2:noeudsHor-1
                 A((i-1)*noeudsVert+j,(i-1)*noeudsVert+(j-1))=-1;
                 A((i-1)*noeudsVert+j,(i-2)*noeudsVert+j)=-1;
                 A((i-1)*noeudsVert+j,(i)*noeudsVert+j)=-1;
-                k=lambda/(rho*c_p*dx*dx);
+                k=-lambda*dt/(rho*c_p*dx*dx);
                 A((i-1)*noeudsVert+j,:)=A((i-1)*noeudsVert+j,:)*k;
+                A((i-1)*noeudsVert+j,(i-1)*noeudsVert+j)= A((i-1)*noeudsVert+j,(i-1)*noeudsVert+j)+1;
+                B((i-1)*noeudsVert+j,1)=Tavant((i-1)*noeudsVert+j,1);
             else
                %Cas où au moins 1 voisins est fluide
-               A=ModifAVoisin(A,Voisins,i,j);
+               A=ModifAVoisin(A,Voisins,i,j,Tavant);
             end 
         elseif  (matCellule(i,j)==1)
             A((i-1)*noeudsVert+j,(i-1)*noeudsVert+j)=1;
@@ -45,9 +47,9 @@ end
         A(j,(j-1))=-1;
         A(j,(noeudsHor-1)*noeudsVert+j)=-1;
         A(j,noeudsVert+j)=-1;
-        k=lambda/(rho*c_p*dx*dx);
+        k=lambda*dt/(rho*c_p*dx*dx);
         A(j,:) = A(j,:).*k;
-        
+        A(j,j)=A(j,j)+1;
     end 
     
     %Partie droite de la cellule
@@ -57,8 +59,8 @@ end
         A((noeudsHor-1)*noeudsVert+j,(noeudsHor-1)*noeudsVert+(j-1))=-1;
         A((noeudsHor-1)*noeudsVert+j,j)=-1;
         A((noeudsHor-1)*noeudsVert+j,(noeudsHor-2)*noeudsVert+j)=-1;
-        
         A((noeudsHor-1)*noeudsVert+j,:)=k.*A((noeudsHor-1)*noeudsVert+j,:);
+        A((noeudsHor-1)*noeudsVert+j,(noeudsHor-1)*noeudsVert+j)= A((noeudsHor-1)*noeudsVert+j,(noeudsHor-1)*noeudsVert+j)+1;
         
     end 
     

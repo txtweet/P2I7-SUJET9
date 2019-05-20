@@ -47,6 +47,8 @@ while i<tmax
     Tancien=Tneuf;
     A=matriceA(noeudsHor,noeudsVert,matCellule,Tancien, Text);
     Tneuf=A\B;
+    A;
+    B;
     i=i+dt;
 end
 T=reshape(Tneuf,noeudsVert,noeudsHor);
