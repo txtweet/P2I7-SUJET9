@@ -48,7 +48,7 @@ end
         A(j,(noeudsHor-1)*noeudsVert+j)=-1;
         A(j,noeudsVert+j)=-1;
         k=lambda*dt/(rho*c_p*dx*dx);
-        A(j,:) = A(j,:).*k;
+        A(j,:)= A(j,:).*k;
         A(j,j)=A(j,j)+1;
     end 
     

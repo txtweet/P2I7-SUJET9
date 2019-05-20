@@ -2,8 +2,8 @@
 function A=ModifAVoisin(A, Voisin, i, j,Tavant)
 global dx l rho c_p noeudsVert hc dt Tchauf B lambda
     coord =(i-1)*noeudsVert+j;                  %Index du noeud considéré dans la matrice A et B
-    ksolide=-lambda*dx*dx*dt*l/(rho*c_p*2*dx);     %Coefficient multiplicateur pour la derivée du solide
-    kfluide=dx*l*hc/(lambda);               %Coefficient multiplicateur pour la derivée dans le fluide
+    %ksolide=-lambda*dx*dx*dt*l/(rho*c_p*2*dx);     %Coefficient multiplicateur pour la derivée du solide
+    %kfluide=dx*l*hc/(lambda);               %Coefficient multiplicateur pour la derivée dans le fluide
     
     %% Voisins solide
     A((i-1)*noeudsVert+j,(i-1)*noeudsVert+j)=4;
@@ -26,16 +26,16 @@ global dx l rho c_p noeudsVert hc dt Tchauf B lambda
     %% Voisins fluide
     %k=(-lambda*dt)/(rho*c_p*dx*dx);
     if (Voisin(1,1)==1) %gauche
-        A(coord,coord)= A(coord,coord)+(hc/2-lambda/dx)*k/(-lambda/dx-hc/2);
+        A(coord,coord)= A(coord,coord)-(hc/2-lambda/dx)*k/(-lambda/dx-hc/2);
         B(coord,1) = B(coord,1)+(Tchauf*k)/(-lambda/dx-hc/2);
     end
-    if (Voisin(1,3)==1) %haut
+    if (Voisin(1,2)==1) %haut
         A(coord,coord)= A(coord,coord)+(hc/2-lambda/dx)*k/(-lambda/dx-hc/2);
-        B(coord,1) = B(coord,1)+(Tchauf*k)/(-lambda/dx-1/2);
+        B(coord,1) = B(coord,1)+(Tchauf*k)/(-lambda/dx-hc/2);
     end 
     if (Voisin(1,3)==1) %bas
-        A(coord,coord)= A(coord,coord)+(hc/2-lambda/dx)*k/(-lambda/dx-hc/2);
-        B(coord,1) = B(coord,1)+(Tchauf*k)/(-lambda/dx-1/2);
+        A(coord,coord)= A(coord,coord)-(hc/2-lambda/dx)*k/(-lambda/dx-hc/2);
+        B(coord,1) = B(coord,1)+(Tchauf*k)/(-lambda/dx-hc/2);
     end
     if (Voisin(1,4)==1) %droite
         A(coord,coord)= A(coord,coord)+(hc/2-lambda/dx)*k/(-lambda/dx-hc/2);
