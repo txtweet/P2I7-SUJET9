@@ -49,6 +49,4 @@ end
         B(index(i,j),1) = B(index(i,j),1)-kfluide*Tchauf;
     end
 
-    
-
 end
