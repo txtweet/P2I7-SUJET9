@@ -6,7 +6,7 @@ global position_centre rayonConduiteNum matCellule matT B dx hc Tchauf lambdaair
 resolution = 5;                                         % nombre de noeuds par centimètre
 hcmurs=1e3;                                             % coefficient d'echanges convectifs des murs de la piece
 lambdaair=0.0262;                                       % conductivite thermique de l'air (d'après Cours de thermique, C. Obrecht)
-lambdaisolant=0.004;                                    % conductivite thermique de l'isolant du bas
+lambdaisolant=0.04;                                    % conductivite thermique de l'isolant du bas
 lambdaeau = 0.6;                                        % conductivité thermique de l'eau (d'après le site ekopedia.fr)
 hauteurDalle = 10;                                      % hauteur de la dalle (en cm)
 largeurDalle = 10;                                      % largeur de la dalle (en cm)
