@@ -40,13 +40,16 @@ global B hc dx Tchauf lambdaair hcmurs lambda rho c_p dt Tsol lambdaisolant
 
         %Temp cste
         k4=noeudsVert*(i-1)+j;
-        A(k4,k4)=A(k4,k4)+1+2*lambdaisolant*dt/(rho*c_p*dx.^2);
-        A(k4,k4+1)=A(k4,k4+1)-lambdaisolant*dt/(rho*c_p*dx.^2);
-        B(k4)=Tavant(k4)+Tsol*lambdaisolant*dt/(rho*c_p*dx.^2);
+%         A(k4,k4)=A(k4,k4)+1+2*lambdaisolant*dt/(rho*c_p*dx.^2);
+%         A(k4,k4+1)=A(k4,k4+1)-lambdaisolant*dt/(rho*c_p*dx.^2);
+%         B(k4)=Tavant(k4)+Tsol*lambdaisolant*dt/(rho*c_p*dx.^2);
         
         %avec egalite des flux
-%         A(k4,k4)=lambda/dx+lambdaisolant/dx;
-%         A(k4,k4+1)=-lambda/dx;
-%         B(k4)=Tsol*lambdaisolant/dx;
+        A(k4,k4)=lambda/dx+lambdaisolant/dx;
+        A(k4,k4+1)=-lambda/dx;
+        B(k4)=Tsol*lambdaisolant/dx;
+
+        %AUTRE VERSION 
+%         A(k4,k4)=
     end
 end
