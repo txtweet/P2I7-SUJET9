@@ -11,10 +11,26 @@ for i=2:noeudsHor-1
             if(max(Voisins)==0)
                 B(index(i,j),1)=Tavant(index(i,j),1);
             else
-               %Cas où au moins 1 voisins est fluide
-              B=ModifBVoisin(B,Voisins,i,j,Tavant);
+                %Cas où au moins 1 voisins est fluide
+                %% Conditions aux limites
+                %%Voisins solide
+                B(index(i,j),1)=-Tavant(index(i,j),1);
+                %%Voisins fluide
+                kfluide = -hc*l*dx*dt/(rho*c_p*dx*dx*l);
+                if (Voisin(1,1)==1)
+                    B(index(i,j),1) = B(index(i,j),1)-kfluide*Tchauf;
+                end
+                if (Voisin(1,2)==1)
+                    B(index(i,j),1) = B(index(i,j),1)-kfluide*Tchauf;
+                end 
+                if (Voisin(1,3)==1)
+                    B(index(i,j),1) = B(index(i,j),1)-kfluide*Tchauf;
+                end
+                if (Voisin(1,4)==1)
+                    B(index(i,j),1) = B(index(i,j),1)-kfluide*Tchauf;
+                end
             end 
-        elseif  (matCellule(i,j)==1)
+        elseif(matCellule(i,j)==1)
             B(index(i,j),1)=Tchauf;
         end
     end 
@@ -30,23 +46,6 @@ end
     for j=2:noeudsVert-3
         B(index(noeudsHor,j),1)=Tavant(index(noeudsHor,j),1);
     end
-    %% Conditions aux limites
-     %% Voisins solide
-    B(index(i,j),1)=-Tavant(index(i,j),1);
-    %% Voisins fluide
-    kfluide = -hc*l*dx*dt/(rho*c_p*dx*dx*l);
-    if (Voisin(1,1)==1)
-        B(index(i,j),1) = B(index(i,j),1)-kfluide*Tchauf;
-    end
     
-    if (Voisin(1,2)==1)
-        B(index(i,j),1) = B(index(i,j),1)-kfluide*Tchauf;
-    end 
-    if (Voisin(1,3)==1)
-        B(index(i,j),1) = B(index(i,j),1)-kfluide*Tchauf;
-    end
-    if (Voisin(1,4)==1)
-        B(index(i,j),1) = B(index(i,j),1)-kfluide*Tchauf;
-    end
 
 end

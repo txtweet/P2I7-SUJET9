@@ -4,7 +4,7 @@ clear all
 global position_centre rayonConduiteNum matCellule matT B dx hc Tchauf lambdaair hcmurs lambda rho c_p dt l noeudsVert noeudsHor lambdaisolant Tsol lambdamurs lambdasol c_p_murs rhomurs c_p_isolant rhoisolant
 %% Variables du probleme
 resolution=5;                                           % nombre de noeuds par centimètre
-dt=30;                                                   % pas de temps (discrétisation du temps)
+dt=60;                                                   % pas de temps (discrétisation du temps)
 l=1;                                                    % discrétisation de l'espace
 lambdaair=0.0262;                                       % conductivite thermique de l'air (d'après Cours de thermique, C. Obrecht)
 lambdaisolant=0.04;                                     % conductivite thermique de l'isolant du bas
@@ -35,7 +35,7 @@ hc=(0.023*Re^(4/5)*Pr^(1/3))/(2*rayonConduite*10^(-2)); % coefficient d'échanges
 hcmurs=1e3;                                             % coefficient d'echanges convectifs des murs de la piece
 Tchauf=500+273.15;                                       % température de l'eau, constante (en K)
 Tdepart=15+273.15;                                      % temperature de la piece
-tmax=100000;                                                % temps maximal de la simulation, en secondes
+tmax=1000;                                                % temps maximal de la simulation, en secondes
 Text=3+273.15;                                          % temperature exterieure constante
 Tsol=589+273.15;                                        % temperature du sol (sous la dalle)
 %% Initialisation des paramètres
