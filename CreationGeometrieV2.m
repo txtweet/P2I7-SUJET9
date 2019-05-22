@@ -3,27 +3,28 @@
 clear all
 global position_centre rayonConduiteNum matCellule matT B dx hc Tchauf lambdaair hcmurs lambda rho c_p dt l noeudsVert noeudsHor lambdaisolant Tsol
 %% Variables du probleme
-resolution = 5;                                         % nombre de noeuds par centimètre
+resolution=5;                                           % nombre de noeuds par centimètre
 hcmurs=1e3;                                             % coefficient d'echanges convectifs des murs de la piece
 lambdaair=0.0262;                                       % conductivite thermique de l'air (d'après Cours de thermique, C. Obrecht)
-lambdaisolant=0.04;                                    % conductivite thermique de l'isolant du bas
-lambdaeau = 0.6;                                        % conductivité thermique de l'eau (d'après le site ekopedia.fr)
-hauteurDalle = 10;                                      % hauteur de la dalle (en cm)
-largeurDalle = 10;                                      % largeur de la dalle (en cm)
-rayonConduite = 1;                                      % rayon de l'élément chauffant 
-hauteurConduite = (hauteurDalle+1)/2;                   % position du centre de l'élément chauffant par rapport au bas de la cellule modélisée
-volume = hauteurDalle*largeurDalle-pi*rayonConduite^2;  % volume de la dalle
-debit = 100e-3/3600;                                    % débit du fluide caloporteur, en L/h
-vitesse = debit/(pi*(rayonConduite*10^(-2)));           % vitesse de déplacement du fluide caloporteur dans le tube
-mu = 0.653e-3;                                          % viscosité dynamique de l'eau (cours de thermique, C. Obrecht)
-rho_eau = 1000;                                         % masse volumique de l'eau, untié S.I.
-rho = 600;                                              % masse volumique du béton en kg.m^(-3) (d'après le site laterlite.fr)
-masse = rho*volume;                                     % masse de la dalle de béton
-lambda = 0.142;                                         % conductivité thermique du béton (d'après le site laterlite.fr)
-c_p = 1e3;                                              % capacité thermique massique du béton (d'apès le site laterlite.fr)
-c_p_eau = 4178;                                         % capacité thermique massique de l'eau (cours de thermique, C. Obrecht)
-Re = (rho_eau*vitesse*(2*rayonConduite*10^(-2)))/mu;    % constante de Reynolds (cours de thermique, C. Obrecht)
-Pr = mu*c_p_eau/lambdaeau;                              % constante de Prandtl (cours de thermique, C. Obrecht)
+lambdaisolant=0.04;                                     % conductivite thermique de l'isolant du bas
+lambdamurs=0.04;                                        % conductivité thermique de l'isolant des murs
+lambdaeau=0.6;                                          % conductivité thermique de l'eau (d'après le site ekopedia.fr)
+hauteurDalle=10;                                        % hauteur de la dalle (en cm)
+largeurDalle=10;                                        % largeur de la dalle (en cm)
+rayonConduite=1;                                        % rayon de l'élément chauffant 
+hauteurConduite=(hauteurDalle+1)/2;                     % position du centre de l'élément chauffant par rapport au bas de la cellule modélisée
+volume=hauteurDalle*largeurDalle-pi*rayonConduite^2;    % volume de la dalle
+debit=100e-3/3600;                                      % débit du fluide caloporteur, en L/h
+vitesse=debit/(pi*(rayonConduite*10^(-2)));             % vitesse de déplacement du fluide caloporteur dans le tube
+mu=0.653e-3;                                            % viscosité dynamique de l'eau (cours de thermique, C. Obrecht)
+rho_eau=1000;                                           % masse volumique de l'eau, untié S.I.
+rho=600;                                                % masse volumique du béton en kg.m^(-3) (d'après le site laterlite.fr)
+masse=rho*volume;                                       % masse de la dalle de béton
+lambda=0.142;                                           % conductivité thermique du béton (d'après le site laterlite.fr)
+c_p=1e3;                                                % capacité thermique massique du béton (d'apès le site laterlite.fr)
+c_p_eau=4178;                                           % capacité thermique massique de l'eau (cours de thermique, C. Obrecht)
+Re=(rho_eau*vitesse*(2*rayonConduite*10^(-2)))/mu;      % constante de Reynolds (cours de thermique, C. Obrecht)
+Pr=mu*c_p_eau/lambdaeau;                                % constante de Prandtl (cours de thermique, C. Obrecht)
 hc=(0.023*Re^(4/5)*Pr^(1/3))/(2*rayonConduite*10^(-2)); % coefficient d'échanges convectifs de l'eau
 Tchauf=40+273.15;                                       % température de l'eau, constante (en K)
 dt=1;                                                   % pas de temps (discrétisation du temps)
