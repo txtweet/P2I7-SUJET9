@@ -1,7 +1,7 @@
 %%%%%%%%%%%%%% P2I7 - SUJET 9 %%%%%%%%%%%%%%
 %%% Création de la géométrie du problème %%%
 clear all
-global position_centre rayonConduiteNum matCellule matT B dx hc Tchauf lambdaair hcmurs lambda rho c_p dt l noeudsVert noeudsHor lambdaisolant Tsol
+global position_centre rayonConduiteNum matCellule matT B dx hc Tchauf lambdaair hcmurs lambda rho c_p dt l noeudsVert noeudsHor lambdaisolant Tsol lambdamurs lambdasol c_p_murs rhomurs c_p_isolant rhoisolant
 %% Variables du probleme
 resolution=5;                                           % nombre de noeuds par centimètre
 dt=1;                                                   % pas de temps (discrétisation du temps)
@@ -11,7 +11,7 @@ lambdaisolant=0.04;                                     % conductivite thermique
 lambdamurs=0.04;                                        % conductivité thermique de l'isolant des murs
 lambdaeau=0.6;                                          % conductivité thermique de l'eau (d'après le site ekopedia.fr)
 lambda=0.142;                                           % conductivité thermique du béton (d'après le site laterlite.fr)
-lambda_sol=0.4;                                         % conductivité thermique du sol, ici gravier sec (d'après le site energieplus-lesite.be)
+lambdasol=0.4;                                         % conductivité thermique du sol, ici gravier sec (d'après le site energieplus-lesite.be)
 hauteurDalle=10;                                        % hauteur de la dalle (en cm)
 largeurDalle=10;                                        % largeur de la dalle (en cm)
 rayonConduite=1;                                        % rayon de l'élément chauffant 
@@ -22,8 +22,8 @@ vitesse=debit/(pi*(rayonConduite*10^(-2)));             % vitesse de déplacement
 mu=0.653e-3;                                            % viscosité dynamique de l'eau (cours de thermique, C. Obrecht)
 rho_eau=1000;                                           % masse volumique de l'eau, untié S.I.
 rho=600;                                                % masse volumique du béton en kg.m^(-3) (d'après le site laterlite.fr)
-rho_isolant=20;                                         % masse volumique de l'isolant en kg.m^(-3) pour le polystyrène expansé (Guide des matériaux isolants, CAUE de la Haute-Loire)
-rho_murs=20;                                            % masse volumique des murs
+rhoisolant=20;                                         % masse volumique de l'isolant en kg.m^(-3) pour le polystyrène expansé (Guide des matériaux isolants, CAUE de la Haute-Loire)
+rhomurs=20;                                            % masse volumique des murs
 masse=rho*volume;                                       % masse de la dalle de béton
 c_p=1e3;                                                % capacité thermique massique du béton (d'apès le site laterlite.fr)
 c_p_eau=4178;                                           % capacité thermique massique de l'eau (cours de thermique, C. Obrecht)
