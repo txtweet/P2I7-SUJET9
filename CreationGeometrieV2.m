@@ -23,6 +23,8 @@ masse=rho*volume;                                       % masse de la dalle de b
 lambda=0.142;                                           % conductivité thermique du béton (d'après le site laterlite.fr)
 c_p=1e3;                                                % capacité thermique massique du béton (d'apès le site laterlite.fr)
 c_p_eau=4178;                                           % capacité thermique massique de l'eau (cours de thermique, C. Obrecht)
+c_p_isolant=1400;                                       % capacité thermique massique de l'isolant (polystyrène expansé)
+c_p_murs=1400;                                          % capacité thermique massique des murs
 Re=(rho_eau*vitesse*(2*rayonConduite*10^(-2)))/mu;      % constante de Reynolds (cours de thermique, C. Obrecht)
 Pr=mu*c_p_eau/lambdaeau;                                % constante de Prandtl (cours de thermique, C. Obrecht)
 hc=(0.023*Re^(4/5)*Pr^(1/3))/(2*rayonConduite*10^(-2)); % coefficient d'échanges convectifs de l'eau
@@ -34,14 +36,14 @@ tmax=10;                                                % temps maximal de la si
 Text=3+273.15;                                          % temperature exterieure constante
 Tsol=589+273.15;                                        % temperature du sol (sous la dalle)
 %% Initialisation des paramètres
-noeudsVert= resolution * hauteurDalle;              % nombre de neuds sur la hauteur de la cellule
-noeudsHor = resolution * largeurDalle;              % nombre de neuds sur la largeur de la cellule
+noeudsVert=resolution * hauteurDalle;               % nombre de neuds sur la hauteur de la cellule
+noeudsHor =resolution * largeurDalle;               % nombre de neuds sur la largeur de la cellule
 dx=1/resolution;                                    % discrétisation spatiale de la dalle selon la verticale
-matCellule = zeros(noeudsVert,noeudsHor);           % matrice dont chaque coefficient représente une cellule de la dalle
-rayonConduiteNum = floor(rayonConduite*resolution);	% valeur entière prise pour le rayon de la zone contenant l'eau
-matT = zeros(noeudsVert,noeudsHor);                 % matrice dont chaque coefficient correspond à la température du point de la dalle correspondant
+matCellule=zeros(noeudsVert,noeudsHor);             % matrice dont chaque coefficient représente une cellule de la dalle
+rayonConduiteNum=floor(rayonConduite*resolution);   % valeur entière prise pour le rayon de la zone contenant l'eau
+matT=zeros(noeudsVert,noeudsHor);                   % matrice dont chaque coefficient correspond à la température du point de la dalle correspondant
 %% Parcours de la matrice à partir d'un point donné
-position_centre = floor([(noeudsHor+1)/2 resolution*hauteurConduite]);  % coordonnées du centre du tube contenant le fluide caloporteur
+position_centre=floor([(noeudsHor+1)/2 resolution*hauteurConduite]);  % coordonnées du centre du tube contenant le fluide caloporteur
 % ATTENTION : pour une faible résolution et des dimensions de la dalle
 % paires, la position du centre est décentrée vers le haut à gauche.
 GenereMatrice();    % matCellule et matT sont remplies selon la géométrie du problème
