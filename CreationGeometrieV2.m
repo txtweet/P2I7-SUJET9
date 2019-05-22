@@ -5,17 +5,17 @@ global position_centre rayonConduiteNum matCellule matT B dx hc Tchauf lambdaair
 %% Variables du probleme
 resolution = 5;                                         % nombre de noeuds par centimètre
 hcmurs=1e3;                                             % coefficient d'echanges convectifs des murs de la piece
-lambdaair=0.0262;                                       % conductivite thermique de l'air
+lambdaair=0.0262;                                       % conductivite thermique de l'air (d'après Cours de thermique, C. Obrecht)
 lambdaisolant=0.004;                                    % conductivite thermique de l'isolant du bas
 hauteurDalle = 10;                                      % hauteur de la dalle (en cm)
 largeurDalle = 10;                                      % largeur de la dalle (en cm)
 rayonConduite = 1;                                      % rayon de l'élément chauffant 
 hauteurConduite = (hauteurDalle+1)/2;                   % position du centre de l'élément chauffant par rapport au bas de la cellule modélisée
 volume = hauteurDalle*largeurDalle-pi*rayonConduite^2;  % volume de la dalle
-rho = 350;                                              % masse volumique du béton en kg.m^(-3) (d'après le site plancher-chauffant.ooreka.fr)
+rho = 600;                                              % masse volumique du béton en kg.m^(-3) (d'après le site laterlite.fr)
 masse = rho*volume;                                     % masse de la dalle de béton
-lambda = 0.30;                                          % conductivité thermique du béton (d'après le site energieplus-lesite.be)
-c_p = 2.5e3;                                            % capacité thermique massique du béton
+lambda = 0.142;                                         % conductivité thermique du béton (d'après le site laterlite.fr)
+c_p = 1e3;                                              % capacité thermique massique du béton (d'apès le site laterlite.fr)
 hc=1e3;                                                 % coefficient d'échanges convectifs de l'eau
 Tchauf=50+273.15;                                       % température de l'eau, constante (en K)
 dt=1;                                                   % pas de temps (discrétisation du temps)
@@ -23,7 +23,7 @@ l=1;                                                    % discrétisation de l'es
 Tdepart=15+273.15;                                      % temperature de la piece
 tmax=10;                                                % temps maximal de la simulation, en secondes
 Text=3+273.15;                                          %temperature exterieure constante
-Tsol=589+273.15;                                          %temperature du sol (sous la dalle)
+Tsol=589+273.15;                                        %temperature du sol (sous la dalle)
 %% Initialisation des paramètres
 noeudsVert= resolution * hauteurDalle;              % nombre de neuds sur la hauteur de la cellule
 noeudsHor = resolution * largeurDalle;              % nombre de neuds sur la largeur de la cellule
