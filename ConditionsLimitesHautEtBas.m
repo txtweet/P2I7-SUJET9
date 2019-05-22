@@ -29,11 +29,11 @@ global B hc dx Tchauf lambdaair hcmurs lambda rho c_p dt Tsol lambdaisolant lamb
         %A(k3,k3-2)=A(k3,k3-2)+lambda*dt/(rho*c_p*dx.^2);
         
         %conduction dans les murs (horizontalement)
-        if i~=1 & i~=noeudsHor
-            A(k4,k4)=A(k4,k4)+1-2*lambdamurs*dt/(rhomurs*c_p_murs*dx.^2);
-            A(k4+1,k4)=A(k4+1,k4)-lambdamurs*dt/(rhomurs*c_p_murs*dx.^2);
-            A(k4-1,k4)=A(k4-1,k4)-lambdamurs*dt/(rhomurs*c_p_murs*dx.^2);
-            B(k4)=B(k4)+Tavant(k4);
+        if i>1 && i<noeudsHor
+            A(k3,k3)=A(k3,k3)+1-2*lambdamurs*dt/(rhomurs*c_p_murs*dx.^2);
+            A(k3+1,k3)=A(k3+1,k3)-lambdamurs*dt/(rhomurs*c_p_murs*dx.^2);
+            A(k3-1,k3)=A(k3-1,k3)-lambdamurs*dt/(rhomurs*c_p_murs*dx.^2);
+            B(k3)=B(k3)+Tavant(k3);
         end
         
         %% Au niveau du sous-sol (j=1) :
@@ -64,7 +64,7 @@ global B hc dx Tchauf lambdaair hcmurs lambda rho c_p dt Tsol lambdaisolant lamb
         A(k4,k4+1)=A(k4,k4+1)+1/(lambdaisolant+lambda);
         B(k4)=B(k4)-Tsol/(lambdaisolant+lambdasol);
         %conditions de conduction horizontale pour l'isolant
-        if i~=1 & i~=noeudsHor
+        if i~=1 && i~=noeudsHor
             A(k4,k4)=A(k4,k4)+1-2*lambdaisolant*dt/(rhoisolant*c_p_isolant*dx.^2);
             A(k4+1,k4)=A(k4+1,k4)-lambdaisolant*dt/(rhoisolant*c_p_isolant*dx.^2);
             A(k4-1,k4)=A(k4-1,k4)-lambdaisolant*dt/(rhoisolant*c_p_isolant*dx.^2);
