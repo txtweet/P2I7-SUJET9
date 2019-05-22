@@ -1,5 +1,5 @@
 function A=matriceA(noeudsHor,noeudsVert,matCellule, Tavant, Text)
-global B hc dx Tchauf lambdaair hcmurs lambda rho c_p dt Tsol lambdaisolant
+global hc dx Tchauf lambdaair hcmurs lambda rho c_p dt Tsol lambdaisolant
 A=zeros(noeudsHor*noeudsVert, noeudsHor*noeudsVert);
 %A est une matrice de taille noeudsHor*noeudsVert+3. On rajoute 3 points
 %correspondant a l'isolant de resistance tres elevee au sous-dalle
@@ -26,7 +26,7 @@ for i=2:noeudsHor-1
                 k=lambda*dt/(rho*c_p*dx*dx);
                 A(index(i,j),:)=A(index(i,j),:)*k;
                 A(index(i,j),index(i,j))= A(index(i,j),index(i,j))+1;
-                B(index(i,j),1)=Tavant(index(i,j),1);
+                %B(index(i,j),1)=Tavant(index(i,j),1);
             %%else
                %Cas où au moins 1 voisins est fluide
               %%A=ModifAVoisin(A,Voisins,i,j,Tavant);
@@ -47,7 +47,6 @@ end
         A(index(1,j),index(1,j-1))=-1;
         A(index(1,j),index(noeudsHor,j))=-1;
         A(index(1,j),index(2,j))=-1;
-        %k=lambda*dt/(rho*c_p*dx*dx);
         %A(index(1,j),:)= A(index(1,j),:).*k;
         %A(index(1,j),index(1,j))=A(index(1,j),index(1,j))+1;
     end 
@@ -68,9 +67,9 @@ end
     
     for i=1:noeudsHor
         A(index(i,1),index(i,1))=1;
-        B(index(i,1),1)=250;
+        %B(index(i,1),1)=250;
         A(index(i,noeudsVert),index(i,noeudsVert))=1;
-        B(index(i,noeudsVert),1)=250;
+        %B(index(i,noeudsVert),1)=250;
     end
     
     %Ligne du haut du plancher : j=noeudsVert-2
