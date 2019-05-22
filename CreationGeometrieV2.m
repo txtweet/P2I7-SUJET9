@@ -37,7 +37,7 @@ Tchauf=500+273.15;                                       % température de l'eau,
 Tdepart=15+273.15;                                      % temperature de la piece
 tmax=1000;                                                % temps maximal de la simulation, en secondes
 Text=3+273.15;                                          % temperature exterieure constante
-Tsol=589+273.15;                                        % temperature du sol (sous la dalle)
+Tsol=2+273.15;                                        % temperature du sol (sous la dalle)
 %% Initialisation des paramètres
 noeudsVert=resolution * hauteurDalle;               % nombre de neuds sur la hauteur de la cellule
 noeudsHor =resolution * largeurDalle;               % nombre de neuds sur la largeur de la cellule
