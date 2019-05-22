@@ -61,7 +61,7 @@ global B hc dx Tchauf lambdaair hcmurs lambda rho c_p dt Tsol lambdaisolant lamb
         j=1;
         k4=noeudsVert*(i-1)+j;
         A(k4,k4)=A(k4,k4)-(1/(lambdaisolant+lambdasol)+1/(lambdaisolant+lambda));
-        A(k4,k4+1)=A(Kk4,k4+1)+1/(lambdaisolant+lambda);
+        A(k4,k4+1)=A(k4,k4+1)+1/(lambdaisolant+lambda);
         B(k4)=B(k4)-Tsol/(lambdaisolant+lambdasol);
         %conditions de conduction horizontale pour l'isolant
         if i~=1 & i~=noeudsHor
