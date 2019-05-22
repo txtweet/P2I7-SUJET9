@@ -53,7 +53,7 @@ GenereMatrice();    % matCellule et matT sont remplies selon la géométrie du pro
 %% Résolution du problème
 Tancien=zeros(noeudsHor*noeudsVert,1);              % matrice colonne qui contient la température en chaque point de chaque cellule
 Tneuf=ones(noeudsHor*noeudsVert,1);                 % matrice colonne qui contient la température en chaque point de chaque cellule
-Tneuf(:)=Tdepart;                                   % a changer
+%Tneuf(:)=Tdepart;                                   % a changer
 B=zeros(noeudsHor*noeudsVert,1);                    % matrice colonne
 A=matriceA(noeudsHor,noeudsVert,matCellule,Tneuf, Text);  %
 inA=inv(A);
@@ -61,7 +61,7 @@ i=dt;
 Tneuf=initTemp(matCellule,Tdepart);
 while i<tmax
     Tancien=Tneuf;
-    B=matriceB(noeudsHor,noeudsVert,matCellule,Tneuf, Text);
+    B=matriceB(noeudsHor,noeudsVert,matCellule,Tancien, Text);
     Tneuf=inA*B;
     i=i+dt;
 end
