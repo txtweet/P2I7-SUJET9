@@ -1,7 +1,7 @@
 %%%%%%%%%%%%%% P2I7 - SUJET 9 %%%%%%%%%%%%%%
 %%% Création de la géométrie du problème %%%
 clear all
-global position_centre rayonConduiteNum matCellule matT B dx hc Tchauf lambdaair hcmurs lambda rho c_p dt l noeudsVert noeudsHor lambdaisolant Tsol lambdamurs lambdasol c_p_murs rhomurs c_p_isolant rhoisolant
+global position_centre rayonConduiteNum matCellule matT B dx hc Tchauf lambdaair hcmurs lambda rho c_p dt l noeudsVert noeudsHor lambdaisolant Tsol Text lambdamurs lambdasol c_p_murs rhomurs c_p_isolant rhoisolant
 %% Variables du probleme
 resolution=5;                                           % nombre de noeuds par centimètre
 dt=60;                                                   % pas de temps (discrétisation du temps)
