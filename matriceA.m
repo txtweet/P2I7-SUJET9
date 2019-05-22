@@ -47,8 +47,8 @@ end
         A(index(1,j),index(1,j-1))=-1;
         A(index(1,j),index(noeudsHor,j))=-1;
         A(index(1,j),index(2,j))=-1;
-        %A(index(1,j),:)= A(index(1,j),:).*k;
-        %A(index(1,j),index(1,j))=A(index(1,j),index(1,j))+1;
+        A(index(1,j),:)= A(index(1,j),:).*k;
+        A(index(1,j),index(1,j))=A(index(1,j),index(1,j))+1;
     end 
     
     %Partie droite de la cellule
@@ -59,17 +59,9 @@ end
         A(index(noeudsHor,j),index(noeudsHor,j-1))=-1;
         A(index(noeudsHor,j),index(1,j))=-1;
         A(index(noeudsHor,j),index(noeudsHor-1,j))=-1;
-        %A(index(noeudsHor,j),:)=k.*A(index(noeudsHor,j),:);
-        %A(index(noeudsHor,j),index(noeudsHor,j))= A(index(noeudsHor,j),index(noeudsHor,j))+1;
+        A(index(noeudsHor,j),:)=k.*A(index(noeudsHor,j),:);
+        A(index(noeudsHor,j),index(noeudsHor,j))= A(index(noeudsHor,j),index(noeudsHor,j))+1;
         
-    end
-    
-    
-    for i=1:noeudsHor
-        A(index(i,1),index(i,1))=1;
-        %B(index(i,1),1)=250;
-        A(index(i,noeudsVert),index(i,noeudsVert))=1;
-        %B(index(i,noeudsVert),1)=250;
     end
     
     %Ligne du haut du plancher : j=noeudsVert-2
@@ -85,6 +77,6 @@ end
 %     for i=3:noeudsHor-3
 %     end
      
-  % A=ConditionsLimitesHautEtBas(A,noeudsHor,noeudsVert,matCellule, Tavant, Text);
+   A=ConditionsLimitesHautEtBas(A,noeudsHor,noeudsVert,matCellule, Tavant, Text);
  
 end

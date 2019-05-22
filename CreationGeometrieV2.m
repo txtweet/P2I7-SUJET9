@@ -4,13 +4,13 @@ clear all
 global position_centre rayonConduiteNum matCellule matT B dx hc Tchauf lambdaair hcmurs lambda rho c_p dt l noeudsVert noeudsHor lambdaisolant Tsol lambdamurs lambdasol c_p_murs rhomurs c_p_isolant rhoisolant
 %% Variables du probleme
 resolution=5;                                           % nombre de noeuds par centimètre
-dt=1;                                                   % pas de temps (discrétisation du temps)
+dt=30;                                                   % pas de temps (discrétisation du temps)
 l=1;                                                    % discrétisation de l'espace
 lambdaair=0.0262;                                       % conductivite thermique de l'air (d'après Cours de thermique, C. Obrecht)
 lambdaisolant=0.04;                                     % conductivite thermique de l'isolant du bas
 lambdamurs=0.04;                                        % conductivité thermique de l'isolant des murs
 lambdaeau=0.6;                                          % conductivité thermique de l'eau (d'après le site ekopedia.fr)
-lambda=0.5;                                             % conductivité thermique du béton
+lambda=1.5;                                             % conductivité thermique du béton
 lambdasol=0.4;                                          % conductivité thermique du sol, ici gravier sec (d'après le site energieplus-lesite.be)
 hauteurDalle=10;                                        % hauteur de la dalle (en cm)
 largeurDalle=10;                                        % largeur de la dalle (en cm)
@@ -33,9 +33,9 @@ Re=(rho_eau*vitesse*(2*rayonConduite*10^(-2)))/mu;      % constante de Reynolds 
 Pr=mu*c_p_eau/lambdaeau;                                % constante de Prandtl (cours de thermique, C. Obrecht)
 hc=(0.023*Re^(4/5)*Pr^(1/3))/(2*rayonConduite*10^(-2)); % coefficient d'échanges convectifs de l'eau
 hcmurs=1e3;                                             % coefficient d'echanges convectifs des murs de la piece
-Tchauf=40+273.15;                                       % température de l'eau, constante (en K)
+Tchauf=500+273.15;                                       % température de l'eau, constante (en K)
 Tdepart=15+273.15;                                      % temperature de la piece
-tmax=10;                                                % temps maximal de la simulation, en secondes
+tmax=100000;                                                % temps maximal de la simulation, en secondes
 Text=3+273.15;                                          % temperature exterieure constante
 Tsol=589+273.15;                                        % temperature du sol (sous la dalle)
 %% Initialisation des paramètres
@@ -56,13 +56,13 @@ Tneuf=ones(noeudsHor*noeudsVert,1);                 % matrice colonne qui contie
 Tneuf(:)=Tdepart;                                   % a changer
 B=zeros(noeudsHor*noeudsVert,1);                    % matrice colonne
 A=matriceA(noeudsHor,noeudsVert,matCellule,Tneuf, Text);  %
+inA=inv(A);
 i=dt;
+Tneuf=initTemp(matCellule,Tdepart);
 while i<tmax
     Tancien=Tneuf;
-    A=matriceA(noeudsHor,noeudsVert,matCellule,Tancien, Text);
-    Tneuf=A\B;
-    A;
-    B;
+    B=matriceB(noeudsHor,noeudsVert,matCellule,Tneuf, Text);
+    Tneuf=inA*B;
     i=i+dt;
 end
 T=reshape(Tneuf,noeudsVert,noeudsHor);
