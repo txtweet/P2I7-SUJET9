@@ -28,7 +28,7 @@ global B hc dx Tchauf lambdaair hcmurs lambda rho c_p dt Tsol lambdaisolant lamb
         A(k3,k3-1)=A(k3,k3-1)-lambdaair/dx-hcmurs-lambda*dt/(rho*c_p*dx.^2);
         %A(k3,k3-2)=A(k3,k3-2)+lambda*dt/(rho*c_p*dx.^2);
         
-        %conduction dans les murs
+        %conduction dans les murs (horizontalement)
         if i~=1 & i~=noeudsHor
             A(k4,k4)=A(k4,k4)+1-2*lambdamurs*dt/(rhomurs*c_p_murs*dx.^2);
             A(k4+1,k4)=A(k4+1,k4)-lambdamurs*dt/(rhomurs*c_p_murs*dx.^2);
