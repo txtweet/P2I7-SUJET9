@@ -10,7 +10,7 @@ global B hc dx Tchauf lambdaair hcmurs lambda rho c_p dt Tsol lambdaisolant lamb
         A(k1,k1)=A(k1,k1)+hc+1+2*lambda*dt/(rho*c_p*dx.^2);
         A(k1,k1-1)=A(k1,k1-1)-lambdaair/(2*dx)-lambda*dt/(rho*c_p*dx.^2);
         A(k1,k1+1)=A(k1,k1+1)-hc+lambdaair/(2*dx)-lambda*dt/(rho*c_p*dx.^2);
-        B(k1)=Tavant(k1);
+        %B(k1)=Tavant(k1);
         
         %% Au niveau de l'air (j=N-1) :
         j=noeudsVert-1;
@@ -18,13 +18,13 @@ global B hc dx Tchauf lambdaair hcmurs lambda rho c_p dt Tsol lambdaisolant lamb
         A(k2,k2)=A(k2,k2)+hc+hcmurs+1+2*lambda*dt/(rho*c_p*dx.^2);
         A(k2,k2-1)=A(k2,k2-1)-lambdaair/(2*dx)-hc-lambda*dt/(rho*c_p*dx.^2);
         A(k2,k2+1)=A(k2,k2+1)+lambdaair/(2*dx)-hcmurs-lambda*dt/(rho*c_p*dx.^2);
-        B(k2)=Tavant(k2);
+%         B(k2)=Tavant(k2);
         
         %% Au niveau des murs (j=N) :
         j=noeudsVert;
         k3=noeudsVert*(i-1)+j;
         A(k3,k3)=A(k3,k3)+2*lambdaair/dx+2*hcmurs+1+2*lambda*dt/(rho*c_p*dx.^2);
-        B(k3)=Tavant(k3)+Text*lambda*dt/(rho*c_p*dx.^2)+Text*(hcmurs+lambdaair/dx);
+        %B(k3)=Tavant(k3)+Text*lambda*dt/(rho*c_p*dx.^2)+Text*(hcmurs+lambdaair/dx);
         A(k3,k3-1)=A(k3,k3-1)-lambdaair/dx-hcmurs-lambda*dt/(rho*c_p*dx.^2);
         %A(k3,k3-2)=A(k3,k3-2)+lambda*dt/(rho*c_p*dx.^2);
         
@@ -33,7 +33,7 @@ global B hc dx Tchauf lambdaair hcmurs lambda rho c_p dt Tsol lambdaisolant lamb
             A(k3,k3)=A(k3,k3)+1-2*lambdamurs*dt/(rhomurs*c_p_murs*dx.^2);
             A(k3+1,k3)=A(k3+1,k3)-lambdamurs*dt/(rhomurs*c_p_murs*dx.^2);
             A(k3-1,k3)=A(k3-1,k3)-lambdamurs*dt/(rhomurs*c_p_murs*dx.^2);
-            B(k3)=B(k3)+Tavant(k3);
+            %B(k3)=B(k3)+Tavant(k3);
         end
         
         %% Au niveau du sous-sol (j=1) :
@@ -62,13 +62,13 @@ global B hc dx Tchauf lambdaair hcmurs lambda rho c_p dt Tsol lambdaisolant lamb
         k4=noeudsVert*(i-1)+j;
         A(k4,k4)=A(k4,k4)-(1/(lambdaisolant+lambdasol)+1/(lambdaisolant+lambda));
         A(k4,k4+1)=A(k4,k4+1)+1/(lambdaisolant+lambda);
-        B(k4)=B(k4)-Tsol/(lambdaisolant+lambdasol);
+        %B(k4)=B(k4)-Tsol/(lambdaisolant+lambdasol);
         %conditions de conduction horizontale pour l'isolant
         if i~=1 && i~=noeudsHor
             A(k4,k4)=A(k4,k4)+1-2*lambdaisolant*dt/(rhoisolant*c_p_isolant*dx.^2);
             A(k4+1,k4)=A(k4+1,k4)-lambdaisolant*dt/(rhoisolant*c_p_isolant*dx.^2);
             A(k4-1,k4)=A(k4-1,k4)-lambdaisolant*dt/(rhoisolant*c_p_isolant*dx.^2);
-            B(k4)=B(k4)+Tavant(k4);
+            %B(k4)=B(k4)+Tavant(k4);
         end
         
 
