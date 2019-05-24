@@ -3,7 +3,7 @@
 clear all
 global position_centre rayonConduiteNum matCellule matT B dx hc hcairdalle hcairmurs Tchauf lambdaair hcmurs lambda rho c_p dt l noeudsVert noeudsHor lambdaisolant Tsol Text lambdamurs lambdasol c_p_air c_p_murs rhomurs rhoair c_p_isolant rhoisolant
 %% Variables du probleme
-resolution=2;                                           % nombre de noeuds par centimètre
+resolution=10;                                           % nombre de noeuds par centimètre
 dt=60;                                                   % pas de temps (discrétisation du temps)
 l=1;                                                    % discrétisation de l'espace
 lambdaair=0.0262;                                       % conductivite thermique de l'air (d'après Cours de thermique, C. Obrecht)
@@ -39,7 +39,7 @@ hcairdalle=10;                                          % coefficient d'échanges
 hcairmurs=15;                                           % coefficient d'échanges convectifs entre l'air intérieur et les murs
 Tchauf=500+273.15;                                       % température de l'eau, constante (en K)
 Tdepart=15+273.15;                                      % temperature de la piece
-tmax=600000;                                                % temps maximal de la simulation, en secondes
+tmax=10000;                                                % temps maximal de la simulation, en secondes
 Text=3+273.15;                                          % temperature exterieure constante
 Tsol=2+273.15;                                        % temperature du sol (sous la dalle)
 %% Initialisation des paramètres
@@ -53,7 +53,7 @@ matT=zeros(noeudsVert,noeudsHor);                   % matrice dont chaque coeffi
 position_centre=floor([(noeudsHor+1)/2 resolution*hauteurConduite]);  % coordonnées du centre du tube contenant le fluide caloporteur
 % ATTENTION : pour une faible résolution et des dimensions de la dalle
 % paires, la position du centre est décentrée vers le haut à gauche.
-GenereMatriceCarree();    % matCellule et matT sont remplies selon la géométrie du problème
+GenereMatrice();    % matCellule et matT sont remplies selon la géométrie du problème
 %% Résolution du problème
 Tancien=zeros(noeudsHor*noeudsVert,1);              % matrice colonne qui contient la température en chaque point de chaque cellule
 Tneuf=ones(noeudsHor*noeudsVert,1);                 % matrice colonne qui contient la température en chaque point de chaque cellule
