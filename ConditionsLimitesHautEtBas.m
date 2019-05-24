@@ -18,16 +18,16 @@ global B hc dx Tchauf lambdaair hcmurs lambda rho c_p dt Tsol lambdaisolant lamb
         if i>1 && i<noeudsVert
             A(k1+1,k1)=-lambda*dt/(rho*c_p*dx^2);
             A(k1-1,k1)=-lambda*dt/(rho*c_p*dx^2);
-            A(k1,k1)=1+hc*dt/(rho*c_p)+lambda*dt/(rho*c_p*dx^2);
+            A(k1,k1)=1-hc*dt/(rho*c_p)+lambda*dt/(rho*c_p*dx^2);
         end
         if i==1
             A(k1+1,k1)=2*lambda*dt/(rho*c_p*dx^2);
             A(k1+2,k1)=-lambda*dt/(rho*c_p*dx^2);
-            A(k1,k1)=1+hc*dt/(rho*c_p)-2*lambda*dt/(rho*c_p*dx^2);
+            A(k1,k1)=1-hc*dt/(rho*c_p)-2*lambda*dt/(rho*c_p*dx^2);
         end
         if i==noeudsVert
             A(k1-1,k1)=2*lambda*dt/(rho*c_p*dx^2);
-            A(k1,k1)=1+hc*dt/(rho*c_p)-2*lambda*dt/(rho*c_p*dx^2);
+            A(k1,k1)=1-hc*dt/(rho*c_p)-2*lambda*dt/(rho*c_p*dx^2);
             A(k1-2,k1)=-lambda*dt/(rho*c_p*dx^2);
         end
         
