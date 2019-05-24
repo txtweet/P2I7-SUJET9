@@ -1,7 +1,7 @@
 %%%%%%%%%%%%%% P2I7 - SUJET 9 %%%%%%%%%%%%%%
 %%% Création de la géométrie du problème %%%
 clear all
-global position_centre rayonConduiteNum matCellule matT B dx hc Tchauf lambdaair hcmurs lambda rho c_p dt l noeudsVert noeudsHor lambdaisolant Tsol Text lambdamurs lambdasol c_p_murs rhomurs c_p_isolant rhoisolant
+global position_centre rayonConduiteNum matCellule matT B dx hc hcairdalle hcairmurs Tchauf lambdaair hcmurs lambda rho c_p dt l noeudsVert noeudsHor lambdaisolant Tsol Text lambdamurs lambdasol c_p_air c_p_murs rhomurs rhoair c_p_isolant rhoisolant
 %% Variables du probleme
 resolution=2;                                           % nombre de noeuds par centimètre
 dt=60;                                                   % pas de temps (discrétisation du temps)
@@ -24,15 +24,19 @@ rho_eau=1000;                                           % masse volumique de l'e
 rho=600;                                                % masse volumique du béton en kg.m^(-3) (d'après le site laterlite.fr)
 rhoisolant=20;                                          % masse volumique de l'isolant en kg.m^(-3) pour le polystyrène expansé (Guide des matériaux isolants, CAUE de la Haute-Loire)
 rhomurs=20;                                             % masse volumique des murs
+rhoair=1.225;                                           % masse volumique de l'air
 masse=rho*volume;                                       % masse de la dalle de béton
 c_p=1e3;                                                % capacité thermique massique du béton (d'apès le site laterlite.fr)
 c_p_eau=4178;                                           % capacité thermique massique de l'eau (cours de thermique, C. Obrecht)
 c_p_isolant=1400;                                       % capacité thermique massique de l'isolant (polystyrène expansé)
 c_p_murs=1400;                                          % capacité thermique massique des murs
+c_p_air=1004;                                           % capacité thermique massique de l'air
 Re=(rho_eau*vitesse*(2*rayonConduite*10^(-2)))/mu;      % constante de Reynolds (cours de thermique, C. Obrecht)
 Pr=mu*c_p_eau/lambdaeau;                                % constante de Prandtl (cours de thermique, C. Obrecht)
 hc=(0.023*Re^(4/5)*Pr^(1/3))/(2*rayonConduite*10^(-2)); % coefficient d'échanges convectifs de l'eau
 hcmurs=1e3;                                             % coefficient d'echanges convectifs des murs de la piece
+hcairdalle=10;                                          % coefficient d'échanges convectifs entre l'air et la dalle **PAS SUR**
+hcairmurs=15;                                           % coefficient d'échanges convectifs entre l'air intérieur et les murs
 Tchauf=500+273.15;                                       % température de l'eau, constante (en K)
 Tdepart=15+273.15;                                      % temperature de la piece
 tmax=600000;                                                % temps maximal de la simulation, en secondes
