@@ -34,29 +34,29 @@ global B hc dx Tchauf lambdaair hcmurs hcairdalle hcairmurs lambda rho c_p dt Ts
         %% Au niveau de l'air (j=N-1) :
         j=noeudsVert-1;
         k2=noeudsVert*(i-1)+j;
-%         A(k2,k2)=A(k2,k2)+hc+hcmurs+1+2*lambda*dt/(rho*c_p*dx.^2);
-%         A(k2,k2-1)=A(k2,k2-1)-lambdaair/(2*dx)-hc-lambda*dt/(rho*c_p*dx.^2);
-%         A(k2,k2+1)=A(k2,k2+1)+lambdaair/(2*dx)-hcmurs-lambda*dt/(rho*c_p*dx.^2);
-%          B(k2)=Tavant(k2);
+        A(k2,k2)=A(k2,k2)+hc+hcmurs+1+2*lambda*dt/(rho*c_p*dx.^2);
+        A(k2,k2-1)=A(k2,k2-1)-lambdaair/(2*dx)-hc-lambda*dt/(rho*c_p*dx.^2);
+        A(k2,k2+1)=A(k2,k2+1)+lambdaair/(2*dx)-hcmurs-lambda*dt/(rho*c_p*dx.^2);
+         %B(k2)=Tavant(k2);
 
         
-        A(k2,k2-1)=-hcairdalle*dt/(rhoair*c_p_air);
-        A(k2,k2+1)=hcairmurs*dt/(rhoair*c_p_air);
-        if i>1 && i<noeudsVert
-            A(k2,k2)=1+hcairdalle*dt/(rhoair*c_p_air)-hcairmurs*dt/(rhoair*c_p_air)+2*lambdaair*dt/(rhoair*c_p_air*dx^2);
-            A(k2+1,j)=-lambdaair*dt/(rhoair*c_p_air*dx^2);
-            A(k2-1,j)=lambdaair*dt/(rhoair*c_p_air*dx^2);
-        end
-        if i==1
-            A(k2,k2)=1+hcairdalle*dt/(rhoair*c_p_air)-hcairmurs*dt/(rhoair*c_p_air)-lambdaair*dt/(rhoair*c_p_air*dx^2);
-            A(k2+1,j)=2*lambdaair*dt/(rhoair*c_p_air*dx^2);
-            A(k2+2,j)=-lambdaair*dt/(rhoair*c_p_air*dx^2);
-        end
-        if i==noeudsVert
-            A(k2,k2)=1+hcairdalle*dt/(rhoair*c_p_air)-hcairmurs*dt/(rhoair*c_p_air)-lambdaair*dt/(rhoair*c_p_air*dx^2);
-            A(k2-1,j)=2*lambdaair*dt/(rhoair*c_p_air*dx^2);
-            A(k2-2,j)=-lambdaair*dt/(rhoair*c_p_air*dx^2);
-        end
+%         A(k2,k2-1)=-hcairdalle*dt/(rhoair*c_p_air);
+%         A(k2,k2+1)=hcairmurs*dt/(rhoair*c_p_air);
+%         if i>1 && i<noeudsVert
+%             A(k2,k2)=1+hcairdalle*dt/(rhoair*c_p_air)-hcairmurs*dt/(rhoair*c_p_air)+2*lambdaair*dt/(rhoair*c_p_air*dx^2);
+%             A(k2+1,j)=-lambdaair*dt/(rhoair*c_p_air*dx^2);
+%             A(k2-1,j)=lambdaair*dt/(rhoair*c_p_air*dx^2);
+%         end
+%         if i==1
+%             A(k2,k2)=1+hcairdalle*dt/(rhoair*c_p_air)-hcairmurs*dt/(rhoair*c_p_air)-lambdaair*dt/(rhoair*c_p_air*dx^2);
+%             A(k2+1,j)=2*lambdaair*dt/(rhoair*c_p_air*dx^2);
+%             A(k2+2,j)=-lambdaair*dt/(rhoair*c_p_air*dx^2);
+%         end
+%         if i==noeudsVert
+%             A(k2,k2)=1+hcairdalle*dt/(rhoair*c_p_air)-hcairmurs*dt/(rhoair*c_p_air)-lambdaair*dt/(rhoair*c_p_air*dx^2);
+%             A(k2-1,j)=2*lambdaair*dt/(rhoair*c_p_air*dx^2);
+%             A(k2-2,j)=-lambdaair*dt/(rhoair*c_p_air*dx^2);
+%         end
         
         %% Au niveau des murs (j=N) :
         j=noeudsVert;
