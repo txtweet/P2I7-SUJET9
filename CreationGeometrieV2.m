@@ -3,7 +3,7 @@
 clear all
 global position_centre rayonConduiteNum matCellule matT B dx hc hcairdalle hcairmurs Tchauf lambdaair hcmurs lambda rho c_p dt l noeudsVert noeudsHor lambdaisolant Tsol Text lambdamurs lambdasol c_p_air c_p_murs rhomurs rhoair c_p_isolant rhoisolant
 %% Variables du probleme
-resolution=10;                                           % nombre de noeuds par centimètre
+resolution=3;                                           % nombre de noeuds par centimètre
 dt=60;                                                   % pas de temps (discrétisation du temps)
 l=1;                                                    % discrétisation de l'espace
 lambdaair=0.0262;                                       % conductivite thermique de l'air (d'après Cours de thermique, C. Obrecht)
