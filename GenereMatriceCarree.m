@@ -7,7 +7,7 @@ global position_centre rayonConduiteNum matCellule matT Tchauf
 for i=position_centre(1)-rayonConduiteNum:position_centre(1)+rayonConduiteNum
     for j=position_centre(2)-rayonConduiteNum:position_centre(2)+rayonConduiteNum
             matCellule(i,j)=1;
-           matT(i,j)=Tchauf+273.15;
+           matT(i,j)=Tchauf;
     end
 end
 end

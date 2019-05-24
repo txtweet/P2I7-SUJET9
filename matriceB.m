@@ -16,18 +16,18 @@ for i=2:noeudsHor-1
                 %%Voisins solide
                 B(index(i,j),1)=Tavant(index(i,j),1);
                 %%Voisins fluide
-                kfluide = -hc*l*dx*dt/(rho*c_p*dx*dx*l);
+                kfluide = hc*l*dx*dt/(rho*c_p*dx*dx*l);
                 if (Voisins(1,1)==1)
-                    B(index(i,j),1) = B(index(i,j),1)-kfluide*Tchauf;
+                    B(index(i,j),1) = B(index(i,j),1)+kfluide*Tchauf;
                 end
                 if (Voisins(1,2)==1)
-                    B(index(i,j),1) = B(index(i,j),1)-kfluide*Tchauf;
+                    B(index(i,j),1) = B(index(i,j),1)+kfluide*Tchauf;
                 end 
                 if (Voisins(1,3)==1)
-                    B(index(i,j),1) = B(index(i,j),1)-kfluide*Tchauf;
+                    B(index(i,j),1) = B(index(i,j),1)+kfluide*Tchauf;
                 end
                 if (Voisins(1,4)==1)
-                    B(index(i,j),1) = B(index(i,j),1)-kfluide*Tchauf;
+                    B(index(i,j),1) = B(index(i,j),1)+kfluide*Tchauf;
                 end
             end 
         elseif(matCellule(j,i)==1)

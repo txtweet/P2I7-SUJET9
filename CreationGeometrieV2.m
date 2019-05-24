@@ -35,7 +35,7 @@ hc=(0.023*Re^(4/5)*Pr^(1/3))/(2*rayonConduite*10^(-2)); % coefficient d'échanges
 hcmurs=1e3;                                             % coefficient d'echanges convectifs des murs de la piece
 Tchauf=500+273.15;                                       % température de l'eau, constante (en K)
 Tdepart=15+273.15;                                      % temperature de la piece
-tmax=6000;                                                % temps maximal de la simulation, en secondes
+tmax=600000;                                                % temps maximal de la simulation, en secondes
 Text=3+273.15;                                          % temperature exterieure constante
 Tsol=2+273.15;                                        % temperature du sol (sous la dalle)
 %% Initialisation des paramètres
