@@ -35,24 +35,24 @@ global dx l rho c_p noeudsVert hc dt Tchauf B lambda
     %% Voisins fluide
     kfluide = -hc*l*dx*dt/(rho*c_p*dx*dx*l);
     if (Voisin(1,1)==1)
-        A(index(i,j),index(i,j))= A(index(i,j),index(i,j))+kfluide*(-3/2);
-        A(index(i,j),index(i,j)+noeudsVert) = A(index(i,j),index(i,j)+noeudsVert)+kfluide*1/2;
+        A(index(i,j),index(i,j))= A(index(i,j),index(i,j))+kfluide*(-1/2);
+        A(index(i,j),index(i+1,j)) = A(index(i,j),index(i+1,j))+kfluide*(-1/2);
         B(index(i,j),1) = B(index(i,j),1)-kfluide*Tchauf;
     end
     
     if (Voisin(1,2)==1)
-        A(index(i,j),index(i,j))= A(index(i,j),index(i,j))+kfluide*(-3/2);
-        A(index(i,j),index(i,j)+1) = A(index(i,j),index(i,j)+1)+kfluide*1/2;
+        A(index(i,j),index(i,j))= A(index(i,j),index(i,j))+kfluide*(-1/2);
+        A(index(i,j),index(i,j+1)) = A(index(i,j),index(i,j+1))+kfluide*(-1/2);
         B(index(i,j),1) = B(index(i,j),1)-kfluide*Tchauf;
     end 
     if (Voisin(1,3)==1)
         A(index(i,j),index(i,j))= A(index(i,j),index(i,j))+kfluide*(-3/2);
-        A(index(i,j),index(i,j)-1) = A(index(i,j),index(i,j)-1)+kfluide*1/2;
+        A(index(i,j),index(i,j-1)) = A(index(i,j),index(i,j-1))+kfluide*1/2;
         B(index(i,j),1) = B(index(i,j),1)-kfluide*Tchauf;
     end
     if (Voisin(1,4)==1)
         A(index(i,j),index(i,j))= A(index(i,j),index(i,j))+kfluide*(-3/2);
-        A(index(i,j),index(i,j)-noeudsVert) = A(index(i,j),index(i,j)-noeudsVert)+kfluide*1/2;
+        A(index(i,j),index(i-1,j)) = A(index(i,j),index(i-1,j))+kfluide*1/2;
         B(index(i,j),1) = B(index(i,j),1)-kfluide*Tchauf;
     end
 

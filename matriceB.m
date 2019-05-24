@@ -14,7 +14,7 @@ for i=2:noeudsHor-1
                 %Cas où au moins 1 voisins est fluide
                 %% Conditions aux limites
                 %%Voisins solide
-                B(index(i,j),1)=-Tavant(index(i,j),1);
+                B(index(i,j),1)=Tavant(index(i,j),1);
                 %%Voisins fluide
                 kfluide = -hc*l*dx*dt/(rho*c_p*dx*dx*l);
                 if (Voisins(1,1)==1)
@@ -30,7 +30,7 @@ for i=2:noeudsHor-1
                     B(index(i,j),1) = B(index(i,j),1)-kfluide*Tchauf;
                 end
             end 
-        elseif(matCellule(i,j)==1)
+        elseif(matCellule(j,i)==1)
             B(index(i,j),1)=Tchauf;
         end
     end 

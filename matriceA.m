@@ -10,31 +10,31 @@ A=zeros(noeudsHor*noeudsVert, noeudsHor*noeudsVert);
 %hcmurs coefficient d'echange pour les murs
 %Tavant est le vecteur temperature a la precedente iteration (cas
 %instationnaire)
-
+k=lambda*dt/(rho*c_p*dx*dx);
+%k=1;
 for i=2:noeudsHor-1
     for j=2:noeudsVert-1    %j=2:noeudsVert-3
         %cas ou la case etudiee est solide
-        %%if (matCellule(j,i)==0)
+        if (matCellule(j,i)==0)
             Voisins = DonneVoisins(i,j,matCellule);
             %cas ou les 4 voisins sont solides
-            %%if(max(Voisins)==0)
+            if(max(Voisins)==0)
                 A(index(i,j),index(i,j))=4;
                 A(index(i,j),index(i,j+1))=-1;
                 A(index(i,j),index(i,j-1))=-1;
                 A(index(i,j),index(i-1,j))=-1;
                 A(index(i,j),index(i+1,j))=-1;
-                k=lambda*dt/(rho*c_p*dx*dx);
                 A(index(i,j),:)=A(index(i,j),:)*k;
                 A(index(i,j),index(i,j))= A(index(i,j),index(i,j))+1;
                 %B(index(i,j),1)=Tavant(index(i,j),1);
-            %%else
+            else
                %Cas où au moins 1 voisins est fluide
-              %%A=ModifAVoisin(A,Voisins,i,j,Tavant);
-            %%end 
-        %%elseif  (matCellule(i,j)==1)
-            %%A(index(i,j),index(i,j))=1;
+              A=ModifAVoisin(A,Voisins,i,j,Tavant);
+            end 
+        elseif  (matCellule(j,i)==1)
+            A(index(i,j),index(i,j))=1;
             %%B(index(i,j),1)=Tchauf;
-        %%end
+        end
     end 
 end
     
