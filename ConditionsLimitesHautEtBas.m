@@ -15,7 +15,7 @@ global B hc dx Tchauf lambdaair hcmurs hcairdalle hcairmurs lambda rho c_p dt Ts
         A(k1,k1-1)=2*lambda*dt/(rho*c_p*dx^2);
         A(k1,k1-2)=-lambda*dt/(rho*c_p*dx^2);
         A(k1,k1+1)=hcairdalle*dt/(rho*c_p);
-        if i>1 && i<noeudsVert
+        if i>1 && i<noeudsHor
             A(k1+1,k1)=-lambda*dt/(rho*c_p*dx^2);
             A(k1-1,k1)=-lambda*dt/(rho*c_p*dx^2);
             A(k1,k1)=1-hcairdalle*dt/(rho*c_p)+lambda*dt/(rho*c_p*dx^2);
@@ -25,7 +25,7 @@ global B hc dx Tchauf lambdaair hcmurs hcairdalle hcairmurs lambda rho c_p dt Ts
             A(k1+2,k1)=-lambda*dt/(rho*c_p*dx^2);
             A(k1,k1)=1-hcairdalle*dt/(rho*c_p)-2*lambda*dt/(rho*c_p*dx^2);
         end
-        if i==noeudsVert
+        if i==noeudsHor
             A(k1-1,k1)=2*lambda*dt/(rho*c_p*dx^2);
             A(k1,k1)=1-hcairdalle*dt/(rho*c_p)-2*lambda*dt/(rho*c_p*dx^2);
             A(k1-2,k1)=-lambda*dt/(rho*c_p*dx^2);
@@ -34,15 +34,15 @@ global B hc dx Tchauf lambdaair hcmurs hcairdalle hcairmurs lambda rho c_p dt Ts
         %% Au niveau de l'air (j=N-1) :
         j=noeudsVert-1;
         k2=noeudsVert*(i-1)+j;
-%         A(k2,k2)=A(k2,k2)+hc+hcmurs+1+2*lambda*dt/(rho*c_p*dx.^2);
-%         A(k2,k2-1)=A(k2,k2-1)-lambdaair/(2*dx)-hc-lambda*dt/(rho*c_p*dx.^2);
-%         A(k2,k2+1)=A(k2,k2+1)+lambdaair/(2*dx)-hcmurs-lambda*dt/(rho*c_p*dx.^2);
+        A(k2,k2)=A(k2,k2)+hc+hcmurs+1+2*lambda*dt/(rho*c_p*dx.^2);
+        A(k2,k2-1)=A(k2,k2-1)-lambdaair/(2*dx)-hc-lambda*dt/(rho*c_p*dx.^2);
+        A(k2,k2+1)=A(k2,k2+1)+lambdaair/(2*dx)-hcmurs-lambda*dt/(rho*c_p*dx.^2);
 %          B(k2)=Tavant(k2);
 
         
         A(k2,k2-1)=-hcairdalle*dt/(rhoair*c_p_air);
         A(k2,k2+1)=hcairmurs*dt/(rhoair*c_p_air);
-        if i>1 && i<noeudsVert
+        if i>1 && i<noeudsHor
             A(k2,k2)=1+hcairdalle*dt/(rhoair*c_p_air)-hcairmurs*dt/(rhoair*c_p_air)+2*lambdaair*dt/(rhoair*c_p_air*dx^2);
             A(k2+1,j)=-lambdaair*dt/(rhoair*c_p_air*dx^2);
             A(k2-1,j)=lambdaair*dt/(rhoair*c_p_air*dx^2);
@@ -52,7 +52,7 @@ global B hc dx Tchauf lambdaair hcmurs hcairdalle hcairmurs lambda rho c_p dt Ts
             A(k2+1,j)=2*lambdaair*dt/(rhoair*c_p_air*dx^2);
             A(k2+2,j)=-lambdaair*dt/(rhoair*c_p_air*dx^2);
         end
-        if i==noeudsVert
+        if i==noeudsHor
             A(k2,k2)=1+hcairdalle*dt/(rhoair*c_p_air)-hcairmurs*dt/(rhoair*c_p_air)-lambdaair*dt/(rhoair*c_p_air*dx^2);
             A(k2-1,j)=2*lambdaair*dt/(rhoair*c_p_air*dx^2);
             A(k2-2,j)=-lambdaair*dt/(rhoair*c_p_air*dx^2);
@@ -70,10 +70,22 @@ global B hc dx Tchauf lambdaair hcmurs hcairdalle hcairmurs lambda rho c_p dt Ts
         
         %conduction dans les murs (horizontalement)
         if i>1 && i<noeudsHor
-            A(k3,k3)=A(k3,k3)+1-2*lambdamurs*dt/(rhomurs*c_p_murs*dx.^2);
+            A(k3,k3)=A(k3,k3)+1+2*lambdamurs*dt/(rhomurs*c_p_murs*dx.^2);
             A(k3+1,k3)=A(k3+1,k3)-lambdamurs*dt/(rhomurs*c_p_murs*dx.^2);
             A(k3-1,k3)=A(k3-1,k3)-lambdamurs*dt/(rhomurs*c_p_murs*dx.^2);
             %B(k3)=B(k3)+Tavant(k3);
+        end
+        
+        if i==noeudsHor
+            A(k3,k3)=A(k3,k3)+1-lambdamurs*dt/(rhomurs*c_p_murs*dx.^2);
+            A(k3-1,k3)=A(k3-1,k3)+2*lambdamurs*dt/(rhomurs*c_p_murs*dx.^2);
+            A(k3-2,k3)=A(k3-2,k3)-lambdamurs*dt/(rhomurs*c_p_murs*dx.^2);
+        end
+        
+        if i==1
+            A(k3,k3)=A(k3,k3)+1-lambdamurs*dt/(rhomurs*c_p_murs*dx.^2);
+            A(k3+1,k3)=A(k3+1,k3)+2*lambdamurs*dt/(rhomurs*c_p_murs*dx.^2);
+            A(k3+2,k3)=A(k3+2,k3)-lambdamurs*dt/(rhomurs*c_p_murs*dx.^2);
         end
         
         %% Au niveau du sous-sol (j=1) :
