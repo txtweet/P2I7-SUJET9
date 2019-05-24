@@ -7,10 +7,29 @@ global B hc dx Tchauf lambdaair hcmurs lambda rho c_p dt Tsol lambdaisolant lamb
         %% Au niveau du haut du plancher (j=N-2)
         j=noeudsVert-2;
         k1=noeudsVert*(i-1)+j;
-        A(k1,k1)=A(k1,k1)+hc+1+2*lambda*dt/(rho*c_p*dx.^2);
-        A(k1,k1-1)=A(k1,k1-1)-lambdaair/(2*dx)-lambda*dt/(rho*c_p*dx.^2);
-        A(k1,k1+1)=A(k1,k1+1)-hc+lambdaair/(2*dx)-lambda*dt/(rho*c_p*dx.^2);
-        %B(k1)=Tavant(k1);
+%         A(k1,k1)=A(k1,k1)+hc+1+2*lambda*dt/(rho*c_p*dx.^2);
+%         A(k1,k1-1)=A(k1,k1-1)-lambdaair/(2*dx)-lambda*dt/(rho*c_p*dx.^2);
+%         A(k1,k1+1)=A(k1,k1+1)-hc+lambdaair/(2*dx)-lambda*dt/(rho*c_p*dx.^2);
+%         %B(k1)=Tavant(k1);
+        
+        A(k1,k1-1)=2*lambda*dt/(rho*c_p*dx^2);
+        A(k1,k1-2)=-lambda*dt/(rho*c_p*dx^2);
+        A(k1,k1+1)=hc*dt/(rho*c_p);
+        if i>1 && i<noeudsVert
+            A(k1+1,k1)=-lambda*dt/(rho*c_p*dx^2);
+            A(k1-1,k1)=-lambda*dt/(rho*c_p*dx^2);
+            A(k1,k1)=1+hc*dt/(rho*c_p)+lambda*dt/(rho*c_p*dx^2);
+        end
+        if i==1
+            A(k1+1,k1)=2*lambda*dt/(rho*c_p*dx^2);
+            A(k1+2,k1)=-lambda*dt/(rho*c_p*dx^2);
+            A(k1,k1)=1+hc*dt/(rho*c_p)-2*lambda*dt/(rho*c_p*dx^2);
+        end
+        if i==noeudsVert
+            A(k1-1,k1)=2*lambda*dt/(rho*c_p*dx^2);
+            A(k1,k1)=1+hc*dt/(rho*c_p)-2*lambda*dt/(rho*c_p*dx^2);
+            A(k1-2,k1)=-lambda*dt/(rho*c_p*dx^2);
+        end
         
         %% Au niveau de l'air (j=N-1) :
         j=noeudsVert-1;
@@ -23,9 +42,11 @@ global B hc dx Tchauf lambdaair hcmurs lambda rho c_p dt Tsol lambdaisolant lamb
         %% Au niveau des murs (j=N) :
         j=noeudsVert;
         k3=noeudsVert*(i-1)+j;
-        A(k3,k3)=A(k3,k3)+2*lambdaair/dx+2*hcmurs+1+2*lambda*dt/(rho*c_p*dx.^2);
+        %A(k3,k3)=A(k3,k3)+2*lambdaair/dx+2*hcmurs+1+2*lambda*dt/(rho*c_p*dx.^2);
+        A(k3,k3)=A(k3,k3)+2*lambdaair/dx+2*hcmurs;
+        A(k3,k3-1)=A(k3,k3-1)-lambdaair/dx;
         %B(k3)=Tavant(k3)+Text*lambda*dt/(rho*c_p*dx.^2)+Text*(hcmurs+lambdaair/dx);
-        A(k3,k3-1)=A(k3,k3-1)-lambdaair/dx-hcmurs-lambda*dt/(rho*c_p*dx.^2);
+        %A(k3,k3-1)=A(k3,k3-1)-lambdaair/dx-hcmurs-lambda*dt/(rho*c_p*dx.^2);
         %A(k3,k3-2)=A(k3,k3-2)+lambda*dt/(rho*c_p*dx.^2);
         
         %conduction dans les murs (horizontalement)
