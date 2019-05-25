@@ -14,21 +14,21 @@ global B hc dx Tchauf lambdaair hcmurs hcairdalle hcairmurs lambda rho c_p dt Ts
         
         A(k1,k1-1)=2*lambda*dt/(rho*c_p*dx^2);
         A(k1,k1-2)=-lambda*dt/(rho*c_p*dx^2);
-        A(k1,k1+1)=hcairdalle*dt/(rho*c_p);
+        A(k1,k1+1)=-hcairdalle*dt/(rho*c_p);
         if i>1 && i<noeudsHor
             A(k1+1,k1)=A(k1+1,k1)-lambda*dt/(rho*c_p*dx^2);
             A(k1-1,k1)=A(k1-1,k1)-lambda*dt/(rho*c_p*dx^2);
-            A(k1,k1)=A(k1+1,k1)+1-hcairdalle*dt/(rho*c_p)+lambda*dt/(rho*c_p*dx^2);
+            A(k1,k1)=A(k1,k1)+1+hcairdalle*dt/(rho*c_p)+lambda*dt/(rho*c_p*dx^2);
         end
         if i==1
-            A(k1+1,k1)=2*lambda*dt/(rho*c_p*dx^2);
-            A(k1+2,k1)=-lambda*dt/(rho*c_p*dx^2);
-            A(k1,k1)=1-hcairdalle*dt/(rho*c_p)-2*lambda*dt/(rho*c_p*dx^2);
+            A(k1+1,k1)=A(k1+1,k1)+2*lambda*dt/(rho*c_p*dx^2);
+            A(k1+2,k1)=A(k1+2,k1)-lambda*dt/(rho*c_p*dx^2);
+            A(k1,k1)=A(k1,k1)+1+hcairdalle*dt/(rho*c_p)-2*lambda*dt/(rho*c_p*dx^2);
         end
         if i==noeudsHor
             A(k1-1,k1)=A(k1-1,k1)+2*lambda*dt/(rho*c_p*dx^2);
-            A(k1,k1)=A(k1,k1)+1-hcairdalle*dt/(rho*c_p)-2*lambda*dt/(rho*c_p*dx^2);
-            A(k1-2,k1)=A(k1+1,k1)-lambda*dt/(rho*c_p*dx^2);
+            A(k1,k1)=A(k1,k1)+1+hcairdalle*dt/(rho*c_p)-2*lambda*dt/(rho*c_p*dx^2);
+            A(k1-2,k1)=A(k1-2,k1)-lambda*dt/(rho*c_p*dx^2);
         end
         
         %% Au niveau de l'air (j=N-1) :
