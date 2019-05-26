@@ -22,15 +22,15 @@ global B hc dx Tchauf lambdaair hcmurs hcairdalle hcairmurs lambda rho c_p dt Ts
         end
         %conditions periodiques et pas de derivee decentree
         if i==1
-            A(k1+1,k1)=A(k1+1,k1)+2*lambda*dt/(rho*c_p*dx^2);
-            A(k1+2,k1)=A(k1+2,k1)-lambda*dt/(rho*c_p*dx^2);
-            A(k1,k1)=A(k1,k1)+1+hcairdalle*dt/(rho*c_p)-2*lambda*dt/(rho*c_p*dx^2);
+            A(index(2,j),index(1,j))=A(index(2,j),index(1,j))-lambda*dt/(rho*c_p*dx^2);
+            A(index(noeudsHor,j),index(1,j))=A(index(noeudsHor,j),index(1,j))-lambda*dt/(rho*c_p*dx^2);
+            A(index(1,j),index(1,j))=A(index(1,j),index(1,j))+1+hcairdalle*dt/(rho*c_p)+2*lambda*dt/(rho*c_p*dx^2);
         end
         %conditions periodiques et pas de derivee decentree
         if i==noeudsHor
-            A(k1-1,k1)=A(k1-1,k1)+2*lambda*dt/(rho*c_p*dx^2);
-            A(k1,k1)=A(k1,k1)+1+hcairdalle*dt/(rho*c_p)-2*lambda*dt/(rho*c_p*dx^2);
-            A(k1-2,k1)=A(k1-2,k1)-lambda*dt/(rho*c_p*dx^2);
+            A(index(noeudsHor-1,j),index(noeudsHor,j))=A(index(noeudsHor-1,j),index(noeudsHor,j))-lambda*dt/(rho*c_p*dx^2);
+            A(index(noeudsHor,j),index(noeudsHor,j))=A(index(noeudsHor,j),index(noeudsHor,j))+1+hcairdalle*dt/(rho*c_p)+lambda*dt/(rho*c_p*dx^2);
+            A(index(1,j),index(noeudsHor,j))=A(index(1,j),index(noeudsHor,j))-lambda*dt/(rho*c_p*dx^2);
         end
         
         %% Au niveau de l'air (j=N-1) :
