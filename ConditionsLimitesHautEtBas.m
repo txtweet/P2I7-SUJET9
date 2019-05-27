@@ -145,6 +145,24 @@ global B hc dx Tchauf lambdaair hcmurs hcairdalle hcairmurs lambda rho c_p dt Ts
         
         %% Au niveau du bas du plancher (j=2)
         j=2;
-        
+        A(index(i,j),index(i,3))=A(index(i,j),index(i,3))+2*lambda*dt/(rho*c_p*dx^2);
+        A(index(i,j),index(i,4))=A(index(i,j),index(i,4))-lambda*dt/(rho*c_p*dx^2);
+        A(index(i,j),index(i,1))=A(index(i,j),index(i,1))+(lambda+lambdaisolant)*dt/(rho*c_p*dx^2);
+        %conduction dans la dalle
+        if i>i && i<noeudsHor
+            A(index(i,j),index(i,j))=A(index(i,j),index(i,j))+1+2*lambda*dt/(rho*c_p*dx^2)-lambda*dt/(rho*c_p*dx^2)-(lambda+lambdaisolant)*dt/(rho*c_p*dx^2);
+            A(index(i+1,j),index(i,j))=A(index(i+1,j),index(i,j))-lambda*dt/(rho*c_p*dx^2);
+            A(index(i-1,j),index(i,j))=A(index(i-1,j),index(i,j))-lambda*dt/(rho*c_p*dx^2);
+        end
+        if i==1
+            A(index(i,j),index(i,j))=A(index(i,j),index(i,j))+1+2*lambda*dt/(rho*c_p*dx^2)-lambda*dt/(rho*c_p*dx^2)-(lambda+lambdaisolant)*dt/(rho*c_p*dx^2);
+            A(index(i+1,j),index(i,j))=A(index(i+1,j),index(i,j))-lambda*dt/(rho*c_p*dx^2);
+            A(index(noeudsHor,j),index(i,j))=A(index(noeudsHor,j),index(i,j))-lambda*dt/(rho*c_p*dx^2);
+        end
+        if i==noeudsHor
+            A(index(i,j),index(i,j))=A(index(i,j),index(i,j))+1+2*lambda*dt/(rho*c_p*dx^2)-lambda*dt/(rho*c_p*dx^2)-(lambda+lambdaisolant)*dt/(rho*c_p*dx^2);
+            A(index(1,j),index(i,j))=A(index(1,j),index(i,j))-lambda*dt/(rho*c_p*dx^2);
+            A(index(i-1,j),index(i,j))=A(index(i-1,j),index(i,j))-lambda*dt/(rho*c_p*dx^2);
+        end
     end
 end

@@ -4,6 +4,7 @@ B=zeros(noeudsHor*noeudsVert, 1);
 
 for i=2:noeudsHor-1
     for j=2:noeudsVert-3
+    %for j=3:noeudsVert-3
         %cas ou la case etudiee est solide
         if (matCellule(j,i)==0)
             Voisins = DonneVoisins(i,j,matCellule);
@@ -40,10 +41,12 @@ end
     
     %Partie gauche de la cellule
     for j=2:noeudsVert-3
+    %for j=3:noeudsVert-3
         B(index(1,j),1)=Tavant(index(1,j),1);
     end 
     %Partie droite de la cellule
     for j=2:noeudsVert-3
+    %for j=3:noeudsVert-3
         B(index(noeudsHor,j),1)=Tavant(index(noeudsHor,j),1);
     end
     
@@ -73,6 +76,6 @@ end
     if i~=1 && i~=noeudsHor
         B(k4)=B(k4)+Tavant(k4);
     end
-    
+    B(index(i,2))=Tavant(index(i,2));
 
 end
