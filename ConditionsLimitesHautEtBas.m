@@ -141,6 +141,10 @@ global B hc dx Tchauf lambdaair hcmurs hcairdalle hcairmurs lambda rho c_p dt Ts
         end
 
         %AUTRE VERSION 
-%         A(k4,k4)=
+        %A(k4,k4)=
+        
+        %% Au niveau du bas du plancher (j=2)
+        j=2;
+        
     end
 end
