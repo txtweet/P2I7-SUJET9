@@ -1,5 +1,5 @@
 function B=matriceB(noeudsHor,noeudsVert,matCellule, Tavant, Text)
-global  hc dx Tchauf lambdaair hcmurs lambda rho c_p dt Tsol lambdaisolant l lambdasol
+global  hc dx Tchauf lambdaair hcmurs lambda rho c_p dt Tsol lambdaisolant l lambdasol rhomurs c_p_murs
 B=zeros(noeudsHor*noeudsVert, 1);
 
 for i=2:noeudsHor-1
@@ -64,7 +64,7 @@ end
     %au noeud de murs
     j=noeudsVert;
     k3=noeudsVert*(i-1)+j;
-    B(k3)=Tavant(k3)+Text*lambda*dt/(rho*c_p*dx.^2)+Text*(hcmurs+lambdaair/dx);
+    B(k3)=Tavant(k3)+Text*lambda*dt/(rhomurs*c_p_murs*dx.^2)+Text*(hcmurs+lambdaair/dx);
     if i>1 && i<noeudsHor
         B(k3)=B(k3)+Tavant(k3);
     end

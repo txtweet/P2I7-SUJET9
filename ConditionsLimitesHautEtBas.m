@@ -153,20 +153,20 @@ global B hc dx Tchauf lambdaair hcmurs hcairdalle hcairmurs lambda rho c_p dt Ts
         j=2;
         A(index(i,j),index(i,j+1))=A(index(i,j),index(i,j+1))+2*lambda*dt/(rho*c_p*dx^2);
         A(index(i,j),index(i,j+2))=A(index(i,j),index(i,j+2))-lambda*dt/(rho*c_p*dx^2);
-        A(index(i,j),index(i,j-1))=A(index(i,j),index(i,j-1))-(lambda+lambdaisolant)*dt/(rho*c_p*dx^2);
+        A(index(i,j),index(i,j-1))=A(index(i,j),index(i,j-1))-2*(lambda+lambdaisolant)*dt/(rho*c_p*dx^2);
         %conduction dans la dalle
         if i>i && i<noeudsHor
-            A(index(i,j),index(i,j))=A(index(i,j),index(i,j))+1+2*lambda*dt/(rho*c_p*dx^2)-lambda*dt/(rho*c_p*dx^2)+(lambda+lambdaisolant)*dt/(rho*c_p*dx^2);
+            A(index(i,j),index(i,j))=A(index(i,j),index(i,j))+1+2*lambda*dt/(rho*c_p*dx^2)-lambda*dt/(rho*c_p*dx^2)+2*(lambda+lambdaisolant)*dt/(rho*c_p*dx^2);
             A(index(i,j),index(i+1,j))=A(index(i,j),index(i+1,j))-lambda*dt/(rho*c_p*dx^2);
             A(index(i,j),index(i-1,j))=A(index(i,j),index(i-1,j))-lambda*dt/(rho*c_p*dx^2);
         end
         if i==1
-            A(index(i,j),index(i,j))=A(index(i,j),index(i,j))+1+2*lambda*dt/(rho*c_p*dx^2)-lambda*dt/(rho*c_p*dx^2)+(lambda+lambdaisolant)*dt/(rho*c_p*dx^2);
+            A(index(i,j),index(i,j))=A(index(i,j),index(i,j))+1+2*lambda*dt/(rho*c_p*dx^2)-lambda*dt/(rho*c_p*dx^2)+2*(lambda+lambdaisolant)*dt/(rho*c_p*dx^2);
             A(index(i,j),index(i+1,j))=A(index(i,j),index(i+1,j))-lambda*dt/(rho*c_p*dx^2);
             A(index(i,j),index(noeudsHor,j))=A(index(i,j),index(noeudsHor,j))-lambda*dt/(rho*c_p*dx^2);
         end
         if i==noeudsHor
-            A(index(i,j),index(i,j))=A(index(i,j),index(i,j))+1+2*lambda*dt/(rho*c_p*dx^2)-lambda*dt/(rho*c_p*dx^2)+(lambda+lambdaisolant)*dt/(rho*c_p*dx^2);
+            A(index(i,j),index(i,j))=A(index(i,j),index(i,j))+1+2*lambda*dt/(rho*c_p*dx^2)-lambda*dt/(rho*c_p*dx^2)+2*(lambda+lambdaisolant)*dt/(rho*c_p*dx^2);
             A(index(i,j),index(1,j))=A(index(i,j),index(1,j))-lambda*dt/(rho*c_p*dx^2);
             A(index(i,j),index(i-1,j))=A(index(i,j),index(i-1,j))-lambda*dt/(rho*c_p*dx^2);
         end
