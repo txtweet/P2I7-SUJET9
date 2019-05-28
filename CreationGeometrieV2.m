@@ -56,13 +56,14 @@ position_centre=floor([(noeudsHor+1)/2 resolution*hauteurConduite]);  % coordonn
 GenereMatrice();    % matCellule et matT sont remplies selon la géométrie du problème
 %% Résolution du problème
 Tancien=zeros(noeudsHor*noeudsVert,1);              % matrice colonne qui contient la température en chaque point de chaque cellule
-Tneuf=ones(noeudsHor*noeudsVert,1);                 % matrice colonne qui contient la température en chaque point de chaque cellule
+%Tneuf=ones(noeudsHor*noeudsVert,1);                 % matrice colonne qui contient la température en chaque point de chaque cellule
+Tneuf=initTemp(matCellule,Tdepart);
 %Tneuf(:)=Tdepart;                                   % a changer
 B=zeros(noeudsHor*noeudsVert,1);                    % matrice colonne
 A=matriceA(noeudsHor,noeudsVert,matCellule,Tneuf, Text);  %
 inA=inv(A);
-i=dt;
-Tneuf=initTemp(matCellule,Tdepart);
+i=dt; %BIZARRE COMME CONDITION
+
 while i<tmax
     Tancien=Tneuf;
     B=matriceB(noeudsHor,noeudsVert,matCellule,Tancien, Text);
