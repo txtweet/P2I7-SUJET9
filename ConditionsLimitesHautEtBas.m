@@ -12,25 +12,25 @@ global B hc dx Tchauf lambdaair hcmurs hcairdalle hcairmurs lambda rho c_p dt Ts
 %         A(k1,k1+1)=A(k1,k1+1)-hc+lambdaair/(2*dx)-lambda*dt/(rho*c_p*dx.^2);
         %B(k1)=Tavant(k1);
         
-        A(k1,k1-1)=A(k1,k1-1)+2*lambda*dt/(rho*c_p*dx^2);
-        A(k1,k1-2)=A(k1,k1-2)-lambda*dt/(rho*c_p*dx^2);
-        A(k1,k1+1)=A(k1,k1+1)-hcairdalle*dt/(rho*c_p);
+        A(index(i,j),index(i,j-1))=A(index(i,j),index(i,j-1))+2*lambda*dt/(rho*c_p*dx^2);
+        A(index(i,j),index(i,j-2))=A(index(i,j),index(i,j-2))-lambda*dt/(rho*c_p*dx^2);
+        A(index(i,j),index(i,j+1))=A(index(i,j),index(i,j+1))-hcairdalle*dt/(rho*c_p);
         if i>1 && i<noeudsHor
-            A(k1+1,k1)=A(k1+1,k1)-lambda*dt/(rho*c_p*dx^2);
-            A(k1-1,k1)=A(k1-1,k1)-lambda*dt/(rho*c_p*dx^2);
-            A(k1,k1)=A(k1,k1)+1+hcairdalle*dt/(rho*c_p)+lambda*dt/(rho*c_p*dx^2);
+            A(index(i,j),index(i+1,j))=A(index(i,j),index(i+1,j))-lambda*dt/(rho*c_p*dx^2);
+            A(index(i,j),index(i-1,j))=A(index(i,j),index(i-1,j))-lambda*dt/(rho*c_p*dx^2);
+            A(index(i,j),index(i,j))=A(index(i,j),index(i,j))+1+hcairdalle*dt/(rho*c_p)+lambda*dt/(rho*c_p*dx^2);
         end
         %conditions periodiques et pas de derivee decentree
         if i==1
-            A(index(2,j),index(1,j))=A(index(2,j),index(1,j))-lambda*dt/(rho*c_p*dx^2);
-            A(index(noeudsHor,j),index(1,j))=A(index(noeudsHor,j),index(1,j))-lambda*dt/(rho*c_p*dx^2);
+            A(index(1,j),index(2,j))=A(index(1,j),index(2,j))-lambda*dt/(rho*c_p*dx^2);
+            A(index(1,j),index(noeudsHor,j))=A(index(1,j),index(noeudsHor,j))-lambda*dt/(rho*c_p*dx^2);
             A(index(1,j),index(1,j))=A(index(1,j),index(1,j))+1+hcairdalle*dt/(rho*c_p)+2*lambda*dt/(rho*c_p*dx^2);
         end
         %conditions periodiques et pas de derivee decentree
         if i==noeudsHor
-            A(index(noeudsHor-1,j),index(noeudsHor,j))=A(index(noeudsHor-1,j),index(noeudsHor,j))-lambda*dt/(rho*c_p*dx^2);
+            A(index(noeudsHor,j),index(noeudsHor-1,j))=A(index(noeudsHor,j),index(noeudsHor-1,j))-lambda*dt/(rho*c_p*dx^2);
             A(index(noeudsHor,j),index(noeudsHor,j))=A(index(noeudsHor,j),index(noeudsHor,j))+1+hcairdalle*dt/(rho*c_p)+lambda*dt/(rho*c_p*dx^2);
-            A(index(1,j),index(noeudsHor,j))=A(index(1,j),index(noeudsHor,j))-lambda*dt/(rho*c_p*dx^2);
+            A(index(i,j),index(1,j))=A(index(i,j),index(1,j))-lambda*dt/(rho*c_p*dx^2);
         end
         
         %% Au niveau de l'air (j=N-1) :
@@ -43,23 +43,23 @@ global B hc dx Tchauf lambdaair hcmurs hcairdalle hcairmurs lambda rho c_p dt Ts
 %          B(k2)=Tavant(k2);
 
         
-        A(k2,k2-1)=-hcairdalle*dt/(rhoair*c_p_air);
-        A(k2,k2+1)=-hcairmurs*dt/(rhoair*c_p_air);
-        A(k2,k2)=1+hcairdalle*dt/(rhoair*c_p_air)+hcairmurs*dt/(rhoair*c_p_air); %test
+        A(index(i,j),index(i,j-1))=A(index(i,j),index(i,j-1))-hcairdalle*dt/(rhoair*c_p_air);
+        A(index(i,j),index(i,j+1))=A(index(i,j),index(i,j+1))-hcairmurs*dt/(rhoair*c_p_air);
+        A(index(i,j),index(i,j))=A(index(i,j),index(i,j))+1+hcairdalle*dt/(rhoair*c_p_air)+hcairmurs*dt/(rhoair*c_p_air); %test
         if i>1 && i<noeudsHor
-            A(k2,k2)=A(k2,k2)+2*lambdaair*dt/(rhoair*c_p_air*dx^2);
-            A(k2+1,k2)=-lambdaair*dt/(rhoair*c_p_air*dx^2);
-            A(k2-1,k2)=lambdaair*dt/(rhoair*c_p_air*dx^2);
+            A(index(i,j),index(i,j))=A(index(i,j),index(i,j))+2*lambdaair*dt/(rhoair*c_p_air*dx^2);
+            A(index(i,j),index(i+1,j))=A(index(i,j),index(i+1,j))-lambdaair*dt/(rhoair*c_p_air*dx^2);
+            A(index(i,j),index(i-1,j))=A(index(i,j),index(i-1,j))+lambdaair*dt/(rhoair*c_p_air*dx^2);
         end
         if i==1
             A(index(1,j),index(1,j))=A(index(1,j),index(i,j))+2*lambdaair*dt/(rhoair*c_p_air*dx^2);
-            A(index(2,j),index(1,j))=A(index(2,j),index(1,j))-lambdaair*dt/(rhoair*c_p_air*dx^2);
-            A(index(noeudsHor,j),index(1,j))=A(index(noeudsHor,j),index(1,j))-lambdaair*dt/(rhoair*c_p_air*dx^2);
+            A(index(1,j),index(2,j))=A(index(1,j),index(2,j))-lambdaair*dt/(rhoair*c_p_air*dx^2);
+            A(index(1,j),index(noeudsHor,j))=A(index(1,j),index(noeudsHor,j))-lambdaair*dt/(rhoair*c_p_air*dx^2);
         end
         if i==noeudsHor
             A(index(noeudsHor,j),index(noeudsHor,j))=A(index(noeudsHor,j),index(noeudsHor,j))+2*lambdaair*dt/(rhoair*c_p_air*dx^2);
-            A(index(noeudsHor-1,j),index(noeudsHor,j))=A(index(noeudsHor-1,j),index(noeudsHor,j))-lambdaair*dt/(rhoair*c_p_air*dx^2);
-            A(index(1,j),index(noeudsHor,j))=A(index(1,j),index(noeudsHor,j))-lambdaair*dt/(rhoair*c_p_air*dx^2);
+            A(index(noeudsHor,j),index(noeudsHor-1,j))=A(index(noeudsHor,j),index(noeudsHor-1,j))-lambdaair*dt/(rhoair*c_p_air*dx^2);
+            A(index(noeudsHor,j),index(1,j))=A(index(noeudsHor,j),index(1,j))-lambdaair*dt/(rhoair*c_p_air*dx^2);
         end
 
          %B(k2)=Tavant(k2);
@@ -69,30 +69,30 @@ global B hc dx Tchauf lambdaair hcmurs hcairdalle hcairmurs lambda rho c_p dt Ts
         j=noeudsVert;
         k3=noeudsVert*(i-1)+j;
         %A(k3,k3)=A(k3,k3)+2*lambdaair/dx+2*hcmurs+1+2*lambda*dt/(rho*c_p*dx.^2);
-        A(k3,k3)=A(k3,k3)+2*lambdaair/dx+2*hcmurs;
-        A(k3,k3-1)=A(k3,k3-1)-lambdaair/dx;
+        A(index(i,j),index(i,j))=A(index(i,j),index(i,j))+2*lambdaair/dx+2*hcmurs;
+        A(index(i,j),index(i,j-1))=A(index(i,j),index(i,j-1))-lambdaair/dx;
         %B(k3)=Tavant(k3)+Text*lambda*dt/(rho*c_p*dx.^2)+Text*(hcmurs+lambdaair/dx);
         %A(k3,k3-1)=A(k3,k3-1)-lambdaair/dx-hcmurs-lambda*dt/(rho*c_p*dx.^2);
         %A(k3,k3-2)=A(k3,k3-2)+lambda*dt/(rho*c_p*dx.^2);
         
         %conduction dans les murs (horizontalement)
         if i>1 && i<noeudsHor
-            A(k3,k3)=A(k3,k3)+1+2*lambdamurs*dt/(rhomurs*c_p_murs*dx.^2);
-            A(k3+1,k3)=A(k3+1,k3)-lambdamurs*dt/(rhomurs*c_p_murs*dx.^2);
-            A(k3-1,k3)=A(k3-1,k3)-lambdamurs*dt/(rhomurs*c_p_murs*dx.^2);
+            A(index(i,j),index(i,j))=A(index(i,j),index(i,j))+1+2*lambdamurs*dt/(rhomurs*c_p_murs*dx.^2);
+            A(index(i,j),index(i+1,j))=A(index(i,j),index(i+1,j))-lambdamurs*dt/(rhomurs*c_p_murs*dx.^2);
+            A(index(i,j),index(i-1,j))=A(index(i,j),index(i-1,j))-lambdamurs*dt/(rhomurs*c_p_murs*dx.^2);
             %B(k3)=B(k3)+Tavant(k3);
         end
         
         if i==1
             A(index(1,j),index(1,j))=A(index(1,j),index(1,j))+1+2*lambdamurs*dt/(rhomurs*c_p_murs*dx.^2);
-            A(index(2,j),index(1,j))=A(index(2,j),index(1,j))-lambdamurs*dt/(rhomurs*c_p_murs*dx.^2);
-            A(index(noeudsHor,j),index(1,j))=A(index(noeudsHor,j),index(1,j))-lambdamurs*dt/(rhomurs*c_p_murs*dx.^2);
+            A(index(1,j),index(2,j))=A(index(1,j),index(2,j))-lambdamurs*dt/(rhomurs*c_p_murs*dx.^2);
+            A(index(1,j),index(noeudsHor,j))=A(index(1,j),index(noeudsHor,j))-lambdamurs*dt/(rhomurs*c_p_murs*dx.^2);
         end
         
         if i==noeudsHor
             A(index(noeudsHor,j),index(noeudsHor,j))=A(index(noeudsHor,j),index(noeudsHor,j))+1+2*lambdamurs*dt/(rhomurs*c_p_murs*dx.^2);
-            A(index(1,j),index(noeudsHor,j))=A(index(1,j),index(noeudsHor,j))-lambdamurs*dt/(rhomurs*c_p_murs*dx.^2);
-            A(index(noeudsHor-1,j),index(noeudsHor,j))=A(index(noeudsHor-1,j),index(noeudsHor,j))-lambdamurs*dt/(rhomurs*c_p_murs*dx.^2);
+            A(index(noeudsHor,j),index(1,j))=A(index(noeudsHor,j),index(1,j))-lambdamurs*dt/(rhomurs*c_p_murs*dx.^2);
+            A(index(noeudsHor,j),index(noeudsHor-1,j))=A(index(noeudsHor,j),index(noeudsHor-1,j))-lambdamurs*dt/(rhomurs*c_p_murs*dx.^2);
         end
         
         %% Au niveau du sous-sol (j=1) :
@@ -119,25 +119,31 @@ global B hc dx Tchauf lambdaair hcmurs hcairdalle hcairmurs lambda rho c_p dt Ts
         %avec resistances et bilan des flux au niveau de l'isolant
         j=1;
         k4=noeudsVert*(i-1)+j;
-        A(k4,k4)=A(k4,k4)-(1/(lambdaisolant+lambdasol)+1/(lambdaisolant+lambda));
-        A(k4,k4+1)=A(k4,k4+1)+1/(lambdaisolant+lambda);
+        %A(k4,k4)=A(k4,k4)-(1/(lambdaisolant+lambdasol)+1/(lambdaisolant+lambda));
+        A(index(i,j),index(i,j))=A(index(i,j),index(i,j))+2*(lambda+lambdaisolant)*dt/(rhoisolant*c_p_isolant*dx^2)+2*(lambdasol+lambdaisolant)*dt/(rhoisolant*c_p_isolant*dx^2);
+        %A(k4,k4+1)=A(k4,k4+1)+1/(lambdaisolant+lambda);
+        A(index(i,j),index(i,j+1))=A(index(i,j),index(i,j+1))-2*(lambda+lambdaisolant)*dt/(rhoisolant*c_p_isolant*dx^2);
         %B(k4)=B(k4)-Tsol/(lambdaisolant+lambdasol);
         %conditions de conduction horizontale pour l'isolant
-        if i~=1 && i~=noeudsHor
-            A(k4,k4)=A(k4,k4)+1+2*lambdaisolant*dt/(rhoisolant*c_p_isolant*dx.^2);
-            A(k4+1,k4)=A(k4+1,k4)-lambdaisolant*dt/(rhoisolant*c_p_isolant*dx.^2);
-            A(k4-1,k4)=A(k4-1,k4)-lambdaisolant*dt/(rhoisolant*c_p_isolant*dx.^2);
+        if i>1 && i<noeudsHor
+            %A(k4,k4)=A(k4,k4)+1+2*lambdaisolant*dt/(rhoisolant*c_p_isolant*dx.^2);
+            %A(k4+1,k4)=A(k4+1,k4)-lambdaisolant*dt/(rhoisolant*c_p_isolant*dx.^2);
+            %A(k4-1,k4)=A(k4-1,k4)-lambdaisolant*dt/(rhoisolant*c_p_isolant*dx.^2);
+            
+            A(index(i,j),index(i,j))=A(index(i,j),index(i,j))+2*lambdaisolant*dt/(rhoisolant*c_p_isolant*dx^2);
+            A(index(i,j),index(i+1,j))=A(index(i,j),index(i+1,j))-lambdaisolant*dt/(rhoisolant*c_p_isolant*dx^2);
+            A(index(i,j),index(i-1,j))=A(index(i,j),index(i-1,j))-lambdaisolant*dt/(rhoisolant*c_p_isolant*dx^2);
             %B(k4)=B(k4)+Tavant(k4);
         end
         if i==1
-            A(index(1,j),index(1,j))=A(index(1,j),index(1,j))+1+2*lambdaisolant*dt/(rhoisolant*c_p_isolant*dx.^2);
-            A(index(2,j),index(1,j))=A(index(2,j),index(1,j))-lambdaisolant*dt/(rhoisolant*c_p_isolant*dx.^2);
-            A(index(noeudsHor,j),index(1,j))=A(index(noeudsHor,j),index(1,j))-lambdaisolant*dt/(rhoisolant*c_p_isolant*dx.^2);
+            A(index(i,j),index(i,j))=A(index(i,j),index(i,j))+1+2*lambdaisolant*dt/(rhoisolant*c_p_isolant*dx.^2);
+            A(index(i,j),index(i+1,j))=A(index(i,j),index(i+1,j))-lambdaisolant*dt/(rhoisolant*c_p_isolant*dx.^2);
+            A(index(i,j),index(noeudsHor,j))=A(index(i,j),index(noeudsHor,j))-lambdaisolant*dt/(rhoisolant*c_p_isolant*dx.^2);
         end
         if i==noeudsHor
-            A(index(noeudsHor,j),index(noeudsHor,j))=A(index(noeudsHor,j),index(noeudsHor,j))+1+2*lambdaisolant*dt/(rhoisolant*c_p_isolant*dx.^2);
-            A(index(noeudsHor-1,j),index(noeudsHor,j))=A(index(noeudsHor-1,j),index(noeudsHor,j))-lambdaisolant*dt/(rhoisolant*c_p_isolant*dx.^2);
-            A(index(1,j),index(noeudsHor,j))=A(index(1,j),index(noeudsHor,j))-lambdaisolant*dt/(rhoisolant*c_p_isolant*dx.^2);
+            A(index(i,j),index(i,j))=A(index(i,j),index(i,j))+1+2*lambdaisolant*dt/(rhoisolant*c_p_isolant*dx.^2);
+            A(index(i,j),index(i-1,j))=A(index(i,j),index(i-1,j))-lambdaisolant*dt/(rhoisolant*c_p_isolant*dx.^2);
+            A(index(i,j),index(1,j))=A(index(i,j),index(1,j))-lambdaisolant*dt/(rhoisolant*c_p_isolant*dx.^2);
         end
 
         %AUTRE VERSION 
@@ -145,24 +151,24 @@ global B hc dx Tchauf lambdaair hcmurs hcairdalle hcairmurs lambda rho c_p dt Ts
         
         %% Au niveau du bas du plancher (j=2)
         j=2;
-        A(index(i,j),index(i,3))=A(index(i,j),index(i,3))+2*lambda*dt/(rho*c_p*dx^2);
-        A(index(i,j),index(i,4))=A(index(i,j),index(i,4))-lambda*dt/(rho*c_p*dx^2);
-        A(index(i,j),index(i,1))=A(index(i,j),index(i,1))+(lambda+lambdaisolant)*dt/(rho*c_p*dx^2);
+        A(index(i,j),index(i,j+1))=A(index(i,j),index(i,j+1))+2*lambda*dt/(rho*c_p*dx^2);
+        A(index(i,j),index(i,j+2))=A(index(i,j),index(i,j+2))-lambda*dt/(rho*c_p*dx^2);
+        A(index(i,j),index(i,j-1))=A(index(i,j),index(i,j-1))-(lambda+lambdaisolant)*dt/(rho*c_p*dx^2);
         %conduction dans la dalle
         if i>i && i<noeudsHor
-            A(index(i,j),index(i,j))=A(index(i,j),index(i,j))+1+2*lambda*dt/(rho*c_p*dx^2)-lambda*dt/(rho*c_p*dx^2)-(lambda+lambdaisolant)*dt/(rho*c_p*dx^2);
-            A(index(i+1,j),index(i,j))=A(index(i+1,j),index(i,j))-lambda*dt/(rho*c_p*dx^2);
-            A(index(i-1,j),index(i,j))=A(index(i-1,j),index(i,j))-lambda*dt/(rho*c_p*dx^2);
+            A(index(i,j),index(i,j))=A(index(i,j),index(i,j))+1+2*lambda*dt/(rho*c_p*dx^2)-lambda*dt/(rho*c_p*dx^2)+(lambda+lambdaisolant)*dt/(rho*c_p*dx^2);
+            A(index(i,j),index(i+1,j))=A(index(i,j),index(i+1,j))-lambda*dt/(rho*c_p*dx^2);
+            A(index(i,j),index(i-1,j))=A(index(i,j),index(i-1,j))-lambda*dt/(rho*c_p*dx^2);
         end
         if i==1
-            A(index(i,j),index(i,j))=A(index(i,j),index(i,j))+1+2*lambda*dt/(rho*c_p*dx^2)-lambda*dt/(rho*c_p*dx^2)-(lambda+lambdaisolant)*dt/(rho*c_p*dx^2);
-            A(index(i+1,j),index(i,j))=A(index(i+1,j),index(i,j))-lambda*dt/(rho*c_p*dx^2);
-            A(index(noeudsHor,j),index(i,j))=A(index(noeudsHor,j),index(i,j))-lambda*dt/(rho*c_p*dx^2);
+            A(index(i,j),index(i,j))=A(index(i,j),index(i,j))+1+2*lambda*dt/(rho*c_p*dx^2)-lambda*dt/(rho*c_p*dx^2)+(lambda+lambdaisolant)*dt/(rho*c_p*dx^2);
+            A(index(i,j),index(i+1,j))=A(index(i,j),index(i+1,j))-lambda*dt/(rho*c_p*dx^2);
+            A(index(i,j),index(noeudsHor,j))=A(index(i,j),index(noeudsHor,j))-lambda*dt/(rho*c_p*dx^2);
         end
         if i==noeudsHor
-            A(index(i,j),index(i,j))=A(index(i,j),index(i,j))+1+2*lambda*dt/(rho*c_p*dx^2)-lambda*dt/(rho*c_p*dx^2)-(lambda+lambdaisolant)*dt/(rho*c_p*dx^2);
-            A(index(1,j),index(i,j))=A(index(1,j),index(i,j))-lambda*dt/(rho*c_p*dx^2);
-            A(index(i-1,j),index(i,j))=A(index(i-1,j),index(i,j))-lambda*dt/(rho*c_p*dx^2);
+            A(index(i,j),index(i,j))=A(index(i,j),index(i,j))+1+2*lambda*dt/(rho*c_p*dx^2)-lambda*dt/(rho*c_p*dx^2)+(lambda+lambdaisolant)*dt/(rho*c_p*dx^2);
+            A(index(i,j),index(1,j))=A(index(i,j),index(1,j))-lambda*dt/(rho*c_p*dx^2);
+            A(index(i,j),index(i-1,j))=A(index(i,j),index(i-1,j))-lambda*dt/(rho*c_p*dx^2);
         end
     end
 end

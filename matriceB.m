@@ -72,10 +72,10 @@ end
     %% Conditions en bas de la dalle
     j=1;
     k4=noeudsVert*(i-1)+j;
-    B(k4)=B(k4)-Tsol/(lambdaisolant+lambdasol);
-    if i~=1 && i~=noeudsHor
+    B(k4)=B(k4)-Tsol*2*(lambdaisolant+lambdasol)/(rho*c_p*dx^2);
+    %if i~=1 && i~=noeudsHor
         B(k4)=B(k4)+Tavant(k4);
-    end
+    %end
     B(index(i,2))=Tavant(index(i,2));
 
 end

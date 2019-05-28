@@ -13,8 +13,8 @@ A=zeros(noeudsHor*noeudsVert, noeudsHor*noeudsVert);
 k=lambda*dt/(rho*c_p*dx*dx);
 %k=1;
 for i=2:noeudsHor-1
-    for j=2:noeudsVert-3
-    %for j=3:noeudsVert-3
+    %for j=2:noeudsVert-3
+    for j=3:noeudsVert-3
         %cas ou la case etudiee est solide
         if (matCellule(j,i)==0)
             Voisins = DonneVoisins(i,j,matCellule);
@@ -42,8 +42,8 @@ end
     %Condition aux limites periodiques 
     
     %Partie gauche de la cellule
-    for j=2:noeudsVert-3
-    %for j=3:noeudsVert-3
+    %for j=2:noeudsVert-3
+    for j=3:noeudsVert-3
         A(index(1,j),index(1,j))=4;
         A(index(1,j),index(1,j+1))=-1;
         A(index(1,j),index(1,j-1))=-1;
@@ -54,8 +54,8 @@ end
     end 
     
     %Partie droite de la cellule
-    for j=2:noeudsVert-3
-    %for j=3:noeudsVert-3
+    %for j=2:noeudsVert-3
+    for j=3:noeudsVert-3
         
         A(index(noeudsHor,j),index(noeudsHor,j))=4;
         A(index(noeudsHor,j),index(noeudsHor,j+1))=-1;
