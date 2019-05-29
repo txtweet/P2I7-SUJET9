@@ -296,6 +296,7 @@ global B hc dx Tchauf lambdaair hcmurs hcairdalle hcairmurs lambda rho c_p dt Ts
     end
     
     %% CONDITIONS PERIODIQUES
+    %% Au niveau du haut du plancher (j=N-2)
     j=noeudsVert-2;
     i=2;
     A(index(i,j),index(i+1,j))=A(index(i,j),index(i+1,j))+2*lambda*dt/(rho*c_p*dx^2);
@@ -317,7 +318,7 @@ global B hc dx Tchauf lambdaair hcmurs hcairdalle hcairmurs lambda rho c_p dt Ts
     A(index(i,j),index(i-1,j))=A(index(i,j),index(i-1,j))+2*lambda*dt/(rho*c_p*dx^2);
     A(index(i,j),index(i-2,j))=A(index(i,j),index(i-2,j))-lambda*dt/(rho*c_p*dx^2);
     A(index(i,j),index(2,j))=A(index(i,j),index(2,j))-lambda*dt/(rho*c_p*dx^2);
-    
+    %% Au niveau de l'air (j=N-1)
     j=noeudsVert-1;
     i=2;
     A(index(i,j),index(noeudsHor,j))=A(index(i,j),index(noeudsHor,j))-lambdaair*dt/(rhoair*c_p_air*dx^2);
@@ -339,7 +340,7 @@ global B hc dx Tchauf lambdaair hcmurs hcairdalle hcairmurs lambda rho c_p dt Ts
     A(index(i,j),index(i-1,j))=A(index(i,j),index(i-1,j))+2*lambdaair*dt/(rhoair*c_p_air*dx^2);
     A(index(i,j),index(1,j))=A(index(i,j),index(1,j))+2*lambdaair*dt/(rhoair*c_p_air*dx^2);
     A(index(i,j),index(2,j))=A(index(i,j),index(2,j))-lambdaair*dt/(rhoair*c_p_air*dx^2);
-    
+    %% Au niveau des murs (j=N)
     j=noeudsVert;
     i=2;
     A(index(i,j),index(i+1,j))=A(index(i,j),index(i+1,j))+2*lambdamurs*dt/(rhomurs*c_p_murs*dx.^2);
@@ -361,8 +362,7 @@ global B hc dx Tchauf lambdaair hcmurs hcairdalle hcairmurs lambda rho c_p dt Ts
     A(index(i,j),index(2,j))=A(index(i,j),index(2,j))-lambdamurs*dt/(rhomurs*c_p_murs*dx.^2);
     A(index(i,j),index(i-1,j))=A(index(i,j),index(i-1,j))+2*lambdamurs*dt/(rhomurs*c_p_murs*dx.^2);
     A(index(i,j),index(i-2,j))=A(index(i,j),index(i-2,j))-lambdamurs*dt/(rhomurs*c_p_murs*dx.^2);
-    
-    
+    %% Au niveau du sous-sol (j=1)
     j=1;
     i=2;
     A(index(i,j),index(i+1,j))=A(index(i,j),index(i+1,j))+2*lambdaisolant*dt/(rhoisolant*c_p_isolant*dx^2);
@@ -384,8 +384,7 @@ global B hc dx Tchauf lambdaair hcmurs hcairdalle hcairmurs lambda rho c_p dt Ts
     A(index(i,j),index(2,j))=A(index(i,j),index(2,j))-lambdaisolant*dt/(rhoisolant*c_p_isolant*dx^2);
     A(index(i,j),index(i-1,j))=A(index(i,j),index(i-1,j))+2*lambdaisolant*dt/(rhoisolant*c_p_isolant*dx^2);
     A(index(i,j),index(i-2,j))=A(index(i,j),index(i-2,j))-2*lambdaisolant*dt/(rhoisolant*c_p_isolant*dx^2);
-    
-    
+    %% Au niveau du bas du plancher (j=2)
     j=2;
     i=2;
     A(index(i,j),index(i+1,j))=A(index(i,j),index(i+1,j))+2*lambda*dt/(rho*c_p*dx^2);
