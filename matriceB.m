@@ -66,7 +66,7 @@ end
         j=noeudsVert;
         %k3=noeudsVert*(i-1)+j;
         %B(index(i,j))=Tavant(index(i,j))+Text*lambda*dt/(rhomurs*c_p_murs*dx.^2)+Text*(hcmurs+lambdaair/dx);
-        B(index(i,j))=Tavant(index(i,j))+Text*hcairmurs*dt/(rhomurs*c_p_murs*dx^2);
+        B(index(i,j))=Tavant(index(i,j))+Text*hcairmurs*dt/(rhomurs*c_p_murs);
 %         if i>1 && i<noeudsHor
 %             B(k3)=B(k3)+Tavant(k3);
 %         end
