@@ -1,6 +1,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%% P2I7 - SUJET 9 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Remplissage de la matrice A aux conditions limites haut et bas %%%
 <<<<<<< HEAD
+<<<<<<< HEAD
 %
 % Les paramètres sont :
 % La variable renvoyée est : matrice A
@@ -8,6 +9,8 @@ function A=ConditionsLimitesHautEtBas(dt,lambda,lambdaair,lambdaisolant,lambdamu
 % global B hc dx Tchauf lambdaair hcmurs hcairdalle hcairmurs lambda rho c_p dt Tsol lambdaisolant lambdamurs lambdasol c_p_murs c_p_air rhomurs rhoair c_p_isolant rhoisolant
 global A B
 =======
+=======
+>>>>>>> parent of d57646b... Corrections mineures
 function A=ConditionsLimitesHautEtBas(A,noeudsHor,noeudsVert,matCellule, Tavant, Text)
 global B hc dx Tchauf lambdaair hcmurs hcairdalle hcairmurs lambda rho c_p dt Tsol lambdaisolant lambdamurs lambdasol c_p_murs c_p_air rhomurs rhoair c_p_isolant rhoisolant
 >>>>>>> parent of d57646b... Corrections mineures

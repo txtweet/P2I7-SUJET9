@@ -1,6 +1,7 @@
 %%%%%%%%%% P2I7 - SUJET 9 %%%%%%%%%%
 %%% Remplissage de la matrice B %%%
 <<<<<<< HEAD
+<<<<<<< HEAD
 %
 % Les paramètres sont :
 % La variable renvoyée est : matrice B
@@ -8,6 +9,8 @@ function B=matriceB(dt,l,lambda,lambdaair,lambdaisolant,lambdasol,rho,rhomurs,rh
 % global  hc dx Tchauf lambdaair hcmurs lambda rho c_p dt Tsol lambdaisolant l lambdasol rhomurs c_p_murs rhoisolant c_p_isolant hcairmurs
 global matCellule
 =======
+=======
+>>>>>>> parent of d57646b... Corrections mineures
 function B=matriceB(noeudsHor,noeudsVert,matCellule, Tavant, Text)
 global  hc dx Tchauf lambdaair hcmurs lambda rho c_p dt Tsol lambdaisolant l lambdasol rhomurs c_p_murs rhoisolant c_p_isolant hcairmurs
 >>>>>>> parent of d57646b... Corrections mineures
