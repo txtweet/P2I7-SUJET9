@@ -60,13 +60,14 @@ Tancien=zeros(noeudsHor*noeudsVert,1);              % matrice colonne qui contie
 Tneuf=initTemp(matCellule,Tdepart);
 %Tneuf(:)=Tdepart;                                   % a changer
 B=zeros(noeudsHor*noeudsVert,1);                    % matrice colonne
-A=matriceA(noeudsHor,noeudsVert,matCellule,Tneuf, Text);  %
+A=matriceA(dt,l,lambda,lambdaair,lambdaisolant,rho,c_p,hc,hcmurs,Tchauf,Tsol,Tneuf,Text,noeudsHor,noeudsVert,dx,matCellule,B);  %
+A=ConditionsLimitesHautEtBas(dt,lambda,lambdaair,lambdaisolant,lambdamurs,lambdasol,rho,rhomurs,rhoisolant,rhoair,c_p,c_p_murs,c_p_air,c_p_isolant,hc,hcairdalle,hcairmurs,Tneuf,Text,Tsol,noeudsHor,noeudsVert,dx,matCellule,A,B);
 inA=inv(A);
 i=dt; %BIZARRE COMME CONDITION
 
 while i<tmax
     Tancien=Tneuf;
-    B=matriceB(noeudsHor,noeudsVert,matCellule,Tancien, Text);
+    B=matriceB(dt,l,lambda,lambdaair,lambdaisolant,lambdasol,rho,rhomurs,rhoisolant,c_p,c_p_murs,c_p_isolant,hc,hcmurs,hcairmurs,noeudsHor,noeudsVert,dx,matCellule,Tchauf,Tsol,Tancien,Text);
     Tneuf=inA*B;
     i=i+dt;
 end
