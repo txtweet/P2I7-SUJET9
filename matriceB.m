@@ -3,10 +3,8 @@
 %
 % Les paramètres sont :
 % La variable renvoyée est : matrice B
-function B=matriceB(dt,l,lambda,lambdaair,lambdaisolant,lambdasol,rho,rhomurs,rhoisolant,c_p,c_p_murs,c_p_isolant,hc,hcmurs,hcairmurs,noeudsHor,noeudsVert,dx,Tchauf,Tsol,Tavant,Text)
-% global  hc dx Tchauf lambdaair hcmurs lambda rho c_p dt Tsol lambdaisolant l lambdasol rhomurs c_p_murs rhoisolant c_p_isolant hcairmurs
-global matCellule
-% global  hc dx Tchauf lambdaair hcmurs lambda rho c_p dt Tsol lambdaisolant l lambdasol rhomurs c_p_murs rhoisolant c_p_isolant hcairmurs
+function B=matriceB(noeudsHor,noeudsVert,matCellule, Tavant, Text)
+global  hc dx Tchauf lambdaair hcmurs lambda rho c_p dt Tsol lambdaisolant l lambdasol rhomurs c_p_murs rhoisolant c_p_isolant hcairmurs
 B=zeros(noeudsHor*noeudsVert, 1);
 for i=2:noeudsHor-1
     %for j=2:noeudsVert-3

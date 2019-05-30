@@ -10,20 +10,9 @@
 %                       Tavant est le vecteur température à la précédente
 %                           itération (cas instationnaire)
 % La variable renvoyée est : matrice A
-function A=matriceA(dt,l,lambda,lambdaair,lambdaisolant,rho,c_p,hc,hcmurs,Tchauf,Tsol,Tavant,Text,noeudsHor,noeudsVert,dx)
-% global hc dx Tchauf lambdaair hcmurs lambda rho c_p dt Tsol lambdaisolant
-global B matCellule
-% global hc dx Tchauf lambdaair hcmurs lambda rho c_p dt Tsol lambdaisolant
+function A=matriceA(noeudsHor,noeudsVert,matCellule, Tavant, Text)
+global hc dx Tchauf lambdaair hcmurs lambda rho c_p dt Tsol lambdaisolant
 A=zeros(noeudsHor*noeudsVert, noeudsHor*noeudsVert);
-%A est une matrice de taille noeudsHor*noeudsVert+3. On rajoute 3 points
-%correspondant a l'isolant de resistance tres elevee au sous-dalle
-%(indice 1), l'air au-dessus du plancher (indice N-2) et les murs (indice
-%N)
-%A=-h²Laplacien de T
-%hc coefficient d'echange pour le sol
-%hcmurs coefficient d'echange pour les murs
-%Tavant est le vecteur temperature a la precedente iteration (cas
-%instationnaire)
 k=lambda*dt/(rho*c_p*dx*dx);
 %k=1;
 for i=2:noeudsHor-1
@@ -44,7 +33,7 @@ for i=2:noeudsHor-1
                 %B(index(i,j),1)=Tavant(index(i,j),1);
             else
                %Cas où au moins 1 voisins est fluide
-              A=ModifAVoisin(dt,l,lambda,rho,c_p,hc,Voisins,noeudsVert,dx,Tchauf,Tavant,i,j);
+              A=ModifAVoisin(A,Voisins,i,j,Tavant);
             end 
         elseif  (matCellule(j,i)==1)
             A(index(i,j),index(i,j))=1;
@@ -87,4 +76,5 @@ end
 %     j=noeudsVert-1;
 %     for i=3:noeudsHor-3
 %     end
+A=ConditionsLimitesHautEtBas(A,noeudsHor,noeudsVert,matCellule, Tavant, Text);
 end

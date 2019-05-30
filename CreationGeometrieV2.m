@@ -53,21 +53,20 @@ matT=zeros(noeudsVert,noeudsHor);                   % matrice dont chaque coeffi
 position_centre=floor([(noeudsHor+1)/2 resolution*hauteurConduite]);  % coordonnées du centre du tube contenant le fluide caloporteur
 % ATTENTION : pour une faible résolution et des dimensions de la dalle
 % paires, la position du centre est décentrée vers le haut à gauche.
-GenereMatrice(position_centre,rayonConduiteNum,Tchauf);    % matCellule et matT sont remplies selon la géométrie du problème
+GenereMatrice();    % matCellule et matT sont remplies selon la géométrie du problème
 %% Résolution du problème
 Tancien=zeros(noeudsHor*noeudsVert,1);              % matrice colonne qui contient la température en chaque point de chaque cellule
 %Tneuf=ones(noeudsHor*noeudsVert,1);                 % matrice colonne qui contient la température en chaque point de chaque cellule
-Tneuf=initTemp(noeudsVert,noeudsHor,Tchauf,Tsol,Text,Tdepart);
+Tneuf=initTemp(matCellule,Tdepart);
 %Tneuf(:)=Tdepart;                                   % a changer
 B=zeros(noeudsHor*noeudsVert,1);                    % matrice colonne
-A=matriceA(dt,l,lambda,lambdaair,lambdaisolant,rho,c_p,hc,hcmurs,Tchauf,Tsol,Tneuf,Text,noeudsHor,noeudsVert,dx);  %
-A=ConditionsLimitesHautEtBas(dt,lambda,lambdaair,lambdaisolant,lambdamurs,lambdasol,rho,rhomurs,rhoisolant,rhoair,c_p,c_p_murs,c_p_air,c_p_isolant,hc,hcairdalle,hcairmurs,Tneuf,Text,Tsol,noeudsHor,noeudsVert,dx);
+A=matriceA(noeudsHor,noeudsVert,matCellule,Tneuf, Text);  %
 inA=inv(A);
 i=dt; %BIZARRE COMME CONDITION
 
 while i<tmax
     Tancien=Tneuf;
-    B=matriceB(dt,l,lambda,lambdaair,lambdaisolant,lambdasol,rho,rhomurs,rhoisolant,c_p,c_p_murs,c_p_isolant,hc,hcmurs,hcairmurs,noeudsHor,noeudsVert,dx,Tchauf,Tsol,Tancien,Text);
+    B=matriceB(noeudsHor,noeudsVert,matCellule,Tancien, Text);
     Tneuf=inA*B;
     i=i+dt;
 end

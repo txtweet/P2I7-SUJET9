@@ -1,7 +1,6 @@
 %% Réalisation du bilan de chaleur au point i,j
-function A=ModifAVoisin(dt,l,lambda,rho,c_p,hc,Voisin,noeudsVert,dx,Tchauf,Tavant,i,j)
-% global dx l rho c_p noeudsVert hc dt Tchauf B lambda
-global A B
+function A=ModifAVoisin(A, Voisin, i, j,Tavant)
+global dx l rho c_p noeudsVert hc dt Tchauf B lambda
     ksolide=lambda*dx*l*dt/(rho*c_p*dx*dx*l*2*dx);      %Coefficient multiplicateur pour la derivée du solide
     kfluide=dx*dt*l*hc/(rho*c_p*dx*dx*l);               %Coefficient multiplicateur pour la derivée dans le fluide
     

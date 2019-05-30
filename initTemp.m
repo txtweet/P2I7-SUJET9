@@ -1,6 +1,5 @@
-function T=initTemp(noeudsVert,noeudsHor,Tchauf,Tsol,Text,Tdepart)
-% global Tchauf noeudsHor noeudsVert Tsol Text Tpiece
-global matCellule
+function T=initTemp(matCellule,Tdepart)
+global Tchauf noeudsHor noeudsVert Tsol Text Tpiece
 T=ones(noeudsHor*noeudsVert,1)*Tdepart;
 for i=1:noeudsHor
     for j=1:noeudsVert
