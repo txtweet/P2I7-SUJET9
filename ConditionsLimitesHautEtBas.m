@@ -194,8 +194,10 @@ global B hc dx Tchauf lambdaair hcmurs hcairdalle hcairmurs lambda rho c_p dt Ts
         k4=noeudsVert*(i-1)+j;
         %A(k4,k4)=A(k4,k4)-(1/(lambdaisolant+lambdasol)+1/(lambdaisolant+lambda));
         A(index(i,j),index(i,j))=A(index(i,j),index(i,j))+1+2*(lambda+lambdaisolant)*dt/(rhoisolant*c_p_isolant*dx^2)+2*(lambdasol+lambdaisolant)*dt/(rhoisolant*c_p_isolant*dx^2)-2*lambdaisolant*dt/(rhoisolant*c_p_isolant*dx^2);
+%         A(index(i,j),index(i,j))=A(index(i,j),index(i,j))+1+(lambda+lambdaisolant)*dt/(rhoisolant*c_p_isolant*dx^2)+(lambdasol+lambdaisolant)*dt/(rhoisolant*c_p_isolant*dx^2)-2*lambdaisolant*dt/(rhoisolant*c_p_isolant*dx^2);
         %A(k4,k4+1)=A(k4,k4+1)+1/(lambdaisolant+lambda);
         A(index(i,j),index(i,j+1))=A(index(i,j),index(i,j+1))-2*(lambda+lambdaisolant)*dt/(rhoisolant*c_p_isolant*dx^2);
+%         A(index(i,j),index(i,j+1))=A(index(i,j),index(i,j+1))-(lambda+lambdaisolant)*dt/(rhoisolant*c_p_isolant*dx^2);
         %B(k4)=B(k4)-Tsol/(lambdaisolant+lambdasol);
         %conditions de conduction horizontale pour l'isolant
         if i>2 && i<(noeudsHor-1)
@@ -251,7 +253,9 @@ global B hc dx Tchauf lambdaair hcmurs hcairdalle hcairmurs lambda rho c_p dt Ts
         A(index(i,j),index(i,j+1))=A(index(i,j),index(i,j+1))+2*lambda*dt/(rho*c_p*dx^2);
         A(index(i,j),index(i,j+2))=A(index(i,j),index(i,j+2))-lambda*dt/(rho*c_p*dx^2);
         A(index(i,j),index(i,j-1))=A(index(i,j),index(i,j-1))-2*(lambda+lambdaisolant)*dt/(rho*c_p*dx^2);
+%         A(index(i,j),index(i,j-1))=A(index(i,j),index(i,j-1))-(lambda+lambdaisolant)*dt/(rho*c_p*dx^2);
         A(index(i,j),index(i,j))=A(index(i,j),index(i,j))+1-3*lambda*dt/(rho*c_p*dx^2)+2*(lambda+lambdaisolant)*dt/(rho*c_p*dx^2);
+%         A(index(i,j),index(i,j))=A(index(i,j),index(i,j))+1-3*lambda*dt/(rho*c_p*dx^2)+(lambda+lambdaisolant)*dt/(rho*c_p*dx^2);
         %conduction dans la dalle
         if i>2 && i<(noeudsHor-1)
             %A(index(i,j),index(i,j))=A(index(i,j),index(i,j))+1+2*lambda*dt/(rho*c_p*dx^2)-lambda*dt/(rho*c_p*dx^2)+2*(lambda+lambdaisolant)*dt/(rho*c_p*dx^2);
