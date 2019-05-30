@@ -1,3 +1,5 @@
+%%%%%%%%%% P2I7 - SUJET 9 %%%%%%%%%%
+%%% Remplissage de la matrice A %%%
 function A=matriceA(noeudsHor,noeudsVert,matCellule, Tavant, Text)
 global hc dx Tchauf lambdaair hcmurs lambda rho c_p dt Tsol lambdaisolant
 A=zeros(noeudsHor*noeudsVert, noeudsHor*noeudsVert);
