@@ -10,8 +10,9 @@
 %                       Tavant est le vecteur température à la précédente
 %                           itération (cas instationnaire)
 % La variable renvoyée est : matrice A
-function A=matriceA(dt,l,lambda,lambdaair,lambdaisolant,rho,c_p,hc,hcmurs,Tchauf,Tsol,Tavant,Text,noeudsHor,noeudsVert,dx,matCellule,B)
+function A=matriceA(dt,l,lambda,lambdaair,lambdaisolant,rho,c_p,hc,hcmurs,Tchauf,Tsol,Tavant,Text,noeudsHor,noeudsVert,dx)
 % global hc dx Tchauf lambdaair hcmurs lambda rho c_p dt Tsol lambdaisolant
+global B matCellule
 A=zeros(noeudsHor*noeudsVert, noeudsHor*noeudsVert);
 k=lambda*dt/(rho*c_p*dx*dx);
 %k=1;
@@ -33,7 +34,7 @@ for i=2:noeudsHor-1
                 %B(index(i,j),1)=Tavant(index(i,j),1);
             else
                %Cas où au moins 1 voisins est fluide
-              A=ModifAVoisin(dt,l,lambda,rho,c_p,hc,Voisins,noeudsVert,dx,Tchauf,Tavant,A,B,i,j);
+              A=ModifAVoisin(dt,l,lambda,rho,c_p,hc,Voisins,noeudsVert,dx,Tchauf,Tavant,i,j);
             end 
         elseif  (matCellule(j,i)==1)
             A(index(i,j),index(i,j))=1;

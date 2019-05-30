@@ -3,8 +3,9 @@
 %
 % Les paramètres sont :
 % La variable renvoyée est : matrice A
-function A=ConditionsLimitesHautEtBas(dt,lambda,lambdaair,lambdaisolant,lambdamurs,lambdasol,rho,rhomurs,rhoisolant,rhoair,c_p,c_p_murs,c_p_air,c_p_isolant,hc,hcairdalle,hcairmurs,Tavant,Text,Tsol,noeudsHor,noeudsVert,dx,matCellule,A,B)
+function A=ConditionsLimitesHautEtBas(dt,lambda,lambdaair,lambdaisolant,lambdamurs,lambdasol,rho,rhomurs,rhoisolant,rhoair,c_p,c_p_murs,c_p_air,c_p_isolant,hc,hcairdalle,hcairmurs,Tavant,Text,Tsol,noeudsHor,noeudsVert,dx)
 % global B hc dx Tchauf lambdaair hcmurs hcairdalle hcairmurs lambda rho c_p dt Tsol lambdaisolant lambdamurs lambdasol c_p_murs c_p_air rhomurs rhoair c_p_isolant rhoisolant
+global A B
 %% Conditions en haut du plancher
 for i=1:noeudsHor
     %% Au niveau du haut du plancher (j=N-2)
