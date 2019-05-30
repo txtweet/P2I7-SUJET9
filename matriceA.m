@@ -1,17 +1,18 @@
 %%%%%%%%%% P2I7 - SUJET 9 %%%%%%%%%%
 %%% Remplissage de la matrice A %%%
+% A est une matrice de taille noeudsHor*noeudsVert+3. On rajoute 3 points
+% correspondant à l'isolant de résistance très élevée au sous-dalle
+% (indice 1), l'air au-dessus du plancher (indice N-2) et les murs (indice
+% N).
+% Les paramètres sont : A=-h² Laplacien de T
+%                       hc coefficient d'échange pour le sol
+%                       hcmurs coefficient d'échange pour les murs
+%                       Tavant est le vecteur température à la précédente
+%                           itération (cas instationnaire)
+% La variable renvoyée est : matrice A
 function A=matriceA(noeudsHor,noeudsVert,matCellule, Tavant, Text)
 global hc dx Tchauf lambdaair hcmurs lambda rho c_p dt Tsol lambdaisolant
 A=zeros(noeudsHor*noeudsVert, noeudsHor*noeudsVert);
-%A est une matrice de taille noeudsHor*noeudsVert+3. On rajoute 3 points
-%correspondant a l'isolant de resistance tres elevee au sous-dalle
-%(indice 1), l'air au-dessus du plancher (indice N-2) et les murs (indice
-%N)
-%A=-h²Laplacien de T
-%hc coefficient d'echange pour le sol
-%hcmurs coefficient d'echange pour les murs
-%Tavant est le vecteur temperature a la precedente iteration (cas
-%instationnaire)
 k=lambda*dt/(rho*c_p*dx*dx);
 %k=1;
 for i=2:noeudsHor-1
