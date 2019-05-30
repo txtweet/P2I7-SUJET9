@@ -40,36 +40,30 @@ for i=2:noeudsHor-1
         end
     end 
 end
-    
-    %Condition aux limites periodiques 
-    
-    %Partie gauche de la cellule
-    %for j=2:noeudsVert-3
-    for j=3:noeudsVert-3
-        A(index(1,j),index(1,j))=4;
-        A(index(1,j),index(1,j+1))=-1;
-        A(index(1,j),index(1,j-1))=-1;
-        A(index(1,j),index(noeudsHor,j))=-1;
-        A(index(1,j),index(2,j))=-1;
-        A(index(1,j),:)= A(index(1,j),:).*k;
-        A(index(1,j),index(1,j))=A(index(1,j),index(1,j))+1;
-    end 
-    
-    %Partie droite de la cellule
-    %for j=2:noeudsVert-3
-    for j=3:noeudsVert-3
-        
-        A(index(noeudsHor,j),index(noeudsHor,j))=4;
-        A(index(noeudsHor,j),index(noeudsHor,j+1))=-1;
-        A(index(noeudsHor,j),index(noeudsHor,j-1))=-1;
-        A(index(noeudsHor,j),index(1,j))=-1;
-        A(index(noeudsHor,j),index(noeudsHor-1,j))=-1;
-        A(index(noeudsHor,j),:)=k.*A(index(noeudsHor,j),:);
-        A(index(noeudsHor,j),index(noeudsHor,j))= A(index(noeudsHor,j),index(noeudsHor,j))+1;
-        
-    end
-    
-    %Ligne du haut du plancher : j=noeudsVert-2
+%% Condition aux limites periodiques 
+%Partie gauche de la cellule
+%for j=2:noeudsVert-3
+for j=3:noeudsVert-3
+    A(index(1,j),index(1,j))=4;
+    A(index(1,j),index(1,j+1))=-1;
+    A(index(1,j),index(1,j-1))=-1;
+    A(index(1,j),index(noeudsHor,j))=-1;
+    A(index(1,j),index(2,j))=-1;
+    A(index(1,j),:)= A(index(1,j),:).*k;
+    A(index(1,j),index(1,j))=A(index(1,j),index(1,j))+1;
+end
+%Partie droite de la cellule
+%for j=2:noeudsVert-3
+for j=3:noeudsVert-3
+    A(index(noeudsHor,j),index(noeudsHor,j))=4;
+    A(index(noeudsHor,j),index(noeudsHor,j+1))=-1;
+    A(index(noeudsHor,j),index(noeudsHor,j-1))=-1;
+    A(index(noeudsHor,j),index(1,j))=-1;
+    A(index(noeudsHor,j),index(noeudsHor-1,j))=-1;
+    A(index(noeudsHor,j),:)=k.*A(index(noeudsHor,j),:);
+    A(index(noeudsHor,j),index(noeudsHor,j))= A(index(noeudsHor,j),index(noeudsHor,j))+1;
+end
+%Ligne du haut du plancher : j=noeudsVert-2
 %     j=noeudsVert-2;
 %     for i=3:noeudsHor-3
 %         A(i,j)=1;
@@ -81,7 +75,5 @@ end
 %     j=noeudsVert-1;
 %     for i=3:noeudsHor-3
 %     end
-     
-   A=ConditionsLimitesHautEtBas(A,noeudsHor,noeudsVert,matCellule, Tavant, Text);
- 
+A=ConditionsLimitesHautEtBas(A,noeudsHor,noeudsVert,matCellule, Tavant, Text);
 end
