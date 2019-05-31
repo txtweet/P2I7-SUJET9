@@ -39,7 +39,7 @@ hcairdalle=10;                                          % coefficient d'échanges
 hcairmurs=10;                                           % coefficient d'échanges convectifs entre l'air intérieur et les murs
 Tchauf=500+273.15;                                       % température de l'eau, constante (en K)
 Tdepart=15+273.15;                                      % temperature de la piece
-tmax=20000;                                                % temps maximal de la simulation, en secondes
+tmax=100000;                                                % temps maximal de la simulation, en secondes
 Text=3+273.15;                                          % temperature exterieure constante
 Tsol=2+273.15;                                        % temperature du sol (sous la dalle)
 %% Initialisation des paramètres
@@ -70,6 +70,7 @@ while i<tmax
     Tneuf=inA*B;
     i=i+dt;
 end
+Tneuf(:)=Tneuf(:)-273.15; %conversion en degres celsius
 T=reshape(Tneuf,noeudsVert,noeudsHor);
 surf(T);
 view(2);
