@@ -4,7 +4,7 @@
 % Les paramètres sont :
 % La variable renvoyée est : matrice B
 function B=matriceB(noeudsHor,noeudsVert,matCellule, Tavant, Text)
-global  hc dx Tchauf lambdaair hcmurs lambda rho c_p dt Tsol lambdaisolant l lambdasol rhomurs c_p_murs rhoisolant c_p_isolant hcairmurs
+global  hc dx Tchauf lambdaair hcmurs lambda rho c_p dt Tsol lambdaisolant l lambdasol rhomurs c_p_murs rhoisolant c_p_isolant hcairmurs eisolant esol
 B=zeros(noeudsHor*noeudsVert, 1);
 for i=2:noeudsHor-1
     %for j=2:noeudsVert-3
@@ -73,7 +73,8 @@ for i=1:noeudsHor
 %     end
 %% Conditions en bas de la dalle
 j=1;
-B(index(i,j))=Tsol*(lambdasol+lambdaisolant)*dt/(rhoisolant*c_p_isolant*dx^2)+Tavant(index(i,j));
+%B(index(i,j))=Tsol*(lambdasol+lambdaisolant)*dt/(rhoisolant*c_p_isolant*dx^2)+Tavant(index(i,j));
+B(index(i,j))=Tsol*2*dt/(rhoisolant*c_p_isolant*((esol*dx/lambdasol)+(eisolant*dx/lambdaisolant)))+Tavant(index(i,j));
 j=2;
 B(index(i,j))=Tavant(index(i,j));
 % k4=noeudsVert*(i-1)+j;

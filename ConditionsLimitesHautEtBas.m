@@ -4,7 +4,7 @@
 % Les paramètres sont :
 % La variable renvoyée est : matrice A
 function A=ConditionsLimitesHautEtBas(A,noeudsHor,noeudsVert,matCellule, Tavant, Text)
-global B hc dx Tchauf lambdaair hcmurs hcairdalle hcairmurs lambda rho c_p dt Tsol lambdaisolant lambdamurs lambdasol c_p_murs c_p_air rhomurs rhoair c_p_isolant rhoisolant
+global B hc dx Tchauf lambdaair hcmurs hcairdalle hcairmurs lambda rho c_p dt Tsol lambdaisolant lambdamurs lambdasol c_p_murs c_p_air rhomurs rhoair c_p_isolant rhoisolant eisolant esol
 %% Conditions en haut du plancher
 for i=1:noeudsHor
     %% Au niveau du haut du plancher (j=N-2)
@@ -195,10 +195,12 @@ for i=1:noeudsHor
     j=1;
     k4=noeudsVert*(i-1)+j;
     %A(k4,k4)=A(k4,k4)-(1/(lambdaisolant+lambdasol)+1/(lambdaisolant+lambda));
-    A(index(i,j),index(i,j))=A(index(i,j),index(i,j))+1+2*(lambda+lambdaisolant)*dt/(rhoisolant*c_p_isolant*dx^2)+2*(lambdasol+lambdaisolant)*dt/(rhoisolant*c_p_isolant*dx^2)-2*lambdaisolant*dt/(rhoisolant*c_p_isolant*dx^2);
-%         A(index(i,j),index(i,j))=A(index(i,j),index(i,j))+1+(lambda+lambdaisolant)*dt/(rhoisolant*c_p_isolant*dx^2)+(lambdasol+lambdaisolant)*dt/(rhoisolant*c_p_isolant*dx^2)-2*lambdaisolant*dt/(rhoisolant*c_p_isolant*dx^2);
+    %A(index(i,j),index(i,j))=A(index(i,j),index(i,j))+1+2*(lambda+lambdaisolant)*dt/(rhoisolant*c_p_isolant*dx^2)+2*(lambdasol+lambdaisolant)*dt/(rhoisolant*c_p_isolant*dx^2)-2*lambdaisolant*dt/(rhoisolant*c_p_isolant*dx^2);
+    A(index(i,j),index(i,j))=A(index(i,j),index(i,j))+1+2*dt/(rhoisolant*c_p_isolant*((dx*dx/lambda)+(eisolant*dx/lambdaisolant)))+2*dt/(rhoisolant*c_p_isolant*((esol*dx/lambdasol)+(eisolant*dx/lambdaisolant)))-2*lambdaisolant*dt/(rhoisolant*c_p_isolant*dx^2);
+    %         A(index(i,j),index(i,j))=A(index(i,j),index(i,j))+1+(lambda+lambdaisolant)*dt/(rhoisolant*c_p_isolant*dx^2)+(lambdasol+lambdaisolant)*dt/(rhoisolant*c_p_isolant*dx^2)-2*lambdaisolant*dt/(rhoisolant*c_p_isolant*dx^2);
     %A(k4,k4+1)=A(k4,k4+1)+1/(lambdaisolant+lambda);
-    A(index(i,j),index(i,j+1))=A(index(i,j),index(i,j+1))-2*(lambda+lambdaisolant)*dt/(rhoisolant*c_p_isolant*dx^2);
+    %A(index(i,j),index(i,j+1))=A(index(i,j),index(i,j+1))-2*3*(lambda+lambdaisolant)*dt/(2*rhoisolant*c_p_isolant*dx^2);
+    A(index(i,j),index(i,j+1))=A(index(i,j),index(i,j+1))-2*dt/(rhoisolant*c_p_isolant*((dx*dx/lambda)+(eisolant*dx/lambdaisolant)));
 %         A(index(i,j),index(i,j+1))=A(index(i,j),index(i,j+1))-(lambda+lambdaisolant)*dt/(rhoisolant*c_p_isolant*dx^2);
     %B(k4)=B(k4)-Tsol/(lambdaisolant+lambdasol);
     %conditions de conduction horizontale pour l'isolant
@@ -252,11 +254,14 @@ for i=1:noeudsHor
 
     %% Au niveau du bas du plancher (j=2)
     j=2;
+    %A(index(i,j),index(i,j+1))=A(index(i,j),index(i,j+1))+2*lambda*dt/(rho*c_p*dx^2)-2*(lambda+lambdaisolant)*dt/(rho*c_p*dx^2);
     A(index(i,j),index(i,j+1))=A(index(i,j),index(i,j+1))+2*lambda*dt/(rho*c_p*dx^2);
     A(index(i,j),index(i,j+2))=A(index(i,j),index(i,j+2))-lambda*dt/(rho*c_p*dx^2);
-    A(index(i,j),index(i,j-1))=A(index(i,j),index(i,j-1))-2*(lambda+lambdaisolant)*dt/(rho*c_p*dx^2);
+    %A(index(i,j),index(i,j-1))=A(index(i,j),index(i,j-1))-2*(lambda+lambdaisolant)*dt/(rho*c_p*dx^2);
+    A(index(i,j),index(i,j-1))=A(index(i,j),index(i,j-1))-2/(rho*c_p*((dx*dx/lambda)+(eisolant*dx/lambdaisolant)));
 %         A(index(i,j),index(i,j-1))=A(index(i,j),index(i,j-1))-(lambda+lambdaisolant)*dt/(rho*c_p*dx^2);
-    A(index(i,j),index(i,j))=A(index(i,j),index(i,j))+1-3*lambda*dt/(rho*c_p*dx^2)+2*(lambda+lambdaisolant)*dt/(rho*c_p*dx^2);
+    %A(index(i,j),index(i,j))=A(index(i,j),index(i,j))+1-3*lambda*dt/(rho*c_p*dx^2)+3*2*(lambda+lambdaisolant)*dt/(2*rho*c_p*dx^2);
+    A(index(i,j),index(i,j))=A(index(i,j),index(i,j))+1-3*lambda*dt/(rho*c_p*dx^2)+2*dt/(rho*c_p*((dx*dx/lambda)+(eisolant*dx/lambdaisolant)));
 %         A(index(i,j),index(i,j))=A(index(i,j),index(i,j))+1-3*lambda*dt/(rho*c_p*dx^2)+(lambda+lambdaisolant)*dt/(rho*c_p*dx^2);
     %conduction dans la dalle
     if i>2 && i<(noeudsHor-1)

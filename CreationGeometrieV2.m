@@ -1,7 +1,7 @@
 %%%%%%%%%%%%%% P2I7 - SUJET 9 %%%%%%%%%%%%%%
 %%% Création de la géométrie du problème %%%
 clear all
-global position_centre rayonConduiteNum matCellule matT B dx hc hcairdalle hcairmurs Tchauf lambdaair hcmurs lambda rho c_p dt l noeudsVert noeudsHor lambdaisolant Tsol Text lambdamurs lambdasol c_p_air c_p_murs rhomurs rhoair c_p_isolant rhoisolant
+global position_centre rayonConduiteNum matCellule matT B dx hc hcairdalle hcairmurs Tchauf lambdaair hcmurs lambda rho c_p dt l noeudsVert noeudsHor lambdaisolant Tsol Text lambdamurs lambdasol c_p_air c_p_murs rhomurs rhoair c_p_isolant rhoisolant eisolant esol
 %% Variables du probleme
 resolution=3;                                           % nombre de noeuds par centimètre
 dt=60;                                                   % pas de temps (discrétisation du temps)
@@ -31,6 +31,8 @@ c_p_eau=4178;                                           % capacité thermique mas
 c_p_isolant=1000;                                       % capacité thermique massique de l'isolant (polystyrène expansé)
 c_p_murs=1000;                                          % capacité thermique massique des murs
 c_p_air=1004;                                           % capacité thermique massique de l'air
+eisolant=30e-2;                                         % epaisseur de la couche d'isolant sous dalle, en metres
+esol=3;                                                 % epaisseur de la couche de sol sous isolant, en metres (tres importante pour grande isolation)
 Re=(rho_eau*vitesse*(2*rayonConduite*10^(-2)))/mu;      % constante de Reynolds (cours de thermique, C. Obrecht)
 Pr=mu*c_p_eau/lambdaeau;                                % constante de Prandtl (cours de thermique, C. Obrecht)
 hc=(0.023*Re^(4/5)*Pr^(1/3))/(2*rayonConduite*10^(-2)); % coefficient d'échanges convectifs de l'eau
@@ -39,7 +41,7 @@ hcairdalle=10;                                          % coefficient d'échanges
 hcairmurs=10;                                           % coefficient d'échanges convectifs entre l'air intérieur et les murs
 Tchauf=500+273.15;                                       % température de l'eau, constante (en K)
 Tdepart=15+273.15;                                      % temperature de la piece
-tmax=100000;                                                % temps maximal de la simulation, en secondes
+tmax=200000;                                                % temps maximal de la simulation, en secondes
 Text=3+273.15;                                          % temperature exterieure constante
 Tsol=2+273.15;                                        % temperature du sol (sous la dalle)
 %% Initialisation des paramètres
