@@ -7,8 +7,8 @@ for i=1:noeudsHor
         if matCellule(i,j)==1
             T(index(i,j))=Tchauf;
         end
-        if j==1 %temperature de l'isolant idem que temperature du sol
-            T(index(i,j))=Tsol;
+        if j==1 %temperature de l'isolant moyenne entre temperature du sol et Tdalle
+            T(index(i,j))=(Tsol+Tdepart)/2;
         end
         if j==noeudsVert %temperature des murs, moyenne entre Text et Tpiece (Tpiece=Tdepart au debut)
             T(index(i,j))=(Text+Tdepart)/2;

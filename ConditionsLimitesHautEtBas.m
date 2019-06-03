@@ -304,6 +304,69 @@ for i=1:noeudsHor
         A(index(i,j),index(i-1,j))=A(index(i,j),index(i-1,j))+2*lambda*dt/(rho*c_p*dx.^2);
         A(index(i,j),index(i-2,j))=A(index(i,j),index(i-2,j))-lambda*dt/(rho*c_p*dx.^2);
     end
+    
+    %% Bas du plancher (N-2)
+    j=noeudsVert-2;
+    ksolidedalle=-lambda*dt*dx*l/(rho*c_p*2*dx^3*l);
+    kairdalle=hcairdalle*dt*dx*l/(rho*c_p*dx^2*l);
+    %gauche
+    A(index(i,j),index(i,j))=A(index(i,j),index(i,j))-3*ksolidedalle;
+    A(index(i,j),index(i-1,j))=A(index(i,j),index(i-1,j))+4*ksolidedalle;
+    A(index(i,j),index(i-2,j))=A(index(i,j),index(i-2,j))-ksolidedalle;
+    %droite
+    A(index(i,j),index(i,j))=A(index(i,j),index(i,j))-3*ksolidedalle;
+    A(index(i,j),index(i+1,j))=A(index(i,j),index(i+1,j))+4*ksolidedalle;
+    A(index(i,j),index(i+2,j))=A(index(i,j),index(i+2,j))-ksolidedalle;
+    %retour dalle
+    A(index(i,j),index(i,j))=A(index(i,j),index(i,j))-3*ksolidedalle;
+    A(index(i,j),index(i,j-1))=A(index(i,j),index(i,j-1))+4*ksolidedalle;
+    A(index(i,j),index(i,j-2))=A(index(i,j),index(i,j-2))-ksolidedalle;
+    % convection air
+    A(index(i,j),index(i,j))=A(index(i,j),index(i,j))+3*kairdalle/2;
+    A(index(i,j),index(i,j+1))=A(index(i,j),index(i,j+1))-kairdalle;
+    A(index(i,j),index(i,j-1))=A(index(i,j),index(i,j-1)-kairdalle/2;
+    
+    %% Air 
+    j=noeudsVert-1;
+    kconvair=-lambdaair*dt*dx*l/(rhoair*c_p_air*2*dx^3*l);
+    kairdalle=hcairdalle*dt*dx*l/(rhoair*c_p_air*dx^2*l);
+    kairmur=hcairdalle*dt*dx*l/(rhoair*c_p_air*dx^2*l);
+    %gauche
+    A(index(i,j),index(i,j))=A(index(i,j),index(i,j))-3*kconvair;
+    A(index(i,j),index(i-1,j))=A(index(i,j),index(i-1,j))+4*kconvair;
+    A(index(i,j),index(i-2,j))=A(index(i,j),index(i-2,j))-kconvair;
+    %droite
+    A(index(i,j),index(i,j))=A(index(i,j),index(i,j))-3*kconvair;
+    A(index(i,j),index(i+1,j))=A(index(i,j),index(i+1,j))+4*kconvair;
+    A(index(i,j),index(i+2,j))=A(index(i,j),index(i+2,j))-kconvair;
+    %convection murs
+    A(index(i,j),index(i,j))=A(index(i,j),index(i,j))+kairmur;
+    A(index(i,j),index(i,j+1))=A(index(i,j),index(i,j+1))-kairmur;
+    % convection air
+    A(index(i,j),index(i,j-1))=A(index(i,j),index(i,j))-3*kairdalle/2;
+    A(index(i,j),index(i,j))=A(index(i,j),index(i,j))+kairdalle;
+    A(index(i,j),index(i,j-2))=A(index(i,j),index(i,j-1)+kairdalle/2;
+    
+    %% Murs
+    j=noeudsVert;
+    kconvmur=-lambdamurs*dt*dx*l/(rhomurs*c_p_murs*2*dx^3*l);
+    %kairdalle=hcairdalle*dt*dx*l/(rhoair*c_p_murs*dx^2*l);
+    kairmur=hcairdalle*dt*dx*l/(rhoair*c_p_murs*dx^2*l);
+    %gauche
+    A(index(i,j),index(i,j))=A(index(i,j),index(i,j))-3*kconvmur;
+    A(index(i,j),index(i-1,j))=A(index(i,j),index(i-1,j))+4*kconvmur;
+    A(index(i,j),index(i-2,j))=A(index(i,j),index(i-2,j))-kconvmur;
+    %droite
+    A(index(i,j),index(i,j))=A(index(i,j),index(i,j))-3*kconvmur;
+    A(index(i,j),index(i+1,j))=A(index(i,j),index(i+1,j))+4*kconvmur;
+    A(index(i,j),index(i+2,j))=A(index(i,j),index(i+2,j))-kconvmur;
+    %convection murs bas
+    A(index(i,j),index(i,j))=A(index(i,j),index(i,j))+kairmur;
+    A(index(i,j),index(i,j-1))=A(index(i,j),index(i,j-1))-kairmur;
+    % convection murs haut
+    A(index(i,j),index(i,j-1))=A(index(i,j),index(i,j))-3*kairdalle/2;
+    A(index(i,j),index(i,j))=A(index(i,j),index(i,j))+kairdalle;
+    A(index(i,j),index(i,j-2))=A(index(i,j),index(i,j-1)+kairdalle/2;
 end
 
 %% CONDITIONS PERIODIQUES

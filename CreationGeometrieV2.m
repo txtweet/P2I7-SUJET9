@@ -4,7 +4,7 @@ clear all
 global position_centre rayonConduiteNum matCellule matT B dx hc hcairdalle hcairmurs Tchauf lambdaair hcmurs lambda rho c_p dt l noeudsVert noeudsHor lambdaisolant Tsol Text lambdamurs lambdasol c_p_air c_p_murs rhomurs rhoair c_p_isolant rhoisolant eisolant esol
 %% Variables du probleme
 resolution=3;                                           % nombre de noeuds par centimètre
-dt=1;                                                   % pas de temps (discrétisation du temps)
+dt=30;                                                   % pas de temps (discrétisation du temps)
 l=1;                                                    % discrétisation de l'espace
 lambdaair=0.0262;                                       % conductivite thermique de l'air (d'après Cours de thermique, C. Obrecht)
 lambdaisolant=0.038;                                     % conductivite thermique de l'isolant du bas
@@ -41,9 +41,9 @@ hcairdalle=10;                                          % coefficient d'échanges
 hcairmurs=10;                                           % coefficient d'échanges convectifs entre l'air intérieur et les murs
 Tchauf=500+273.15;                                       % température de l'eau, constante (en K)
 Tdepart=15+273.15;                                      % temperature de la piece
-tmaxheures=2;                                           % temps maximal de la simulation, en heures
+tmaxheures=100;                                           % temps maximal de la simulation, en heures
 tmax=tmaxheures*3600;                                   % temps maximal de la simulation, en secondes
-Text=10+273.15;                                          % temperature exterieure constante
+Text=0+273.15;                                          % temperature exterieure constante
 Tsol=10+273.15;                                        % temperature du sol (sous la dalle)
 %% Initialisation des paramètres
 noeudsVert=resolution * hauteurDalle;               % nombre de neuds sur la hauteur de la cellule
