@@ -1,6 +1,6 @@
 %%%%%%%%%% P2I7 - SUJET 9 %%%%%%%%%%
 %%% Remplissage de la matrice A %%%
-% A est une matrice de taille noeudsHor*noeudsVert+3. On rajoute 3 points
+% A est une matrice de taille noeudsHor*noeudsVert. On rajoute 3 points
 % correspondant à l'isolant de résistance très élevée au sous-dalle
 % (indice 1), l'air au-dessus du plancher (indice N-2) et les murs (indice
 % N).
