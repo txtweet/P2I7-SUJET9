@@ -43,7 +43,7 @@ for i=1:noeudsHor
         A(index(i,j),index(i+2,j))=A(index(i,j),index(i+2,j))-lambda*dt/(rho*c_p*dx^2);
     end
     % Conditions periodiques et pas de derivee decentree
-    if i==noeudsHor-1
+    if i==(noeudsHor-1)
         %A(index(noeudsHor,j),index(noeudsHor-1,j))=A(index(noeudsHor,j),index(noeudsHor-1,j))-lambda*dt/(rho*c_p*dx^2);
         %A(index(noeudsHor,j),index(noeudsHor,j))=A(index(noeudsHor,j),index(noeudsHor,j))+1+hcairdalle*dt/(rho*c_p)+lambda*dt/(rho*c_p*dx^2);
         %A(index(i,j),index(1,j))=A(index(i,j),index(1,j))-lambda*dt/(rho*c_p*dx^2);
@@ -96,7 +96,7 @@ for i=1:noeudsHor
         A(index(i,j),index(i+1,j))=A(index(i,j),index(i+1,j))+2*lambdaair*dt/(rhoair*c_p_air*dx^2);
         A(index(i,j),index(i+2,j))=A(index(i,j),index(i+2,j))-lambdaair*dt/(rhoair*c_p_air*dx^2);
     end
-    if i==noeudsHor-1
+    if i==(noeudsHor-1)
         %A(index(noeudsHor,j),index(noeudsHor,j))=A(index(noeudsHor,j),index(noeudsHor,j))+2*lambdaair*dt/(rhoair*c_p_air*dx^2);
         %A(index(noeudsHor,j),index(noeudsHor-1,j))=A(index(noeudsHor,j),index(noeudsHor-1,j))-lambdaair*dt/(rhoair*c_p_air*dx^2);
         %A(index(noeudsHor,j),index(1,j))=A(index(noeudsHor,j),index(1,j))-lambdaair*dt/(rhoair*c_p_air*dx^2);
@@ -153,7 +153,7 @@ for i=1:noeudsHor
         A(index(i,j),index(noeudsHor-1,j))=A(index(i,j),index(noeudsHor-1,j))-lambdamurs*dt/(rhomurs*c_p_murs*dx.^2);
     end
 
-   if i==noeudsHor-1
+   if i==(noeudsHor-1)
         %A(index(noeudsHor,j),index(noeudsHor,j))=A(index(noeudsHor,j),index(noeudsHor,j))+1+2*lambdamurs*dt/(rhomurs*c_p_murs*dx.^2);
         %A(index(noeudsHor,j),index(1,j))=A(index(noeudsHor,j),index(1,j))-lambdamurs*dt/(rhomurs*c_p_murs*dx.^2);
         %A(index(noeudsHor,j),index(noeudsHor-1,j))=A(index(noeudsHor,j),index(noeudsHor-1,j))-lambdamurs*dt/(rhomurs*c_p_murs*dx.^2);
@@ -232,7 +232,7 @@ for i=1:noeudsHor
         A(index(i,j),index(noeudsHor,j))=A(index(i,j),index(noeudsHor,j))+2*lambdaisolant*dt/(rhoisolant*c_p_isolant*dx^2);
         A(index(i,j),index(noeudsHor-1,j))=A(index(i,j),index(noeudsHor-1,j))-lambdaisolant*dt/(rhoisolant*c_p_isolant*dx^2); 
     end
-    if i==noeudsHor-1
+    if i==(noeudsHor-1)
         %A(index(i,j),index(i,j))=A(index(i,j),index(i,j))+1+2*lambdaisolant*dt/(rhoisolant*c_p_isolant*dx.^2);
         %A(index(i,j),index(i-1,j))=A(index(i,j),index(i-1,j))-lambdaisolant*dt/(rhoisolant*c_p_isolant*dx.^2);
         %A(index(i,j),index(1,j))=A(index(i,j),index(1,j))-lambdaisolant*dt/(rhoisolant*c_p_isolant*dx.^2);
@@ -266,43 +266,43 @@ for i=1:noeudsHor
     %conduction dans la dalle
     if i>2 && i<(noeudsHor-1)
         %A(index(i,j),index(i,j))=A(index(i,j),index(i,j))+1+2*lambda*dt/(rho*c_p*dx^2)-lambda*dt/(rho*c_p*dx^2)+2*(lambda+lambdaisolant)*dt/(rho*c_p*dx^2);
-        A(index(i,j),index(i+1,j))=A(index(i,j),index(i+1,j))+2*lambda*dt/(rho*c_p*dx^2);
-        A(index(i,j),index(i+2,j))=A(index(i,j),index(i+2,j))-lambda*dt/(rho*c_p*dx^2);
-        A(index(i,j),index(i-1,j))=A(index(i,j),index(i-1,j))+2*lambda*dt/(rho*c_p*dx^2);
-        A(index(i,j),index(i-2,j))=A(index(i,j),index(i-2,j))-lambda*dt/(rho*c_p*dx^2);
+        A(index(i,j),index(i+1,j))=A(index(i,j),index(i+1,j))+2*lambda*dt/(rho*c_p*dx.^2);
+        A(index(i,j),index(i+2,j))=A(index(i,j),index(i+2,j))-lambda*dt/(rho*c_p*dx.^2);
+        A(index(i,j),index(i-1,j))=A(index(i,j),index(i-1,j))+2*lambda*dt/(rho*c_p*dx.^2);
+        A(index(i,j),index(i-2,j))=A(index(i,j),index(i-2,j))-lambda*dt/(rho*c_p*dx.^2);
     end
     if i==2
 %             A(index(i,j),index(i,j))=A(index(i,j),index(i,j))+1+2*lambda*dt/(rho*c_p*dx^2)-lambda*dt/(rho*c_p*dx^2)+2*(lambda+lambdaisolant)*dt/(rho*c_p*dx^2);
 %             A(index(i,j),index(i+1,j))=A(index(i,j),index(i+1,j))-lambda*dt/(rho*c_p*dx^2);
 %             A(index(i,j),index(noeudsHor,j))=A(index(i,j),index(noeudsHor,j))-lambda*dt/(rho*c_p*dx^2);
 
-        A(index(i,j),index(i+1,j))=A(index(i,j),index(i+1,j))+2*lambda*dt/(rho*c_p*dx^2);
-        A(index(i,j),index(i+2,j))=A(index(i,j),index(i+2,j))-lambda*dt/(rho*c_p*dx^2);
-        A(index(i,j),index(i-1,j))=A(index(i,j),index(i-1,j))+2*lambda*dt/(rho*c_p*dx^2);
-        A(index(i,j),index(noeudsHor,j))=A(index(i,j),index(noeudsHor,j))-lambda*dt/(rho*c_p*dx^2);
+        A(index(i,j),index(i+1,j))=A(index(i,j),index(i+1,j))+2*lambda*dt/(rho*c_p*dx.^2);
+        A(index(i,j),index(i+2,j))=A(index(i,j),index(i+2,j))-lambda*dt/(rho*c_p*dx.^2);
+        A(index(i,j),index(i-1,j))=A(index(i,j),index(i-1,j))+2*lambda*dt/(rho*c_p*dx.^2);
+        A(index(i,j),index(noeudsHor,j))=A(index(i,j),index(noeudsHor,j))-lambda*dt/(rho*c_p*dx.^2);
     end
     if i==1
-        A(index(i,j),index(i+1,j))=A(index(i,j),index(i+1,j))+2*lambda*dt/(rho*c_p*dx^2);
-        A(index(i,j),index(i+2,j))=A(index(i,j),index(i+2,j))-lambda*dt/(rho*c_p*dx^2);
-        A(index(i,j),index(noeudsHor,j))=A(index(i,j),index(noeudsHor,j))+2*lambda*dt/(rho*c_p*dx^2);
-        A(index(i,j),index(noeudsHor-1,j))=A(index(i,j),index(noeudsHor-1,j))-lambda*dt/(rho*c_p*dx^2);
+        A(index(i,j),index(i+1,j))=A(index(i,j),index(i+1,j))+2*lambda*dt/(rho*c_p*dx.^2);
+        A(index(i,j),index(i+2,j))=A(index(i,j),index(i+2,j))-lambda*dt/(rho*c_p*dx.^2);
+        A(index(i,j),index(noeudsHor,j))=A(index(i,j),index(noeudsHor,j))+2*lambda*dt/(rho*c_p*dx.^2);
+        A(index(i,j),index(noeudsHor-1,j))=A(index(i,j),index(noeudsHor-1,j))-lambda*dt/(rho*c_p*dx.^2);
     end
 
-    if i==noeudsHor-1
+    if i==(noeudsHor-1)
         %A(index(i,j),index(i,j))=A(index(i,j),index(i,j))+1+2*lambda*dt/(rho*c_p*dx^2)-lambda*dt/(rho*c_p*dx^2)+2*(lambda+lambdaisolant)*dt/(rho*c_p*dx^2);
         %A(index(i,j),index(1,j))=A(index(i,j),index(1,j))-lambda*dt/(rho*c_p*dx^2);
         %A(index(i,j),index(i-1,j))=A(index(i,j),index(i-1,j))-lambda*dt/(rho*c_p*dx^2);
 
-        A(index(i,j),index(i+1,j))=A(index(i,j),index(i+1,j))+2*lambda*dt/(rho*c_p*dx^2);
-        A(index(i,j),index(1,j))=A(index(i,j),index(1,j))-lambda*dt/(rho*c_p*dx^2);
-        A(index(i,j),index(i-1,j))=A(index(i,j),index(i-1,j))+2*lambda*dt/(rho*c_p*dx^2);
-        A(index(i,j),index(i-2,j))=A(index(i,j),index(i-2,j))-lambda*dt/(rho*c_p*dx^2);
+        A(index(i,j),index(i+1,j))=A(index(i,j),index(i+1,j))+2*lambda*dt/(rho*c_p*dx.^2);
+        A(index(i,j),index(1,j))=A(index(i,j),index(1,j))-lambda*dt/(rho*c_p*dx.^2);
+        A(index(i,j),index(i-1,j))=A(index(i,j),index(i-1,j))+2*lambda*dt/(rho*c_p*dx.^2);
+        A(index(i,j),index(i-2,j))=A(index(i,j),index(i-2,j))-lambda*dt/(rho*c_p*dx.^2);
     end
     if i==noeudsHor
-        A(index(i,j),index(1,j))=A(index(i,j),index(1,j))+2*lambda*dt/(rho*c_p*dx^2);
-        A(index(i,j),index(2,j))=A(index(i,j),index(2,j))-lambda*dt/(rho*c_p*dx^2);
-        A(index(i,j),index(i-1,j))=A(index(i,j),index(i-1,j))+2*lambda*dt/(rho*c_p*dx^2);
-        A(index(i,j),index(i-2,j))=A(index(i,j),index(i-2,j))-lambda*dt/(rho*c_p*dx^2);
+        A(index(i,j),index(1,j))=A(index(i,j),index(1,j))+2*lambda*dt/(rho*c_p*dx.^2);
+        A(index(i,j),index(2,j))=A(index(i,j),index(2,j))-lambda*dt/(rho*c_p*dx.^2);
+        A(index(i,j),index(i-1,j))=A(index(i,j),index(i-1,j))+2*lambda*dt/(rho*c_p*dx.^2);
+        A(index(i,j),index(i-2,j))=A(index(i,j),index(i-2,j))-lambda*dt/(rho*c_p*dx.^2);
     end
 end
 
