@@ -311,6 +311,7 @@ for i=1:noeudsHor
   %  ksolidedalle=-lambda*dt*dx*l/(rho*c_p*2*dx^2*l);
     %kairdalle=hcairdalle*dt*dx*l/(rho*c_p*dx^2*l);
     kairdalle=hcairdalle*dt*dx*l/(rho*c_p*dx*l);
+    %conduction
     if i>2 && i<(noeudsHor-1)
         %gauche
         A(index(i,j),index(i,j))=A(index(i,j),index(i,j))+3*ksolidedalle;
@@ -444,8 +445,8 @@ for i=1:noeudsHor
     j=noeudsVert;
     kcondmur=lambdamurs*dt*dx*l/(rhomurs*c_p_murs*2*dx^3*l);
     %kcondmur=-lambdamurs*dt*dx*l/(rhomurs*c_p_murs*2*dx^2*l);
-    %kairmur=hcairdalle*dt*dx*l/(rhoair*c_p_murs*dx^2*l);
-    kairmur=hcairdalle*dt*dx*l/(rhoair*c_p_murs*dx*l);
+    %kairmurcotemur=hcairdalle*dt*dx*l/(rhoair*c_p_murs*dx^2*l);
+    kairmurcotemur=hcairdalle*dt*dx*l/(rhomurs*c_p_murs*dx*l);
     if i>2 && i<(noeudsHor-1)
         %gauche
         A(index(i,j),index(i,j))=A(index(i,j),index(i,j))+3*kcondmur;
@@ -497,10 +498,10 @@ for i=1:noeudsHor
         A(index(i,j),index(1,j))=A(index(i,j),index(1,j))+kcondmur;
     end
     %convection murs bas
-    A(index(i,j),index(i,j))=A(index(i,j),index(i,j))+kairmur;
-    A(index(i,j),index(i,j-1))=A(index(i,j),index(i,j-1))-kairmur;
+    A(index(i,j),index(i,j))=A(index(i,j),index(i,j))+kairmurcotemur;
+    A(index(i,j),index(i,j-1))=A(index(i,j),index(i,j-1))-kairmurcotemur;
     % convection murs haut
-    A(index(i,j),index(i,j))=A(index(i,j),index(i,j))+kairmur;
+    A(index(i,j),index(i,j))=A(index(i,j),index(i,j))+kairmurcotemur;
     
     A(index(i,j),index(i,j))=A(index(i,j),index(i,j))+1;
     
