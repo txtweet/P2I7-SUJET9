@@ -33,7 +33,7 @@ for i=2:noeudsHor-1
                 %B(index(i,j),1)=Tavant(index(i,j),1);
             else
                %Cas où au moins 1 voisins est fluide
-              A=ModifAVoisin(A,Voisins,i,j,Tavant);
+              A=ModifAVoisinBis(A,Voisins,i,j,Tavant);
             end 
         elseif  (matCellule(j,i)==1)
             A(index(i,j),index(i,j))=1;
