@@ -4,5 +4,5 @@
 % Les paramètres sont : 
 % Les variables renvoyées sont : 
 % Ces variables prennent la valeur : 
-function EvolutionTemperaturePiece(param1,param2)
+function EvolutionTemperaturePiece(Tair,T)
 end

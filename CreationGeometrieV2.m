@@ -80,10 +80,10 @@ T=reshape(Tneuf,noeudsVert,noeudsHor);
 surf(T);
 view(2);
 
-% Mise en evidence du noeud d'air
+%% Mise en évidence du noeud d'air
 figure();
 Tair=zeros(size(T(noeudsVert-1,:)));
 Tair(:)=T(noeudsVert-1,:);
 plot(Tair);
-
+EvolutionTemperaturePiece(Tair,T);
 %%
