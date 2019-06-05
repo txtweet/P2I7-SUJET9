@@ -12,12 +12,12 @@
 % Les variables renvoyées sont : 
 % Ces variables prennent la valeur : 
 function moyenne_noeud_dair=EvolutionTemperaturePiece(Tneuf)
-global dt
+global dt noeudsVert noeudsHor
 % E=zeros(tmax,1);                        % Nous créons une matrice colonne ayant autant de lignes qu'il y a d'instants de fonctionnement à prendre en compte.
 T=reshape(Tneuf,noeudsVert,noeudsHor);  % 
 E=zeros(size(T(noeudsVert-1,:)));
 E(:)=T(noeudsVert-1,:);
-moyenne_noeud_dair=mean(E);
+moyenne_noeud_dair=mean(E)-273.15;
 % E(i)=Tneuf(i);	% Nous récupérons le numéro de la ligne de Tneuf correspondant au noeud d'air.
 % E(numero_de_colonne)=
 % figure()

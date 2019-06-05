@@ -78,9 +78,10 @@ while i<tmax
     if p>=2*3600
         Tair_aff(z)=EvolutionTemperaturePiece(Tneuf);
         z=z+1;
+        p=0;
     end
     i=i+dt;
-    p=p+1;
+    p=p+dt;
 end
 %% Affichage
 Tneuf(:)=Tneuf(:)-273.15; %conversion en degres celsius
@@ -96,7 +97,7 @@ plot(Tair);
 %% Affichage de l'évolution de la température de la pièce en fonction du temps
 figure()
 plot(Tair_aff);
-title('Evolution de la température de la pièce en fonction du temps de fonctionnement du plancher chauffant');
-xlabel('Discrétisation temporelle de la durée de fonctionnement du plancher chauffant');
-ylabel('Température de la pièce (moyenne des noeuds d air) en degrés');
+title('Evolution de T(air) en fonction du temps de fonctionnement du plancher');
+xlabel('Duree de fonctionnement du plancher chauffant (heures)');
+ylabel('Température moyenne de la pièce (°C)');
 %%
