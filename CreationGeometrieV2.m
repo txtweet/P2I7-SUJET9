@@ -10,7 +10,7 @@ lambdaair=0.0262;                                       % conductivite thermique
 lambdaisolant=0.038;                                     % conductivite thermique de l'isolant du bas
 lambdamurs=0.05;                                        % conductivité thermique de l'isolant des murs
 lambdaeau=0.6;                                          % conductivité thermique de l'eau (d'après C. OBRECHT)
-lambda=0.92;                                             % conductivité thermique du béton (d'après C. OBRECHT)
+lambda=300;                                             % conductivité thermique du béton (d'après C. OBRECHT)
 lambdasol=0.04;                                          % conductivité thermique du sol, ici gravier sec (d'après le site energieplus-lesite.be)
 hauteurDalle=10;                                        % hauteur de la dalle (en cm)
 largeurDalle=10;                                        % largeur de la dalle (en cm)
@@ -41,11 +41,11 @@ hcairdalle=10;                                          % coefficient d'échanges
 hcairmurs=10;                                           % coefficient d'échanges convectifs entre l'air intérieur et les murs
 Tchauf=500+273.15;                                       % température de l'eau, constante (en K)
 Tdepart=15+273.15;                                      % temperature de la piece
-tmaxheures=40;                                           % temps maximal de la simulation, en heures
-tmax=tmaxheures*3600;                                   % temps maximal de la simulation, en secondes
-%tmax=31;
+tmaxheures=15;                                           % temps maximal de la simulation, en heures
+%tmax=tmaxheures*3600;                                   % temps maximal de la simulation, en secondes
+tmax=20*dt;
 Text=0+273.15;                                          % temperature exterieure constante
-Tsol=10+273.15;                                        % temperature du sol (sous la dalle)
+Tsol=0+273.15;                                        % temperature du sol (sous la dalle)
 %% Initialisation des paramètres
 noeudsVert=resolution * hauteurDalle;               % nombre de neuds sur la hauteur de la cellule
 noeudsHor =resolution * largeurDalle;               % nombre de neuds sur la largeur de la cellule
@@ -74,8 +74,15 @@ while i<tmax
     Tneuf=inA*B;
     i=i+dt;
 end
+%% Affichage
 Tneuf(:)=Tneuf(:)-273.15; %conversion en degres celsius
 T=reshape(Tneuf,noeudsVert,noeudsHor);
 surf(T);
 view(2);
+
+% Mise en evidence du noeud d'air
+figure();
+Tair=zeros(size(T(noeudsVert-1,:)));
+Tair(:)=T(noeudsVert-1,:)
+plot(Tair);
 %%
