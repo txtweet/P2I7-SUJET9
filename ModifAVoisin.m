@@ -6,30 +6,30 @@ global dx l rho c_p noeudsVert hc dt Tchauf B lambda
     
     %% Voisins solide
     if (Voisin(1,1)==0) %Voisin de gauche
-        A(index(i,j),index(i,j))= A(index(i,j),index(i,j))-3/(2*dx);
-        A(index(i,j),index(i-1,j)) = +4/(2*dx);
-        A(index(i,j),index(i-2,j)) = -1/(2*dx);         
+        A(index(i,j),index(i,j))= A(index(i,j),index(i,j))-3*ksolide/(2*dx);
+        A(index(i,j),index(i-1,j)) = 4*ksolide/(2*dx);
+        A(index(i,j),index(i-2,j)) = -1*ksolide/(2*dx);         
     end
     
     if (Voisin(1,2)==0)
         %Voisin du haut
-        A(index(i,j),index(i,j))= A(index(i,j),index(i,j))-3/(2*dx);
-        A(index(i,j),index(i,j-1)) = +4/(2*dx);
-        A(index(i,j),index(i,j-2)) = -1/(2*dx);
+        A(index(i,j),index(i,j))= A(index(i,j),index(i,j))-3*ksolide/(2*dx);
+        A(index(i,j),index(i,j-1)) = 4*ksolide/(2*dx);
+        A(index(i,j),index(i,j-2)) = -1*ksolide/(2*dx);
     end 
     if (Voisin(1,3)==0)     
         %Voisin du bas 
-        A(index(i,j),index(i,j))= A(index(i,j),index(i,j))-3/(2*dx);
-        A(index(i,j),index(i,j+1)) = 4/(2*dx);
-        A(index(i,j),index(i,j+2)) = -1/(2*dx);
+        A(index(i,j),index(i,j))= A(index(i,j),index(i,j))-3*ksolide/(2*dx);
+        A(index(i,j),index(i,j+1)) = 4*ksolide/(2*dx);
+        A(index(i,j),index(i,j+2)) = -1*ksolide/(2*dx);
     end
     if (Voisin(1,4)==0)     
         %Voisin de gauche
-        A(index(i,j),index(i,j))= A(index(i,j),index(i,j))-3/(2*dx);
-        A(index(i,j),index(i+1,j)) = 4/(2*dx);
-        A(index(i,j),index(i+2,j)) = -1/(2*dx);
+        A(index(i,j),index(i,j))= A(index(i,j),index(i,j))-3*ksolide/(2*dx);
+        A(index(i,j),index(i+1,j)) = 4*ksolide/(2*dx);
+        A(index(i,j),index(i+2,j)) = -1*ksolide/(2*dx);
     end
-    A(index(i,j),:)=ksolide.*A(index(i,j),:);
+    
     A(index(i,j),index(i,j))=A(index(i,j),index(i,j))+1; %??
     %B(index(i,j),1)=-Tavant(index(i,j),1);
     %% Voisins fluide

@@ -4,14 +4,14 @@ clear all
 global position_centre rayonConduiteNum matCellule matT B dx hc hcairdalle hcairmurs Tchauf lambdaair hcmurs lambda rho c_p dt l noeudsVert noeudsHor lambdaisolant Tsol Text lambdamurs lambdasol c_p_air c_p_murs rhomurs rhoair c_p_isolant rhoisolant eisolant esol
 %% Variables du probleme
 resolution=3;                                           % nombre de noeuds par centimètre
-dt=30;                                                   % pas de temps (discrétisation du temps)
-l=1;                                                    % discrétisation de l'espace
+dt=30;                                                  % pas de temps (discrétisation du temps)
+l=100;                                                  % Longueur de l'element
 lambdaair=0.0262;                                       % conductivite thermique de l'air (d'après Cours de thermique, C. Obrecht)
-lambdaisolant=0.038;                                     % conductivite thermique de l'isolant du bas
+lambdaisolant=0.038;                                    % conductivite thermique de l'isolant du bas
 lambdamurs=0.05;                                        % conductivité thermique de l'isolant des murs
 lambdaeau=0.6;                                          % conductivité thermique de l'eau (d'après C. OBRECHT)
-lambda=0.92;                                             % conductivité thermique du béton (d'après C. OBRECHT)
-lambdasol=0.04;                                          % conductivité thermique du sol, ici gravier sec (d'après le site energieplus-lesite.be)
+lambda=300;                                             % conductivité thermique du béton (d'après C. OBRECHT)
+lambdasol=0.04;                                         % conductivité thermique du sol, ici gravier sec (d'après le site energieplus-lesite.be)
 hauteurDalle=10;                                        % hauteur de la dalle (en cm)
 largeurDalle=10;                                        % largeur de la dalle (en cm)
 rayonConduite=1;                                        % rayon de l'élément chauffant 
@@ -41,9 +41,9 @@ hcairdalle=10;                                          % coefficient d'échanges
 hcairmurs=10;                                           % coefficient d'échanges convectifs entre l'air intérieur et les murs
 Tchauf=500+273.15;                                       % température de l'eau, constante (en K)
 Tdepart=15+273.15;                                      % temperature de la piece
-tmaxheures=40;                                           % temps maximal de la simulation, en heures
-tmax=tmaxheures*3600;                                   % temps maximal de la simulation, en secondes
-%tmax=31;
+%tmaxheures=6;                                           % temps maximal de la simulation, en heures
+%tmax=tmaxheures*3600;                                   % temps maximal de la simulation, en secondes
+tmax=10*dt;
 Text=0+273.15;                                          % temperature exterieure constante
 Tsol=10+273.15;                                        % temperature du sol (sous la dalle)
 %% Initialisation des paramètres
