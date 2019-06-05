@@ -85,4 +85,5 @@ figure();
 Tair=zeros(size(T(noeudsVert-1,:)));
 Tair(:)=T(noeudsVert-1,:);
 plot(Tair);
+
 %%
