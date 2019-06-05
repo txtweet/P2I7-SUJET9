@@ -67,11 +67,12 @@ B=zeros(noeudsHor*noeudsVert,1);                    % matrice colonne
 A=matriceA(noeudsHor,noeudsVert,matCellule,Tneuf, Text);  %
 inA=inv(A);
 i=dt; %BIZARRE COMME CONDITION
-
+Taffichage=zeros(1,tmax);
 while i<tmax
     Tancien=Tneuf;
     B=matriceB(noeudsHor,noeudsVert,matCellule,Tancien, Text);
     Tneuf=inA*B;
+    Taffichage(1,i)=mean(Tneuf);
     i=i+dt;
 end
 %% Affichage
@@ -85,5 +86,7 @@ figure();
 Tair=zeros(size(T(noeudsVert-1,:)));
 Tair(:)=T(noeudsVert-1,:);
 plot(Tair);
-EvolutionTemperaturePiece(Tair,T);
+
+%% Affichage de l'évolution de la température de la pièce en fonction du temps
+EvolutionTemperaturePiece(Taffichage);
 %%
