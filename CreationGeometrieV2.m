@@ -10,7 +10,7 @@ lambdaair=0.0262;                                       % conductivite thermique
 lambdaisolant=0.038;                                    % conductivite thermique de l'isolant du bas
 lambdamurs=0.05;                                        % conductivité thermique de l'isolant des murs
 lambdaeau=0.6;                                          % conductivité thermique de l'eau (d'après C. OBRECHT)
-lambda=0.92;                                             % conductivité thermique du matériau de la dalle (ici : béton, d'après C. OBRECHT)
+lambda=30;                                             % conductivité thermique du matériau de la dalle (ici : béton, d'après C. OBRECHT)
 lambdasol=0.04;                                         % conductivité thermique du sol, ici gravier sec (d'après le site energieplus-lesite.be)
 hauteurDalle=10;                                        % hauteur de la dalle (en cm)
 largeurDalle=10;                                        % largeur de la dalle (en cm)
@@ -41,7 +41,7 @@ hcairdalle=10;                                          % coefficient d'échanges
 hcairmurs=10;                                           % coefficient d'échanges convectifs entre l'air intérieur et les murs
 Tchauf=500+273.15;                                      % température de l'eau, constante (en K)
 Tdepart=15+273.15;                                      % température de la pièce
-tmaxheures=15;                                          % temps maximal de la simulation, en heures
+tmaxheures=50;                                          % temps maximal de la simulation, en heures
 tmax=tmaxheures*3600;                                  % temps maximal de la simulation, en secondes
 % t<max=20*dt;
 Text=0+273.15;                                          % température extérieure constante
@@ -68,7 +68,8 @@ A=matriceA(noeudsHor,noeudsVert,matCellule,Tneuf, Text);  %
 inA=inv(A);
 i=dt; %BIZARRE COMME CONDITION
 p=dt;   % A COMMENTER
-Tair_aff=zeros(floor(tmax/(2*3600)));
+Tair_aff=zeros(floor(tmax/(2*3600))-1,1);
+Heures_aff=zeros(floor(tmax/(2*3600))-1,1);
 z=1;
 % E=EvolutionTemperaturePiece(tmax,i);
 while i<tmax
@@ -77,6 +78,7 @@ while i<tmax
     Tneuf=inA*B;
     if p>=2*3600
         Tair_aff(z)=EvolutionTemperaturePiece(Tneuf);
+        Heures_aff(z)=i/3600;
         z=z+1;
         p=0;
     end
@@ -96,7 +98,7 @@ Tair(:)=T(noeudsVert-1,:);
 plot(Tair);
 %% Affichage de l'évolution de la température de la pièce en fonction du temps
 figure()
-plot(Tair_aff);
+plot(Heures_aff,Tair_aff);
 title('Evolution de T(air) en fonction du temps de fonctionnement du plancher');
 xlabel('Duree de fonctionnement du plancher chauffant (heures)');
 ylabel('Température moyenne de la pièce (°C)');
