@@ -307,7 +307,7 @@ for i=1:noeudsHor
     
     %% Haut du plancher (N-2)
     j=noeudsVert-2;
-    ksolidedalle=lambda*dt*dx*l/(rho*c_p*2*dx^3*l);
+    ksolidedalle=lambda*dt*dx*l/(rho*c_p*2*dx^2*l);
   %  ksolidedalle=-lambda*dt*dx*l/(rho*c_p*2*dx^2*l);
     %kairdalle=hcairdalle*dt*dx*l/(rho*c_p*dx^2*l);
     kairdalle=hcairdalle*dt*dx*l/(rho*c_p*dx*l);
@@ -376,7 +376,7 @@ for i=1:noeudsHor
     %% Air 
     j=noeudsVert-1;
    % kcondair=-lambdaair*dt*dx*l/(rhoair*c_p_air*2*dx^2*l);
-    kcondair=lambdaair*dt*dx*l/(rhoair*c_p_air*2*dx^3*l);
+    kcondair=lambdaair*dt*dx*l/(rhoair*c_p_air*2*dx^2*l);
     %kairdallecoteair=hcairdalle*dt*dx*l/(rhoair*c_p_air*dx^2*l);
     kairdallecoteair=hcairdalle*dt*dx*l/(rhoair*c_p_air*dx*l);
     %kairmur=hcairdalle*dt*dx*l/(rhoair*c_p_air*dx^2*l);
@@ -443,7 +443,7 @@ for i=1:noeudsHor
     
     %% Murs
     j=noeudsVert;
-    kcondmur=lambdamurs*dt*dx*l/(rhomurs*c_p_murs*2*dx^3*l);
+    kcondmur=lambdamurs*dt*dx*l/(rhomurs*c_p_murs*2*dx^2*l);
     %kcondmur=-lambdamurs*dt*dx*l/(rhomurs*c_p_murs*2*dx^2*l);
     %kairmurcotemur=hcairdalle*dt*dx*l/(rhoair*c_p_murs*dx^2*l);
     kairmurcotemur=hcairdalle*dt*dx*l/(rhomurs*c_p_murs*dx*l);
@@ -572,7 +572,7 @@ for i=1:noeudsHor
     %% Isolant (j=1)
     j=1;
     %kcondiso=-lambdaisolant*dt*dx*l/(rhoisolant*c_p_isolant*2*dx^2*l);
-    kcondiso=lambdaisolant*dt*dx*l/(rhoisolant*c_p_isolant*2*dx^3*l);
+    kcondiso=lambdaisolant*dt*dx*l/(rhoisolant*c_p_isolant*2*dx^2*l);
     kisosol=2*dt/(rhoisolant*c_p_isolant*((esol*dx/lambdasol)+(eisolant*dx/lambdaisolant)));
     kisodallecoteiso=2*dt/(rhoisolant*c_p_isolant*((dx*dx/lambda)+(eisolant*dx/lambdaisolant)));
     if i>2 && i<(noeudsHor-1)
