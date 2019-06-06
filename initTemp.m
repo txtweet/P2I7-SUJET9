@@ -1,5 +1,5 @@
 function T=initTemp(matCellule,Tdepart)
-global Tchauf noeudsHor noeudsVert Tsol Text Tpiece
+global Tchauf noeudsHor noeudsVert Tsol Text Tair
 T=ones(noeudsHor*noeudsVert,1)*Tdepart;
 for i=1:noeudsHor
     for j=1:noeudsVert
@@ -11,9 +11,11 @@ for i=1:noeudsHor
             T(index(i,j))=(Tsol+Tdepart)/2;
         end
         if j==noeudsVert %temperature des murs, moyenne entre Text et Tpiece (Tpiece=Tdepart au debut)
-            T(index(i,j))=(Text+Tdepart)/2;
+            T(index(i,j))=(Text+Tair)/2;
         end
-        
+        if j==noeudsVert-1
+            T(index(i,j))=Tair;
+        end
     end
 end
 end
