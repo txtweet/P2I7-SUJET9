@@ -4,7 +4,7 @@ clear all
 global position_centre rayonConduiteNum matCellule matT B dx hc hcairdalle hcairmurs Tchauf lambdaair hcmurs lambda rho c_p dt l noeudsVert noeudsHor lambdaisolant Tsol Text Tair lambdamurs lambdasol c_p_air c_p_murs rhomurs rhoair c_p_isolant rhoisolant eisolant esol
 %% Variables du probleme
 resolution=3;                                           % nombre de noeuds par centimètre
-dt=1;                                                  % pas de temps (discrétisation du temps)
+dt=30;                                                  % pas de temps (discrétisation du temps)
 l=1;                                                    % discrétisation de l'espace
 lambdaair=0.0262;                                       % conductivite thermique de l'air (d'après Cours de thermique, C. Obrecht)
 lambdaisolant=0.038;                                    % conductivite thermique de l'isolant du bas
@@ -47,6 +47,7 @@ tmax=tmaxheures*3600;                                  % temps maximal de la sim
 % t<max=20*dt;
 Text=0+273.15;                                          % température extérieure constante
 Tsol=0+273.15;                                          % température du sol (sous la dalle)
+dtprisedevue=1800;                                       % Temps entre 2 prises de vue de l'animation
 %% Initialisation des paramètres
 noeudsVert=resolution * hauteurDalle;               % nombre de neuds sur la hauteur de la cellule
 noeudsHor =resolution * largeurDalle;               % nombre de neuds sur la largeur de la cellule
@@ -54,6 +55,9 @@ dx=1/resolution;                                    % discrétisation spatiale de
 matCellule=zeros(noeudsVert,noeudsHor);             % matrice dont chaque coefficient représente une cellule de la dalle
 rayonConduiteNum=floor(rayonConduite*resolution);   % valeur entière prise pour le rayon de la zone contenant l'eau
 matT=zeros(noeudsVert,noeudsHor);                   % matrice dont chaque coefficient correspond à la température du point de la dalle correspondant
+myVideo = VideoWriter('myfile.avi');
+myVideo.Quality = 100;                               % Default 75
+open(myVideo);
 %% Parcours de la matrice à partir d'un point donné
 position_centre=floor([(noeudsHor+1)/2 resolution*hauteurConduite]);  % coordonnées du centre du tube contenant le fluide caloporteur
 % ATTENTION : pour une faible résolution et des dimensions de la dalle
@@ -69,6 +73,7 @@ A=matriceA(noeudsHor,noeudsVert,matCellule,Tneuf, Text);  %
 inA=inv(A);
 i=dt; %BIZARRE COMME CONDITION
 p=dt;   % A COMMENTER
+q=dt;
 Tair_aff=zeros(floor(tmax/(2*3600))-1,1);
 Heures_aff=zeros(floor(tmax/(2*3600))-1,1);
 z=1;
@@ -83,9 +88,18 @@ while i<tmax
         z=z+1;
         p=0;
     end
+    if q>=dtprisedevue
+        q=0;
+        T=reshape(Tneuf,noeudsVert,noeudsHor);
+        surf(T);
+        view(2);
+        writeVideo(myVideo,getframe);
+    end
     i=i+dt;
     p=p+dt;
+    q=q+dt;
 end
+close(myVideo);
 %% Affichage
 Tneuf(:)=Tneuf(:)-273.15; %conversion en degres celsius
 T=reshape(Tneuf,noeudsVert,noeudsHor);
