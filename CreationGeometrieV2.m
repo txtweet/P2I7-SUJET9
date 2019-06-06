@@ -3,7 +3,7 @@
 clear all
 global position_centre rayonConduiteNum matCellule matT B dx hc hcairdalle hcairmurs Tchauf lambdaair hcmurs lambda rho c_p dt l noeudsVert noeudsHor lambdaisolant Tsol Text Tair lambdamurs lambdasol c_p_air c_p_murs rhomurs rhoair c_p_isolant rhoisolant eisolant esol
 %% Variables du probleme
-resolution=3;                                           % nombre de noeuds par centimètre
+resolution=10;                                           % nombre de noeuds par centimètre
 dt=30;                                                  % pas de temps (discrétisation du temps)
 l=1;                                                    % discrétisation de l'espace
 lambdaair=0.0262;                                       % conductivite thermique de l'air (d'après Cours de thermique, C. Obrecht)
@@ -42,12 +42,13 @@ hcairmurs=10;                                           % coefficient d'échanges
 Tchauf=50+273.15;                                      % température de l'eau, constante (en K)
 Tdepart=15+273.15;                                      % température de la dalle
 Tair=5+273.15;                                          % temperature de la piece
-tmaxheures=72*3;                                          % temps maximal de la simulation, en heures
+tmaxheures=10;                                          % temps maximal de la simulation, en heures
 tmax=tmaxheures*3600;                                  % temps maximal de la simulation, en secondes
-% t<max=20*dt;
+%tmax=2*dt;
 Text=0+273.15;                                          % température extérieure constante
 Tsol=0+273.15;                                          % température du sol (sous la dalle)
 dtprisedevue=1800;                                       % Temps entre 2 prises de vue de l'animation
+
 %% Initialisation des paramètres
 noeudsVert=resolution * hauteurDalle;               % nombre de neuds sur la hauteur de la cellule
 noeudsHor =resolution * largeurDalle;               % nombre de neuds sur la largeur de la cellule
@@ -93,6 +94,7 @@ while i<tmax
         T=reshape(Tneuf,noeudsVert,noeudsHor);
         surf(T);
         view(2);
+        shading flat;
         writeVideo(myVideo,getframe);
     end
     i=i+dt;
