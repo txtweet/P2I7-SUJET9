@@ -4,20 +4,20 @@ clear all
 global position_centre rayonConduiteNum matCellule matT B dx hc hcairdalle hcairmurs Tchauf lambdaair hcmurs lambda rho c_p dt l noeudsVert noeudsHor lambdaisolant Tsol Text lambdamurs lambdasol c_p_air c_p_murs rhomurs rhoair c_p_isolant rhoisolant eisolant esol
 %% Variables du probleme
 resolution=3;                                           % nombre de noeuds par centimètre
-dt=30;                                                  % pas de temps (discrétisation du temps)
+dt=1;                                                  % pas de temps (discrétisation du temps)
 l=1;                                                    % discrétisation de l'espace
 lambdaair=0.0262;                                       % conductivite thermique de l'air (d'après Cours de thermique, C. Obrecht)
 lambdaisolant=0.038;                                    % conductivite thermique de l'isolant du bas
 lambdamurs=0.05;                                        % conductivité thermique de l'isolant des murs
 lambdaeau=0.6;                                          % conductivité thermique de l'eau (d'après C. OBRECHT)
-lambda=30;                                             % conductivité thermique du matériau de la dalle (ici : béton, d'après C. OBRECHT)
+lambda=0.92;                                             % conductivité thermique du matériau de la dalle (ici : béton, d'après C. OBRECHT)
 lambdasol=0.04;                                         % conductivité thermique du sol, ici gravier sec (d'après le site energieplus-lesite.be)
 hauteurDalle=10;                                        % hauteur de la dalle (en cm)
 largeurDalle=10;                                        % largeur de la dalle (en cm)
 rayonConduite=1;                                        % rayon de l'élément chauffant 
 hauteurConduite=(hauteurDalle+1)/2;                     % position du centre de l'élément chauffant par rapport au bas de la cellule modélisée
 volume=hauteurDalle*largeurDalle-pi*rayonConduite^2;    % volume de la dalle
-debit=100e-3/3600;                                      % débit du fluide caloporteur, en L/h
+debit=100/3600;                                      % débit du fluide caloporteur, en L/h
 vitesse=debit/(pi*(rayonConduite*10^(-2)));             % vitesse de déplacement du fluide caloporteur dans le tube
 mu=0.653e-3;                                            % viscosité dynamique de l'eau (cours de thermique, C. Obrecht)
 rho_eau=1000;                                           % masse volumique de l'eau, untié S.I.
@@ -39,9 +39,9 @@ hc=(0.023*Re^(4/5)*Pr^(1/3))/(2*rayonConduite*10^(-2)); % coefficient d'échanges
 hcmurs=1e3;                                             % coefficient d'echanges convectifs des murs de la piece
 hcairdalle=10;                                          % coefficient d'échanges convectifs entre l'air et la dalle (pour le béton ici)
 hcairmurs=10;                                           % coefficient d'échanges convectifs entre l'air intérieur et les murs
-Tchauf=500+273.15;                                      % température de l'eau, constante (en K)
+Tchauf=50+273.15;                                      % température de l'eau, constante (en K)
 Tdepart=15+273.15;                                      % température de la pièce
-tmaxheures=50;                                          % temps maximal de la simulation, en heures
+tmaxheures=5;                                          % temps maximal de la simulation, en heures
 tmax=tmaxheures*3600;                                  % temps maximal de la simulation, en secondes
 % t<max=20*dt;
 Text=0+273.15;                                          % température extérieure constante
