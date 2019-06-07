@@ -8,28 +8,28 @@ dt=150;                                                  % pas de temps (discrét
 l=1;                                                    % discrétisation de l'espace
 lambdaair=0.0262;                                       % conductivite thermique de l'air (d'après Cours de thermique, C. Obrecht)
 lambdaisolant=0.038;                                    % conductivite thermique de l'isolant du bas
-lambdamurs=0.042;                                        % conductivité thermique de l'isolant des murs
+lambdamurs=0.05;                                        % conductivité thermique de l'isolant des murs
 lambdaeau=0.6;                                          % conductivité thermique de l'eau (d'après C. OBRECHT)
-lambda=11;                                             % conductivité thermique du matériau de la dalle (ici : béton, d'après C. OBRECHT)
+lambda=110;                                             % conductivité thermique du matériau de la dalle (ici : béton, d'après C. OBRECHT)
 lambdasol=0.04;                                         % conductivité thermique du sol, ici gravier sec (d'après le site energieplus-lesite.be)
 hauteurDalle=10;                                        % hauteur de la dalle (en cm)
 largeurDalle=10;                                        % largeur de la dalle (en cm)
 rayonConduite=1;                                        % rayon de l'élément chauffant 
-hauteurConduite=(hauteurDalle+1)/2;                     % position du centre de l'élément chauffant par rapport au bas de la cellule modélisée
+hauteurConduite=(hauteurDalle)/2;                     % position du centre de l'élément chauffant par rapport au bas de la cellule modélisée
 volume=hauteurDalle*largeurDalle-pi*rayonConduite^2;    % volume de la dalle
-debit=100/3600;                                      % débit du fluide caloporteur, en L/h
+debit=100e-1/3600;                                      % débit du fluide caloporteur, en L/h
 vitesse=debit/(pi*(rayonConduite*10^(-2)));             % vitesse de déplacement du fluide caloporteur dans le tube
 mu=0.653e-3;                                            % viscosité dynamique de l'eau (cours de thermique, C. Obrecht)
 rho_eau=1000;                                           % masse volumique de l'eau, untié S.I.
 rho=2400;                                               % masse volumique du matériau de la dalle en kg.m^(-3) (ici : béton, d'après le site ciment.wikibis.com)
 rhoisolant=25;                                          % masse volumique de l'isolant en kg.m^(-3) pour le polystyrène expansé (Guide des matériaux isolants, CAUE de la Haute-Loire)
-rhomurs=(35+13)/2;                                           % masse volumique des murs
+rhomurs=2000;                                           % masse volumique des murs
 rhoair=1.225;                                           % masse volumique de l'air
 masse=rho*volume;                                       % masse de la dalle
 c_p=0.88e3;                                                % capacité thermique massique du matériau de la dalle (ici : béton, d'apès le site laterlite.fr)
 c_p_eau=4178;                                           % capacité thermique massique de l'eau (cours de thermique, C. Obrecht)
 c_p_isolant=1000;                                       % capacité thermique massique de l'isolant (polystyrène expansé)
-c_p_murs=(1800+1000)/2;                                          % capacité thermique massique des murs
+c_p_murs=1000;                                          % capacité thermique massique des murs
 c_p_air=1004;                                           % capacité thermique massique de l'air
 eisolant=100e-2;                                        % épaisseur de la couche d'isolant sous dalle, en mètres
 esol=1;                                                 % épaisseur de la couche de sol sous isolant, en mètres (tres importante pour grande isolation)
@@ -42,7 +42,7 @@ hcairmurs=10;                                           % coefficient d'échanges
 Tchauf=50+273.15;                                      % température de l'eau, constante (en K)
 Tdepart=15+273.15;                                      % température de la dalle
 Tair=5+273.15;                                          % temperature de la piece
-tmaxheures=3500;                                          % temps maximal de la simulation, en heures
+tmaxheures=350;                                          % temps maximal de la simulation, en heures
 tmax=tmaxheures*3600;                                  % temps maximal de la simulation, en secondes
 %tmax=2*dt;
 Text=0+273.15;                                          % température extérieure constante
@@ -56,11 +56,11 @@ dx=1/resolution;                                    % discrétisation spatiale de
 matCellule=zeros(noeudsVert,noeudsHor);             % matrice dont chaque coefficient représente une cellule de la dalle
 rayonConduiteNum=floor(rayonConduite*resolution);   % valeur entière prise pour le rayon de la zone contenant l'eau
 matT=zeros(noeudsVert,noeudsHor);                   % matrice dont chaque coefficient correspond à la température du point de la dalle correspondant
-myVideo = VideoWriter('SimuLaine.avi');
+myVideo = VideoWriter('myfile.avi');
 myVideo.Quality = 100;                               % Default 75
 open(myVideo);
 %% Parcours de la matrice à partir d'un point donné
-position_centre=floor([(noeudsHor+1)/2 resolution*hauteurConduite]);  % coordonnées du centre du tube contenant le fluide caloporteur
+position_centre=floor([(noeudsHor+5)/2 resolution*hauteurConduite]);  % coordonnées du centre du tube contenant le fluide caloporteur
 % ATTENTION : pour une faible résolution et des dimensions de la dalle
 % paires, la position du centre est décentrée vers le haut à gauche.
 GenereMatrice();    % matCellule et matT sont remplies selon la géométrie du problème
@@ -83,13 +83,13 @@ while i<tmax
     Tancien=Tneuf;
     B=matriceB(noeudsHor,noeudsVert,matCellule,Tancien, Text);
     Tneuf=inA*B;
-    if p>=2*3600
+    if p>=2*3600 %calcul de la temperature moyenne toutes les 2 heures
         Tair_aff(z)=EvolutionTemperaturePiece(Tneuf);
         Heures_aff(z)=i/3600;
         z=z+1;
         p=0;
     end
-    if q>=dtprisedevue
+    if q>=dtprisedevue %mise a jour de la video
         q=0;
         T=reshape(Tneuf,noeudsVert,noeudsHor);
         surf(T);
@@ -101,15 +101,15 @@ while i<tmax
     p=p+dt;
     q=q+dt;
 end
-close(myVideo);
+close(myVideo); 
 %% Affichage
 Tneuf(:)=Tneuf(:)-273.15; %conversion en degres celsius
 T=reshape(Tneuf,noeudsVert,noeudsHor);
 surf(T);
-view(2);
+view(2); %affichage de la temperature sous forme matricielle
 
 %% Mise en évidence du noeud d'air
-figure();
+figure(); %affichage de la repartition de temperature dans le noeud d'air
 Tair=zeros(size(T(noeudsVert-1,:)));
 Tair(:)=T(noeudsVert-1,:);
 plot(Tair);
