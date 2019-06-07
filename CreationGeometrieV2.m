@@ -3,14 +3,14 @@
 clear all
 global position_centre rayonConduiteNum matCellule matT B dx hc hcairdalle hcairmurs Tchauf lambdaair hcmurs lambda rho c_p dt l noeudsVert noeudsHor lambdaisolant Tsol Text Tair lambdamurs lambdasol c_p_air c_p_murs rhomurs rhoair c_p_isolant rhoisolant eisolant esol
 %% Variables du probleme
-resolution=10;                                           % nombre de noeuds par centimètre
-dt=30;                                                  % pas de temps (discrétisation du temps)
+resolution=3;                                           % nombre de noeuds par centimètre
+dt=150;                                                  % pas de temps (discrétisation du temps)
 l=1;                                                    % discrétisation de l'espace
 lambdaair=0.0262;                                       % conductivite thermique de l'air (d'après Cours de thermique, C. Obrecht)
 lambdaisolant=0.038;                                    % conductivite thermique de l'isolant du bas
-lambdamurs=0.05;                                        % conductivité thermique de l'isolant des murs
+lambdamurs=0.042;                                        % conductivité thermique de l'isolant des murs
 lambdaeau=0.6;                                          % conductivité thermique de l'eau (d'après C. OBRECHT)
-lambda=1.1;                                             % conductivité thermique du matériau de la dalle (ici : béton, d'après C. OBRECHT)
+lambda=11;                                             % conductivité thermique du matériau de la dalle (ici : béton, d'après C. OBRECHT)
 lambdasol=0.04;                                         % conductivité thermique du sol, ici gravier sec (d'après le site energieplus-lesite.be)
 hauteurDalle=10;                                        % hauteur de la dalle (en cm)
 largeurDalle=10;                                        % largeur de la dalle (en cm)
@@ -23,13 +23,13 @@ mu=0.653e-3;                                            % viscosité dynamique de
 rho_eau=1000;                                           % masse volumique de l'eau, untié S.I.
 rho=2400;                                               % masse volumique du matériau de la dalle en kg.m^(-3) (ici : béton, d'après le site ciment.wikibis.com)
 rhoisolant=25;                                          % masse volumique de l'isolant en kg.m^(-3) pour le polystyrène expansé (Guide des matériaux isolants, CAUE de la Haute-Loire)
-rhomurs=2000;                                           % masse volumique des murs
+rhomurs=(35+13)/2;                                           % masse volumique des murs
 rhoair=1.225;                                           % masse volumique de l'air
 masse=rho*volume;                                       % masse de la dalle
 c_p=0.88e3;                                                % capacité thermique massique du matériau de la dalle (ici : béton, d'apès le site laterlite.fr)
 c_p_eau=4178;                                           % capacité thermique massique de l'eau (cours de thermique, C. Obrecht)
 c_p_isolant=1000;                                       % capacité thermique massique de l'isolant (polystyrène expansé)
-c_p_murs=1000;                                          % capacité thermique massique des murs
+c_p_murs=(1800+1000)/2;                                          % capacité thermique massique des murs
 c_p_air=1004;                                           % capacité thermique massique de l'air
 eisolant=100e-2;                                        % épaisseur de la couche d'isolant sous dalle, en mètres
 esol=1;                                                 % épaisseur de la couche de sol sous isolant, en mètres (tres importante pour grande isolation)
@@ -42,7 +42,7 @@ hcairmurs=10;                                           % coefficient d'échanges
 Tchauf=50+273.15;                                      % température de l'eau, constante (en K)
 Tdepart=15+273.15;                                      % température de la dalle
 Tair=5+273.15;                                          % temperature de la piece
-tmaxheures=10;                                          % temps maximal de la simulation, en heures
+tmaxheures=3500;                                          % temps maximal de la simulation, en heures
 tmax=tmaxheures*3600;                                  % temps maximal de la simulation, en secondes
 %tmax=2*dt;
 Text=0+273.15;                                          % température extérieure constante
@@ -56,7 +56,7 @@ dx=1/resolution;                                    % discrétisation spatiale de
 matCellule=zeros(noeudsVert,noeudsHor);             % matrice dont chaque coefficient représente une cellule de la dalle
 rayonConduiteNum=floor(rayonConduite*resolution);   % valeur entière prise pour le rayon de la zone contenant l'eau
 matT=zeros(noeudsVert,noeudsHor);                   % matrice dont chaque coefficient correspond à la température du point de la dalle correspondant
-myVideo = VideoWriter('myfile.avi');
+myVideo = VideoWriter('SimuLaine.avi');
 myVideo.Quality = 100;                               % Default 75
 open(myVideo);
 %% Parcours de la matrice à partir d'un point donné
