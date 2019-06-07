@@ -4,7 +4,7 @@ clear all
 global position_centre rayonConduiteNum matCellule matT B dx hc hcairdalle hcairmurs Tchauf lambdaair hcmurs lambda rho c_p dt l noeudsVert noeudsHor lambdaisolant Tsol Text Tair lambdamurs lambdasol c_p_air c_p_murs rhomurs rhoair c_p_isolant rhoisolant eisolant esol
 %% Variables du probleme
 resolution=3;                                           % nombre de noeuds par centimètre
-dt=150;                                                  % pas de temps (discrétisation du temps)
+dt=150;                                                 % pas de temps (discrétisation du temps)
 l=1;                                                    % discrétisation de l'espace
 lambdaair=0.0262;                                       % conductivite thermique de l'air (d'après Cours de thermique, C. Obrecht)
 lambdaisolant=0.038;                                    % conductivite thermique de l'isolant du bas
@@ -15,7 +15,7 @@ lambdasol=0.04;                                         % conductivité thermique
 hauteurDalle=10;                                        % hauteur de la dalle (en cm)
 largeurDalle=10;                                        % largeur de la dalle (en cm)
 rayonConduite=1;                                        % rayon de l'élément chauffant 
-hauteurConduite=(hauteurDalle)/2;                     % position du centre de l'élément chauffant par rapport au bas de la cellule modélisée
+hauteurConduite=(hauteurDalle)/2;                       % position du centre de l'élément chauffant par rapport au bas de la cellule modélisée
 volume=hauteurDalle*largeurDalle-pi*rayonConduite^2;    % volume de la dalle
 debit=100e-1/3600;                                      % débit du fluide caloporteur, en L/h
 vitesse=debit/(pi*(rayonConduite*10^(-2)));             % vitesse de déplacement du fluide caloporteur dans le tube
@@ -39,15 +39,14 @@ hc=lambdaeau*(0.023*Re^(4/5)*Pr^(1/3))/(2*rayonConduite*10^(-2)); % coefficient 
 hcmurs=1e3;                                             % coefficient d'echanges convectifs des murs de la piece
 hcairdalle=10;                                          % coefficient d'échanges convectifs entre l'air et la dalle (pour le béton ici)
 hcairmurs=10;                                           % coefficient d'échanges convectifs entre l'air intérieur et les murs
-Tchauf=50+273.15;                                      % température de l'eau, constante (en K)
+Tchauf=50+273.15;                                       % température de l'eau, constante (en K)
 Tdepart=15+273.15;                                      % température de la dalle
 Tair=5+273.15;                                          % temperature de la piece
-tmaxheures=350;                                          % temps maximal de la simulation, en heures
-tmax=tmaxheures*3600;                                  % temps maximal de la simulation, en secondes
-%tmax=2*dt;
+tmaxheures=350;                                         % temps maximal de la simulation, en heures
+tmax=tmaxheures*3600;                                   % temps maximal de la simulation, en secondes
 Text=0+273.15;                                          % température extérieure constante
 Tsol=0+273.15;                                          % température du sol (sous la dalle)
-dtprisedevue=1800;                                       % Temps entre 2 prises de vue de l'animation
+dtprisedevue=1800;                                      % Temps entre 2 prises de vue de l'animation
 
 %% Initialisation des paramètres
 noeudsVert=resolution * hauteurDalle;               % nombre de neuds sur la hauteur de la cellule
@@ -56,8 +55,9 @@ dx=1/resolution;                                    % discrétisation spatiale de
 matCellule=zeros(noeudsVert,noeudsHor);             % matrice dont chaque coefficient représente une cellule de la dalle
 rayonConduiteNum=floor(rayonConduite*resolution);   % valeur entière prise pour le rayon de la zone contenant l'eau
 matT=zeros(noeudsVert,noeudsHor);                   % matrice dont chaque coefficient correspond à la température du point de la dalle correspondant
+%% Initialisation de la génératrice de vidéo
 myVideo = VideoWriter('myfile.avi');
-myVideo.Quality = 100;                               % Default 75
+myVideo.Quality = 100;                               
 open(myVideo);
 %% Parcours de la matrice à partir d'un point donné
 position_centre=floor([(noeudsHor+5)/2 resolution*hauteurConduite]);  % coordonnées du centre du tube contenant le fluide caloporteur
@@ -65,23 +65,21 @@ position_centre=floor([(noeudsHor+5)/2 resolution*hauteurConduite]);  % coordonn
 % paires, la position du centre est décentrée vers le haut à gauche.
 GenereMatrice();    % matCellule et matT sont remplies selon la géométrie du problème
 %% Résolution du problème
-Tancien=zeros(noeudsHor*noeudsVert,1);              % matrice colonne qui contient la température en chaque point de chaque cellule
-%Tneuf=ones(noeudsHor*noeudsVert,1);                 % matrice colonne qui contient la température en chaque point de chaque cellule
-Tneuf=initTemp(matCellule,Tdepart);
-%Tneuf(:)=Tdepart;                                   % a changer
-B=zeros(noeudsHor*noeudsVert,1);                    % matrice colonne
-A=matriceA(noeudsHor,noeudsVert,matCellule,Tneuf, Text);  %
-inA=inv(A);
-i=dt; %BIZARRE COMME CONDITION
-p=dt;   % A COMMENTER
+Tancien=zeros(noeudsHor*noeudsVert,1);              % matrice colonne qui contient la température en chaque point de la cellule
+Tneuf=initTemp(matCellule,Tdepart);                 % matrice colonne qui contient la température en chaque point de la cellule    
+B=zeros(noeudsHor*noeudsVert,1);                    % matrice colonne utilisé pour la résolution de l'équation A.T=B du schéma d'Euler
+A=matriceA(noeudsHor,noeudsVert,matCellule,Tneuf, Text);  %matrice colonne utilisé pour la résolution de l'équation A.T=B du schéma d'Euler
+inA=inv(A);                                         %Inverse de la matrice A nécessaire au calcul du schéma d'euler implicite.
+i=dt; 
+p=dt;   
 q=dt;
-Tair_aff=zeros(floor(tmax/(2*3600))-1,1);
-Heures_aff=zeros(floor(tmax/(2*3600))-1,1);
-z=1;
+Tair_aff=zeros(floor(tmax/(2*3600))-1,1);           %Matrice colonne qui stocke l'évolution de la température de l'air de la pièce toute les 2h.
+Heures_aff=zeros(floor(tmax/(2*3600))-1,1);         %Matrice colonne qui stocke le temps associé à chaque relevé de température de la pièce.
+z=1;                                                %Index du relevé des température de l'air
 % E=EvolutionTemperaturePiece(tmax,i);
 while i<tmax
     Tancien=Tneuf;
-    B=matriceB(noeudsHor,noeudsVert,matCellule,Tancien, Text);
+    B=matriceB(noeudsHor,noeudsVert,matCellule,Tancien,Text);
     Tneuf=inA*B;
     if p>=2*3600 %calcul de la temperature moyenne toutes les 2 heures
         Tair_aff(z)=EvolutionTemperaturePiece(Tneuf);
@@ -89,34 +87,33 @@ while i<tmax
         z=z+1;
         p=0;
     end
-    if q>=dtprisedevue %mise a jour de la video
+    if q>=dtprisedevue %mise a jour de la video à l'intervalle de temps choisi
         q=0;
-        T=reshape(Tneuf,noeudsVert,noeudsHor);
-        surf(T);
+        T=reshape(Tneuf,noeudsVert,noeudsHor);      %redimensionnement de la matrice de température pour l'affichage en 2D 
+        surf(T);                                    % Generation du graphique avec les paramètres souhaités
         view(2);
         shading flat;
-        writeVideo(myVideo,getframe);
+        writeVideo(myVideo,getframe);               %  Ajout du graphique à la vidéo
     end
-    i=i+dt;
+    i=i+dt;                                         
     p=p+dt;
     q=q+dt;
 end
-close(myVideo); 
+close(myVideo);                                     % Création du fichier vidéo
 %% Affichage
-Tneuf(:)=Tneuf(:)-273.15; %conversion en degres celsius
-T=reshape(Tneuf,noeudsVert,noeudsHor);
-surf(T);
-view(2); %affichage de la temperature sous forme matricielle
+Tneuf(:)=Tneuf(:)-273.15;                           %conversion en degres celsius
+T=reshape(Tneuf,noeudsVert,noeudsHor);              %redimensionnement de la matrice de température pour l'affichage en 2D 
+surf(T);                                            %affichage de la temperature en 2D 
+view(2); 
 
 %% Mise en évidence du noeud d'air
-figure(); %affichage de la repartition de temperature dans le noeud d'air
+figure();                                           %affichage de la repartition de temperature dans le noeud d'air
 Tair=zeros(size(T(noeudsVert-1,:)));
 Tair(:)=T(noeudsVert-1,:);
 plot(Tair);
 %% Affichage de l'évolution de la température de la pièce en fonction du temps
-figure()
+figure()                                            
 plot(Heures_aff,Tair_aff);
 title('Evolution de T(air) en fonction du temps de fonctionnement du plancher');
 xlabel('Duree de fonctionnement du plancher chauffant (heures)');
 ylabel('Température moyenne de la pièce (°C)');
-%%

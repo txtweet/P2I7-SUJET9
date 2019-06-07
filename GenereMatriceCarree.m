@@ -2,6 +2,9 @@
 %%% Remplissage d'une matrice carrée pour le fluide %%%%
 %%%          (utilisé pour le debuggage)            %%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Cette fonction remplit le matrice masque de notre problème 
+% si l'on considère que notre element chauffant est un carré. 
+
 function GenereMatriceCarree()
 global position_centre rayonConduiteNum matCellule matT Tchauf
 % Les coefficients de la matrice matCelulle prennent la valeur 0 s'il
