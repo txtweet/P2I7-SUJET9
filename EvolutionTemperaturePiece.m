@@ -9,7 +9,8 @@
 % Les paramètres sont : Tneuf la matrice contenant tous les noeuds avec
 %                           leur température associée
 %                       i l'instant
-% Les variables renvoyées sont : 
+% La variable renvoyée est moyenne_noeud_dair, representant la moyenne des 
+% noeuds d'air a un instant donne
 % Ces variables prennent la valeur : 
 function moyenne_noeud_dair=EvolutionTemperaturePiece(Tneuf)
 global dt noeudsVert noeudsHor
@@ -18,11 +19,4 @@ T=reshape(Tneuf,noeudsVert,noeudsHor);  %
 E=zeros(size(T(noeudsVert-1,:)));
 E(:)=T(noeudsVert-1,:);
 moyenne_noeud_dair=mean(E)-273.15;
-% E(i)=Tneuf(i);	% Nous récupérons le numéro de la ligne de Tneuf correspondant au noeud d'air.
-% E(numero_de_colonne)=
-% figure()
-% plot(dt,E);
-% title('Evolution de la température de la pièce en fonction du temps de fonctionnement du plancher chauffant');
-% xlabel('Discrétisation temporelle de la durée de fonctionnement du plancher chauffant');
-% ylabel('Température de la pièce (moyenne des noeuds d air) en kelvin');
 end
